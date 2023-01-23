@@ -6,7 +6,16 @@ import BoxCentered from "../../../components/BoxCentered";
 
 const LoginLeft = () => {
   return (
-    <BoxCentered sx={{ backgroundColor: "primary.500" }} flex={1}>
+    <BoxCentered
+      sx={{
+        backgroundColor: "primary.500",
+        display: {
+          xs: "none",
+          sm: "flex",
+        },
+      }}
+      flex={1}
+    >
       <Stack
         direction="column"
         alignItems="center"
@@ -15,13 +24,20 @@ const LoginLeft = () => {
         width="80%"
       >
         <Lottie style={{ width: "70%" }} animationData={authAnim} loop={true} />
-        <Typography variant="h2" color="background.100">
-          Welcome to SpaceFeed
-        </Typography>
-        <Typography marginTop={2} variant="h6" color="background.100">
-          Upload and share photos, like and comment on posts, chat with your
-          friends and do a lot more
-        </Typography>
+        <Box width="95%">
+          <Typography fontWeight={500} variant="h2" color="background.100">
+            Welcome to SpaceFeed
+          </Typography>
+          <Typography
+            fontWeight={400}
+            marginTop={2}
+            variant="h6"
+            color="background.100"
+          >
+            Upload and share photos, like and comment on posts, chat with your
+            friends and do a lot more
+          </Typography>
+        </Box>
       </Stack>
     </BoxCentered>
   );

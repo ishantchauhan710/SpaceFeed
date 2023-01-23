@@ -16,7 +16,16 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 const LoginRight = () => {
   return (
-    <BoxCentered sx={{ backgroundColor: "background.alt" }} flex={1}>
+    <BoxCentered
+      sx={{
+        backgroundColor: "background.alt",
+        display: {
+          xs: "flex",
+          sm: "flex",
+        },
+      }}
+      flex={1}
+    >
       <Stack
         direction="column"
         alignItems="center"
@@ -73,7 +82,7 @@ const LoginRight = () => {
         </Box>
         <ActionButton
           style={{
-            marginTop: "15px",
+            marginTop: "18px",
           }}
           fullWidth
           size="large"

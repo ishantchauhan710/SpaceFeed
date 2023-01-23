@@ -73,26 +73,38 @@ export const themeConfig = () => {
       h1: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 40,
+        fontWeight: 500,
+        color: lightTheme.grey[600],
       },
       h2: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 32,
+        fontWeight: 500,
+        color: lightTheme.grey[600],
       },
       h3: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 24,
+        fontWeight: 500,
+        color: lightTheme.grey[500],
       },
       h4: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 20,
+        fontWeight: 400,
+        color: lightTheme.grey[400],
       },
       h5: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 16,
+        fontWeight: 400,
+        color: lightTheme.grey[400],
       },
       h6: {
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: 14,
+        fontWeight: 400,
+        color: lightTheme.grey[400],
       },
     },
   };
