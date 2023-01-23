@@ -3,6 +3,7 @@ import React from "react";
 import Lottie from "lottie-react";
 import authAnim from "../../res/anim/auth_anim.json";
 import LoginLeft from "./components/LoginLeft";
+import LoginRight from "./components/LoginRight";
 const LoginPage = () => {
   return (
     <Box>
@@ -13,7 +14,7 @@ const LoginPage = () => {
         style={{ minHeight: "100vh" }}
       >
         <LoginLeft />
-        <Box sx={{ backgroundColor: "background.alt" }} flex={1}></Box>
+        <LoginRight />
       </Stack>
     </Box>
   );
