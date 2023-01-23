@@ -1,6 +1,7 @@
 import { Button, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeConfig } from "./config/themeConfig";
+import LoginPage from "./pages/login/LoginPage";
 
 function App() {
   const themeData = themeConfig();
@@ -9,8 +10,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <h1>Hello World</h1>
-      <Button variant="contained">Click</Button>
+      <LoginPage />
     </ThemeProvider>
   );
 }

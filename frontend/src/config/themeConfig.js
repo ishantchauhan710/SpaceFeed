@@ -62,6 +62,7 @@ export const themeConfig = () => {
         main: lightTheme.grey[400],
       },
       background: {
+        ...lightTheme.background,
         default: lightTheme.background[400],
         alt: lightTheme.background[800],
       },
