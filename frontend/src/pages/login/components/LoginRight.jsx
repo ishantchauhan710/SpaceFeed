@@ -11,10 +11,35 @@ import {
 
 import BoxCentered from "../../../components/BoxCentered";
 import ActionButton from "../../../components/ActionButton";
-
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 const LoginRight = () => {
+  const validationSchema = yup.object({
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    password: yup
+      .string("Enter your password")
+      .min(4, "Password should be of minimum 4 characters in length")
+      .required("Password is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <BoxCentered
       sx={{
@@ -33,63 +58,79 @@ const LoginRight = () => {
         textAlign="center"
         width="80%"
       >
-        <img width="18%" src="/icons/logo_spacefeed_circle_dark.png" />
-        <Typography variant="h2" marginTop={2}>
-          Hello there!
-        </Typography>
-        <Typography width="80%" variant="h6" marginTop={1}>
-          Enter your email and password in order to login to your account
-        </Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <img width="18%" src="/icons/logo_spacefeed_circle_dark.png" />
+          <Typography variant="h2" marginTop={2}>
+            Hello there!
+          </Typography>
+          <Typography width="80%" variant="h6" marginTop={1}>
+            Enter your email and password in order to login to your account
+          </Typography>
 
-        <Box marginTop={3}>
-          <TextField
-            fullWidth
-            label="Email"
-            variant="outlined"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <AlternateEmailIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Box marginTop={3}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <AlternateEmailIcon />
+                  </InputAdornment>
+                ),
+              }}
+              id="email"
+              name="email"
+              label="Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
 
-          <TextField
-            fullWidth
-            label="Password"
-            variant="outlined"
-            style={{ marginTop: "15px" }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <LockIcon />
-                </InputAdornment>
-              ),
+            <TextField
+              fullWidth
+              variant="outlined"
+              style={{ marginTop: "15px" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <LockIcon />
+                  </InputAdornment>
+                ),
+              }}
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            width="100%"
+            marginTop={1}
+          >
+            <Link underline="hover" color="primary.400" href="#">
+              Forgot password?
+            </Link>
+          </Box>
+          <ActionButton
+            type="submit"
+            style={{
+              marginTop: "18px",
             }}
-          />
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="center"
-          width="100%"
-          marginTop={1}
-        >
-          <Link underline="hover" color="primary.400" href="#">
-            Forgot password?
-          </Link>
-        </Box>
-        <ActionButton
-          style={{
-            marginTop: "18px",
-          }}
-          fullWidth
-          size="large"
-          variant="contained"
-        >
-          Login
-        </ActionButton>
+            fullWidth
+            size="large"
+            variant="contained"
+          >
+            Login
+          </ActionButton>
+        </form>
       </Stack>
     </BoxCentered>
   );
