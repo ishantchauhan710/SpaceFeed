@@ -63,7 +63,7 @@ const LoginRight = () => {
           <Typography variant="h2" marginTop={2}>
             Hello there!
           </Typography>
-          <Typography width="80%" variant="h6" marginTop={1}>
+          <Typography paddingLeft={2} paddingRight={2} variant="h6" marginTop={1}>
             Enter your email and password in order to login to your account
           </Typography>
 
@@ -115,7 +115,7 @@ const LoginRight = () => {
             width="100%"
             marginTop={1}
           >
-            <Link underline="hover" color="primary.400" href="#">
+            <Link underline="hover" href="#">
               Forgot password?
             </Link>
           </Box>
@@ -131,6 +131,12 @@ const LoginRight = () => {
             Login
           </ActionButton>
         </form>
+        <Typography variant="h6" marginTop={2}>
+          Don't have an account?{" "}
+          <Link underline="hover" href="#">
+            Sign Up
+          </Link>
+        </Typography>
       </Stack>
     </BoxCentered>
   );

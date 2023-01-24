@@ -1,7 +1,5 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
-import Lottie from "lottie-react";
-import authAnim from "../../res/anim/auth_anim.json";
 import LoginLeft from "./components/LoginLeft";
 import LoginRight from "./components/LoginRight";
 const LoginPage = () => {

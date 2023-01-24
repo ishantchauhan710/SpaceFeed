@@ -2,6 +2,7 @@ import { Button, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeConfig } from "./config/themeConfig";
 import LoginPage from "./pages/login/LoginPage";
+import SignupPage from "./pages/signup/SignupPage"
 
 function App() {
   const themeData = themeConfig();
@@ -10,7 +11,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <LoginPage />
+      <SignupPage />
     </ThemeProvider>
   );
 }
