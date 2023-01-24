@@ -39,6 +39,7 @@ import {
   showError,
   showSuccess,
 } from "../../../states/slices/notificationSlice";
+import SignupOTPDialog from "./SignupOTPDialog";
 
 const SignupRight = () => {
   const [username, setUsername] = useState("");
@@ -51,7 +52,7 @@ const SignupRight = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState("");
-
+  const [showOTPDialog, setShowOTPDialog] = useState(false);
   const dispatch = useDispatch();
 
   // reverseObject() is used to reverse the keys so that error messages appear from top to bottom and not bottom to top
@@ -89,6 +90,10 @@ const SignupRight = () => {
     })
   );
 
+  const handleSuccess = () => {
+    setShowOTPDialog(true);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     validationSchema
@@ -112,12 +117,12 @@ const SignupRight = () => {
             if (moment().diff(momentDate, "years") > 10) {
               if (phoneNumber) {
                 if (phoneNumber.match(REGEX_PHONE)) {
-                  alert("Success");
+                  handleSuccess();
                 } else {
                   dispatch(showError("Please enter a valid phone number"));
                 }
               } else {
-                alert("Success");
+                handleSuccess();
               }
             } else {
               dispatch(
@@ -382,6 +387,7 @@ const SignupRight = () => {
         </Typography>
         <SpaceBox />
       </Stack>
+      <SignupOTPDialog open={showOTPDialog} setOpen={setShowOTPDialog} />
     </BoxCentered>
   );
 };

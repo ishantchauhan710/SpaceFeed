@@ -2,6 +2,14 @@
   font-family: "Poppins", sans-serif;
 }
 
+:root {
+  --colorPrimary: #5091e9;
+  --colorBackground: #edf2f9;
+  --colorGrey: #4C4C4C
+  --colorGreyLight: #757575;
+  --colorGreyDark: #1C1C1C;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
@@ -10,8 +18,25 @@
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #bec4c4;border-radius: 20px;
+  background: #bec4c4;
+  border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.signup-otp-container input {
+  background-color: rgba(238, 238, 238, 0.5);
+  border: 1px solid var(--colorGrey);
+  outline: 1px solid var(--colorGrey);
+  color: var(--colorGreyDark);
+  border-radius: 2px;
+  font-size: 1.2rem;
+  padding: 3px;
+  box-sizing: content-box;
+}
+
+.signup-otp-container input:focus {
+  outline: 1px solid var(--colorPrimary);
+  border: 1px solid var(--colorPrimary);
 }

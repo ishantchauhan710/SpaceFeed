@@ -2,21 +2,21 @@
   "short_name": "SpaceFeed",
   "name": "Welcome to SpaceFeed",
   "icons": [
-    {
-      "src": "icons/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "icons/favicon.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "icons/favicon.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    // {
+    //   "src": "icons/logo_spacefeed_fav_icon.ico",
+    //   "sizes": "64x64 32x32 24x24 16x16",
+    //   "type": "image/x-icon"
+    // },
+    // {
+    //   "src": "icons/logo_spacefeed_fav_icon.png",
+    //   "type": "image/png",
+    //   "sizes": "192x192"
+    // },
+    // {
+    //   "src": "icons/logo_spacefeed_fav_icon.png",
+    //   "type": "image/png",
+    //   "sizes": "512x512"
+    // }
   ],
   "start_url": ".",
   "display": "standalone",
