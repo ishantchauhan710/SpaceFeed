@@ -16,8 +16,12 @@ import LockIcon from "@mui/icons-material/Lock";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
+import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 const LoginRight = () => {
+  const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
+    React.useState(false);
+
   const validationSchema = yup.object({
     email: yup
       .string("Enter your email")
@@ -63,7 +67,12 @@ const LoginRight = () => {
           <Typography variant="h2" marginTop={2}>
             Hello there!
           </Typography>
-          <Typography paddingLeft={2} paddingRight={2} variant="h6" marginTop={1}>
+          <Typography
+            paddingLeft={2}
+            paddingRight={2}
+            variant="h6"
+            marginTop={1}
+          >
             Enter your email and password in order to login to your account
           </Typography>
 
@@ -115,7 +124,11 @@ const LoginRight = () => {
             width="100%"
             marginTop={1}
           >
-            <Link underline="hover" href="#">
+            <Link
+              underline="hover"
+              onClick={() => setShowForgotPasswordDialog(true)}
+              href="#"
+            >
               Forgot password?
             </Link>
           </Box>
@@ -138,6 +151,10 @@ const LoginRight = () => {
           </Link>
         </Typography>
       </Stack>
+      <ForgotPasswordDialog
+        open={showForgotPasswordDialog}
+        setOpen={setShowForgotPasswordDialog}
+      />
     </BoxCentered>
   );
 };
