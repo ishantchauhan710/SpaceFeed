@@ -10,6 +10,7 @@ import SignupPage from "./pages/signup/SignupPage";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { hideNotification } from "./states/slices/notificationSlice";
+import ErrorPage from "./pages/error/ErrorPage";
 
 function App() {
   const themeData = themeConfig();
@@ -45,6 +46,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
       <Snackbar
@@ -53,7 +55,11 @@ function App() {
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleClose}
+          severity={notificationType}
+          sx={{ width: "100%" }}
+        >
           {notificationMessage}
         </Alert>
       </Snackbar>
