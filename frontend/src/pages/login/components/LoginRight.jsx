@@ -133,7 +133,7 @@ const LoginRight = () => {
         </form>
         <Typography variant="h6" marginTop={2}>
           Don't have an account?{" "}
-          <Link underline="hover" href="#">
+          <Link underline="hover" href="/signup">
             Sign Up
           </Link>
         </Typography>

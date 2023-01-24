@@ -31,7 +31,7 @@ import * as yup from "yup";
 import SpaceBox from "../../../components/SpaceBox";
 import genderList from "../../../res/data/genderList";
 import countryList from "../../../res/data/countryList";
-
+import { REGEX_PHONE } from "../../../util/regexUtil";
 import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
 const SignupRight = () => {
@@ -105,11 +105,7 @@ const SignupRight = () => {
           if (momentDate.isValid()) {
             if (moment().diff(momentDate, "years") > 10) {
               if (phoneNumber) {
-                if (
-                  phoneNumber.match(
-                    /^[\+]?([0-9][\s]?|[0-9]?)([(][0-9]{3}[)][\s]?|[0-9]{3}[-\s\.]?)[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
-                  )
-                ) {
+                if (phoneNumber.match(REGEX_PHONE)) {
                   alert("Success");
                 } else {
                   alert("Please enter a valid phone number");
@@ -355,17 +351,6 @@ const SignupRight = () => {
             />
           </Box>
 
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            alignItems="center"
-            width="100%"
-            marginTop={1}
-          >
-            <Link underline="hover" href="#">
-              Forgot password?
-            </Link>
-          </Box>
           <ActionButton
             type="submit"
             style={{
@@ -379,9 +364,9 @@ const SignupRight = () => {
           </ActionButton>
         </form>
         <Typography variant="h6" marginTop={2}>
-          Don't have an account?{" "}
-          <Link underline="hover" href="#">
-            Sign Up
+          Already have an account?{" "}
+          <Link underline="hover" href="/">
+            Login
           </Link>
         </Typography>
         <SpaceBox />

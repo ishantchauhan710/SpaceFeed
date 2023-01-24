@@ -7,9 +7,7 @@ const LoginPage = () => {
     <Box>
       <Stack
         direction="row"
-        justifyContent="center"
-        alignItems="stretch"
-        style={{ minHeight: "100vh" }}
+        style={{ height: "100vh", overflow: "hidden" }}
       >
         <LoginLeft />
         <LoginRight />
