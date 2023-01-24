@@ -17,6 +17,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ForgotPasswordDialog from "./ForgotPasswordDialog";
+import LinkButton from "../../../components/LinkButton";
 
 const LoginRight = () => {
   const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
@@ -124,13 +125,12 @@ const LoginRight = () => {
             width="100%"
             marginTop={1}
           >
-            <Link
+            <LinkButton
               underline="hover"
               onClick={() => setShowForgotPasswordDialog(true)}
-              href="#"
             >
               Forgot password?
-            </Link>
+            </LinkButton>
           </Box>
           <ActionButton
             type="submit"
