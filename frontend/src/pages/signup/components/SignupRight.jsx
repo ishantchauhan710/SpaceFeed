@@ -34,6 +34,12 @@ import countryList from "../../../res/data/countryList";
 import { REGEX_PHONE } from "../../../util/regexUtil";
 import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import {
+  showError,
+  showSuccess,
+} from "../../../states/slices/notificationSlice";
+
 const SignupRight = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +51,8 @@ const SignupRight = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState("");
-  const dateToday = new Date();
+
+  const dispatch = useDispatch();
 
   // reverseObject() is used to reverse the keys so that error messages appear from top to bottom and not bottom to top
   const validationSchema = yup.object(
@@ -77,9 +84,8 @@ const SignupRight = () => {
         .required("Please specify your country"),
       description: yup
         .string("Please provide a short description about yourself")
-        .min(1, "Description is too short")
-        .max(200, "Description is too big")
-        .required("Please provide a short description about yourself"),
+        .required("Please provide a short description about yourself")
+        .max(200, "Description is too big"),
     })
   );
 
@@ -99,7 +105,7 @@ const SignupRight = () => {
       )
       .then(() => {
         if (!birthday) {
-          alert("Please provide your date of birth");
+          dispatch(showError("Please provide your date of birth"));
         } else {
           const momentDate = moment(birthday.toString());
           if (momentDate.isValid()) {
@@ -108,21 +114,26 @@ const SignupRight = () => {
                 if (phoneNumber.match(REGEX_PHONE)) {
                   alert("Success");
                 } else {
-                  alert("Please enter a valid phone number");
+                  dispatch(showError("Please enter a valid phone number"));
                 }
+              } else {
+                alert("Success");
               }
             } else {
-              alert(
-                "You should be atleast 10 years old in order to create an account"
+              dispatch(
+                showError(
+                  "You should be atleast 10 years old in order to create an account"
+                )
               );
             }
           } else {
-            alert("Invalid date format");
+            dispatch(showError("Date format is invalid"));
           }
         }
       })
       .catch((e) => {
-        alert(e.errors[0]);
+        const errMsg = e.errors[0] ? e.errors[0] : "An unknown error occurred";
+        dispatch(showError(errMsg));
       });
   };
 
