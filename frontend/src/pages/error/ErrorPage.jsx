@@ -27,7 +27,7 @@ const ErrorPage = () => {
         >
           The page you are trying to visit does not exist. Please check the URL
           and try again! If you want, you can navigate to{" "}
-          <Link underline="hover" href="/">
+          <Link underline="hover" href="/login">
             SpaceFeed Home
           </Link>
         </Typography>

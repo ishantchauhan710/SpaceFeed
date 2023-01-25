@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { hideNotification } from "./states/slices/notificationSlice";
 import ErrorPage from "./pages/error/ErrorPage";
+import HomePage from "./pages/home/HomePage";
 
 function App() {
   const themeData = themeConfig();
@@ -44,8 +45,10 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/" element={<HomePage />} />
+
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

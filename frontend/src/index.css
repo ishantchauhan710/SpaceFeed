@@ -25,6 +25,8 @@
   background: #555;
 }
 
+
+/* OTP input */
 .signup-otp-container input {
   background-color: rgba(238, 238, 238, 0.5);
   border: 1px solid var(--colorGrey);

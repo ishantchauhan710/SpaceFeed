@@ -37,6 +37,7 @@ const lightTheme = {
   },
   background: {
     100: "#EFF2F7",
+    200: "#eef1f1",
     400: "#edf2f9",
     800: "#FFFFFF",
   },

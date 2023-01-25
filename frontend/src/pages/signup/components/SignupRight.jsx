@@ -377,7 +377,7 @@ const SignupRight = () => {
         </form>
         <Typography variant="h6" marginTop={2}>
           Already have an account?{" "}
-          <Link underline="hover" href="/">
+          <Link underline="hover" href="/login">
             Login
           </Link>
         </Typography>
