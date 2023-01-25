@@ -2,9 +2,9 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Lottie from "lottie-react";
 import authAnim from "../../../res/anim/auth_anim.json";
-import BoxCentered from "../../../components/BoxCentered";
+import BoxCentered from "../../../components/styled/BoxCentered";
 
-const LoginLeft = () => {
+const AuthWelcomeScreen = () => {
   return (
     <BoxCentered
       sx={{
@@ -43,4 +43,4 @@ const LoginLeft = () => {
   );
 };
 
-export default LoginLeft;
+export default AuthWelcomeScreen;

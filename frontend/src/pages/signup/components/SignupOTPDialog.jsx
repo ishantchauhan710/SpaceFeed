@@ -1,9 +1,8 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { Dialog, Typography, Box, Link } from "@mui/material";
-import OTPInput, { ResendOTP } from "otp-input-react";
-import BoxCentered from "../../../components/BoxCentered";
-import ActionButton from "../../../components/ActionButton";
+import OTPInput from "otp-input-react";
+import BoxCentered from "../../../components/styled/BoxCentered";
+import ActionButton from "../../../components/styled/ActionButton";
 
 const SignupOTPDialog = ({open,setOpen}) => {
  

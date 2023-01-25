@@ -14,31 +14,27 @@ import {
 
 import FormControl from "@mui/material/FormControl";
 
-import BoxCentered from "../../../components/BoxCentered";
-import ActionButton from "../../../components/ActionButton";
+import BoxCentered from "../../../components/styled/BoxCentered";
+import ActionButton from "../../../components/styled/ActionButton";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import PhoneIcon from "@mui/icons-material/Phone";
-import CakeIcon from "@mui/icons-material/Cake";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import * as yup from "yup";
-import SpaceBox from "../../../components/SpaceBox";
+import SpaceBox from "../../../components/util/SpaceBox";
 import genderList from "../../../res/data/genderList";
 import countryList from "../../../res/data/countryList";
 import { REGEX_PHONE } from "../../../util/regexUtil";
 import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import {
-  showError,
-  showSuccess,
-} from "../../../states/slices/notificationSlice";
+import { showError } from "../../../states/slices/notificationSlice";
 import SignupOTPDialog from "./SignupOTPDialog";
 
 const SignupRight = () => {

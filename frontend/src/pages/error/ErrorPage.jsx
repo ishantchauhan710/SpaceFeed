@@ -1,6 +1,6 @@
-import { Box, Stack, Typography, Link } from "@mui/material";
+import { Stack, Typography, Link } from "@mui/material";
 import React from "react";
-import BoxCentered from "../../components/BoxCentered";
+import BoxCentered from "../../components/styled/BoxCentered";
 
 const ErrorPage = () => {
   return (

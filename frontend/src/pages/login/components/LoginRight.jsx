@@ -6,18 +6,17 @@ import {
   TextField,
   InputAdornment,
   Link,
-  Button,
 } from "@mui/material";
 
-import BoxCentered from "../../../components/BoxCentered";
-import ActionButton from "../../../components/ActionButton";
+import BoxCentered from "../../../components/styled/BoxCentered";
+import ActionButton from "../../../components/styled/ActionButton";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 import ForgotPasswordDialog from "./ForgotPasswordDialog";
-import LinkButton from "../../../components/LinkButton";
+import LinkButton from "../../../components/styled/LinkButton";
 
 const LoginRight = () => {
   const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
@@ -64,7 +63,7 @@ const LoginRight = () => {
         width="80%"
       >
         <form onSubmit={formik.handleSubmit}>
-          <img width="18%" src="/icons/logo_spacefeed_circle_dark.png" />
+          <img alt="spacefeed logo" width="18%" src="/icons/logo_spacefeed_circle_dark.png" />
           <Typography variant="h2" marginTop={2}>
             Hello there!
           </Typography>
