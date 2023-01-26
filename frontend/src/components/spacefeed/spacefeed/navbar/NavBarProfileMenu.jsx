@@ -1,6 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
+import { Menu, Box, Typography } from "@mui/material/";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
@@ -29,7 +29,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
           overflow: "visible",
           filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
           mt: 1.5,
-          color: "grey.900",
+          color: "grey.800",
           "& .MuiAvatar-root": {
             width: 32,
             height: 32,
@@ -54,8 +54,37 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <MenuItem onClick={handleClose}>
-        <Avatar src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png" />{" "}
-        Ishant Chauhan
+        <Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-betweem",
+          }}
+        >
+          <Box style={{ flex: "0.2" }}>
+            <img
+              style={{ borderRadius: "50px" }}
+              width={40}
+              height={40}
+              src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+            />
+          </Box>
+          <Box
+            style={{
+              flex: "0.8",
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "10px",
+            }}
+          >
+            <Typography variant="h3" fontSize={15}>
+              Ishant Chauhan
+            </Typography>
+            <Typography variant="h6" fontSize={12}>
+              @ishantchauhan
+            </Typography>
+          </Box>
+        </Box>
       </MenuItem>
 
       <Divider />
