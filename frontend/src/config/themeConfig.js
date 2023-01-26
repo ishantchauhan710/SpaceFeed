@@ -12,7 +12,7 @@ const lightTheme = {
     900: "#05152A",
   },
   secondary: {
-    50: "#FEF2EC",
+    50: "#FEF7EF",
     100: "#FDE4D9",
     200: "#FAC9B2",
     300: "#F8AF8C",

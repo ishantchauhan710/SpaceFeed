@@ -19,12 +19,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavBarProfileMenu from "./NavBarProfileMenu";
+import NavBarNotificationMenu from "./NavBarNotificationMenu";
 
 const NavBar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
+  const [notificationMenuAnchor, setNotificationMenuAnchor] = useState(null);
 
   const showProfileMenu = (e) => {
     setProfileMenuAnchor(e.currentTarget);
+  };
+
+  const showNotificationMenu = (e) => {
+    setNotificationMenuAnchor(e.currentTarget);
   };
 
   const StyledIconButton = styled("div")(({ theme }) => ({
@@ -161,13 +167,15 @@ const NavBar = () => {
               <ChatIcon />
             </StyledIconButton>
 
-            <StyledIconButton
-              style={{
-                marginRight: 10,
-              }}
-            >
-              <NotificationsIcon />
-            </StyledIconButton>
+            <Box onClick={showNotificationMenu}>
+              <StyledIconButton
+                style={{
+                  marginRight: 10,
+                }}
+              >
+                <NotificationsIcon />
+              </StyledIconButton>
+            </Box>
 
             <Box onClick={showProfileMenu}>
               <StyledIconButton>
@@ -185,6 +193,11 @@ const NavBar = () => {
       <NavBarProfileMenu
         anchorEl={profileMenuAnchor}
         setAnchorEl={setProfileMenuAnchor}
+      />
+
+      <NavBarNotificationMenu
+        anchorEl={notificationMenuAnchor}
+        setAnchorEl={setNotificationMenuAnchor}
       />
     </>
   );
