@@ -5,9 +5,9 @@
 :root {
   --colorPrimary: #5091e9;
   --colorBackground: #edf2f9;
-  --colorGrey: #4C4C4C
+  --colorGrey: #4c4c4c;
   --colorGreyLight: #757575;
-  --colorGreyDark: #1C1C1C;
+  --colorGreyDark: #1c1c1c;
 }
 
 /* Scrollbar */
@@ -24,7 +24,6 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
 
 /* OTP input */
 .signup-otp-container input {
@@ -43,4 +42,11 @@
   border: 1px solid var(--colorPrimary);
 }
 
+.create-post-text-field textarea {
+  font-size: 0.95rem;
+}
 
+.create-post-text-field textarea::placeholder {
+  color: #111111;
+  font-size: 0.95rem;
+}

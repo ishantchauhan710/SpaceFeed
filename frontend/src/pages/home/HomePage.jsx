@@ -6,14 +6,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ProfileSection from "./components/profile/ProfileSection";
 import SuggestionSection from "./components/suggestion/SuggestionSection";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import PostSection from "./components/post/PostSection";
 
 const HomePage = () => {
   return (
@@ -25,7 +18,7 @@ const HomePage = () => {
             <ProfileSection />
           </Grid>
           <Grid item xs={6}>
-            <Item>Posts</Item>
+            <PostSection />
           </Grid>
           <Grid item xs={3}>
             <SuggestionSection />
