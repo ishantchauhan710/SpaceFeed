@@ -77,7 +77,7 @@ const NavBar = () => {
     <>
       <AppBar
         elevation={0}
-        position="static"
+        position="sticky"
         sx={{ backgroundColor: "background.alt" }}
       >
         <Toolbar
