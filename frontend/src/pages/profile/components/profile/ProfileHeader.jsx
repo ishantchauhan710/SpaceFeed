@@ -32,7 +32,7 @@ const ProfileHeader = () => {
             Ishant Chauhan
           </Typography>
           <Typography variant="h6" fontSize={15}>
-            ishantchauhan@spacefeed.com
+            @ishantchauhan710
           </Typography>
         </Box>
       </Box>

@@ -3,6 +3,7 @@ import { Box, Divider, Grid } from "@mui/material/";
 import PaperBoxUnspaced from "../../../../components/styled/PaperBoxUnspaced";
 import ProfileHeader from "./ProfileHeader";
 import ProfileSubHeader from "./ProfileSubHeader";
+import ProfileTabs from "./ProfileTabs";
 
 const ProfileLeftSection = () => {
   return (
@@ -10,10 +11,8 @@ const ProfileLeftSection = () => {
       <PaperBoxUnspaced>
         <ProfileHeader />
         <ProfileSubHeader />
-        <Divider />
-        <Box>
-          Hi
-        </Box>
+
+        <ProfileTabs />
       </PaperBoxUnspaced>
     </Box>
   );

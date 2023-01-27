@@ -10,10 +10,20 @@ const ProfilePage = () => {
       <NavBar />
       <Box style={{ padding: "20px 10px" }}>
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid
+            item
+            md={8}
+            xs={12}
+            sx={{ display: { xs: "block", md: "block" } }}
+          >
             <ProfileSection />
           </Grid>
-          <Grid item xs={4}>
+          <Grid
+            item
+            md={4}
+            xs={12}
+            sx={{ display: { xs: "none", md: "block" } }}
+          >
             <Box>
               <PaperBox>Hi</PaperBox>
             </Box>
