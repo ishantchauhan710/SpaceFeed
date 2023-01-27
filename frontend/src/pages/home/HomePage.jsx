@@ -13,13 +13,33 @@ const HomePage = () => {
       <NavBar />
       <Box style={{ padding: "20px 10px" }}>
         <Grid container spacing={2}>
-          <Grid item xs={3}>
+          <Grid
+            item
+            md={3}
+            xs={12}
+            sx={{
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             <ProfileSection />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item md={6} xs={12}>
             <PostSection />
           </Grid>
-          <Grid item xs={3}>
+          <Grid
+            item
+            md={3}
+            xs={12}
+            sx={{
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             <SuggestionSection />
           </Grid>
         </Grid>
