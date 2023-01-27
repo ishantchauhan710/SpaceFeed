@@ -13,13 +13,13 @@ import {
   Button,
 } from "@mui/material";
 
-import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavBarProfileMenu from "./NavBarProfileMenu";
 import NavBarNotificationMenu from "./NavBarNotificationMenu";
+import StyledTextField from "../../../styled/StyledTextField";
 
 const NavBar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
@@ -48,28 +48,6 @@ const NavBar = () => {
       backgroundColor: alpha(theme.palette.primary[100], 0.3),
       color: theme.palette.primary[500],
       transition: "0.3s all ease",
-    },
-  }));
-
-  const StyledTextField = styled(TextField)(({ theme }) => ({
-    [`& .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
-      {
-        borderColor: theme.palette.grey[400],
-      },
-    [`&:hover .${outlinedInputClasses.root} .${outlinedInputClasses.notchedOutline}`]:
-      {
-        borderColor: theme.palette.grey[400],
-      },
-    [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]:
-      {
-        borderColor: theme.palette.primary[400],
-        borderWidth: 1,
-      },
-    [`& .${outlinedInputClasses.input}`]: {
-      color: theme.palette.grey[900],
-    },
-    [`&:hover .${outlinedInputClasses.input}`]: {
-      color: theme.palette.grey[900],
     },
   }));
 

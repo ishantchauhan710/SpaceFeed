@@ -1,6 +1,31 @@
 import React from "react";
-import { Paper, Box, styled, TextField, Chip, Typography, Avatar } from "@mui/material";
+import {
+  Paper,
+  Box,
+  styled,
+  TextField,
+  Chip,
+  Typography,
+  Avatar,
+  Grid,
+  IconButton,
+  Link,
+  Collapse,
+  Button,
+} from "@mui/material";
 import { FcCompactCamera, FcVideoCall, FcCalendar } from "react-icons/fc";
+import PostSectionCreatePost from "./PostSectionCreatePost";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CommentIcon from "@mui/icons-material/Comment";
+import ShareIcon from "@mui/icons-material/Share";
+import StyledTextField from "../../../../components/styled/StyledTextField";
+import PostHeader from "./post/PostHeader";
+import PostBody from "./post/PostBody";
+import PostActions from "./post/PostActions";
+import PostComment from "./post/PostComment";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const PostContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -10,109 +35,93 @@ const PostContainer = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const POST_TYPE_LIST_ICON_SIZE = 21;
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
-const postTypeList = [
+const postList = [
   {
-    label: "Photo",
-    icon: (
-      <FcCompactCamera
-        style={{
-          width: POST_TYPE_LIST_ICON_SIZE,
-          height: POST_TYPE_LIST_ICON_SIZE,
-        }}
-      />
-    ),
+    id: 1,
+    title: "Post Title",
+    data: "Post Data",
   },
   {
-    label: "Video",
-    icon: (
-      <FcVideoCall
-        style={{
-          width: POST_TYPE_LIST_ICON_SIZE,
-          height: POST_TYPE_LIST_ICON_SIZE,
-        }}
-      />
-    ),
+    id: 2,
+    title: "Post Title",
+    data: "Post Data",
   },
   {
-    label: "Event",
-    icon: (
-      <FcCalendar
-        style={{
-          width: POST_TYPE_LIST_ICON_SIZE,
-          height: POST_TYPE_LIST_ICON_SIZE,
-        }}
-      />
-    ),
+    id: 3,
+    title: "Post Title",
+    data: "Post Data",
+  },
+  {
+    id: 4,
+    title: "Post Title",
+    data: "Post Data",
+  },
+  {
+    id: 5,
+    title: "Post Title",
+    data: "Post Data",
   },
 ];
 
-const PostTypeChip = ({ label, icon }) => {
-  return (
-    <Box
-      sx={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "rgba(0,0,0,0.1)",
-        padding: "5px 10px",
-        borderRadius: "5px",
-        cursor: "pointer",
-        marginRight: "10px",
-        backgroundColor: "rgba(0,0,0,0.06)",
-        "&:hover": {
-          backgroundColor: "rgba(0,0,0,0.12)",
-        },
-      }}
-    >
-      {icon}
-      <Typography
-        color="grey.700"
-        fontSize={13}
-        variant="h3"
-        style={{ marginLeft: "5px" }}
-      >
-        {label}
-      </Typography>
-    </Box>
-  );
-};
-
 const PostSection = () => {
+  const [expanded, setExpanded] = React.useState({});
+
+  const handlePostExpandClick = (id) => {
+    setExpanded((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+  };
+
   return (
-    <PostContainer>
-      <Box padding={1}>
-        <Box display="flex" alignItems="flex-start">
-          <Box style={{padding: "0px 15px 0px 0px"}}>
-            <Avatar src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png" style={{width: 35, height: 35}} />
+    <Box>
+      <PostContainer>
+        <PostSectionCreatePost />
+      </PostContainer>
+      <Box marginTop={2}>
+        {postList.map((post, i) => (
+          <Box key={post} marginTop={2} style={{ textAlign: "left" }}>
+            <PostContainer>
+              <PostHeader />
+              <PostBody />
+              <PostActions />
+
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                paddingTop={2}
+                paddingX={2}
+                style={{ textAlign: "left" }}
+              >
+                <Typography variant="h6" fontSize={15}>
+                  {expanded[post.id] ? "Show Comments" : "Comments:"}
+                </Typography>
+                <ExpandMore
+                  expand={!expanded[post.id]}
+                  onClick={() => handlePostExpandClick(post.id)}
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </Box>
+              <Collapse in={!expanded[post.id]} timeout="auto" unmountOnExit>
+                <Box paddingY={1}>
+                  <PostComment />
+                </Box>
+              </Collapse>
+            </PostContainer>
           </Box>
-          <Box>
-            <TextField
-              className="create-post-text-field"
-              fullWidth
-              placeholder="What's going on in your mind?"
-              multiline
-              minRows={4}
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
-            />
-          </Box>
-        </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="flex-start"
-          marginTop={2}
-        >
-          {postTypeList.map((postType) => (
-            <PostTypeChip label={postType.label} icon={postType.icon} />
-          ))}
-        </Box>
+        ))}
       </Box>
-    </PostContainer>
+    </Box>
   );
 };
 
