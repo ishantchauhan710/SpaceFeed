@@ -1,11 +1,9 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import { Menu, Box, Typography } from "@mui/material/";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import DescriptionIcon from "@mui/icons-material/Description";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
@@ -66,6 +64,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
               style={{ borderRadius: "50px" }}
               width={40}
               height={40}
+              alt="Profile"
               src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
             />
           </Box>

@@ -5,7 +5,6 @@ import {
   MenuList,
   ListItemIcon,
   ListItemText,
-  styled,
   Typography,
 } from "@mui/material";
 import {
@@ -98,8 +97,8 @@ const ProfileSectionMenu = () => {
   return (
     <Box style={{ textAlign: "left" }}>
       <MenuList>
-        {profileMenuList.map((menuItem) => (
-          <MenuItem>
+        {profileMenuList.map((menuItem,i) => (
+          <MenuItem key={i}>
             <ListItemIcon>{menuItem.iconComponent}</ListItemIcon>
             <ListItemText>
               <Typography variant="h3" fontSize={14} fontWeight={600}>

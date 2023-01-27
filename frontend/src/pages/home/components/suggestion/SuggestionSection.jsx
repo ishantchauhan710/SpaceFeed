@@ -3,27 +3,14 @@ import {
   Avatar,
   AvatarGroup,
   Box,
-  Paper,
   styled,
   Typography,
   Badge,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemButton,
 } from "@mui/material";
 
-import ImageIcon from "@mui/icons-material/Image";
+import PaperBox from "../../../../components/styled/PaperBox";
 
 const SuggestionSection = () => {
-  const SuggestionContainer = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    color: theme.palette.grey.secondary,
-    padding: 15,
-  }));
-
   const SuggestionContainerHeader = ({ title }) => {
     return (
       <Box>
@@ -175,18 +162,27 @@ const SuggestionSection = () => {
 
   return (
     <Box>
-      <SuggestionContainer>
+      <PaperBox
+        sx={{
+          paddingX: 2,
+          paddingY: 2,
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "left",
+        }}
+      >
         <SuggestionContainerHeader title="Online users" />
-        <Box>
+        <Box paddingLeft={1}>
           <AvatarGroup
             style={{ justifyContent: "flex-end", marginTop: "10px" }}
             max={5}
           >
-            {onlineUsersList.map((user) => (
+            {onlineUsersList.map((user, i) => (
               <StyledBadge
                 overlap="circular"
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 variant="dot"
+                key={i}
               >
                 <Avatar
                   style={{ cursor: "pointer" }}
@@ -197,12 +193,22 @@ const SuggestionSection = () => {
             ))}
           </AvatarGroup>
         </Box>
-      </SuggestionContainer>
-      <SuggestionContainer style={{ marginTop: "15px" }}>
+      </PaperBox>
+      <PaperBox
+        sx={{
+          paddingX: 2,
+          paddingY: 2,
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "left",
+          marginTop: 2,
+        }}
+      >
         <SuggestionContainerHeader title="What's happening" />
         <Box style={{ marginTop: "10px" }}>
-          {socialNewsList.map((newsItem) => (
+          {socialNewsList.map((newsItem, i) => (
             <SocialNewsItem
+              key={i}
               actionBy={newsItem.actionBy}
               actionOn={newsItem.actionOn}
               actionInitials={newsItem.actionInitials}
@@ -210,7 +216,7 @@ const SuggestionSection = () => {
             />
           ))}
         </Box>
-      </SuggestionContainer>
+      </PaperBox>
     </Box>
   );
 };

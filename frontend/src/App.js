@@ -1,14 +1,13 @@
 import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { Button, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeConfig } from "./config/themeConfig";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { hideNotification } from "./states/slices/notificationSlice";
 import ErrorPage from "./pages/error/ErrorPage";
 import HomePage from "./pages/home/HomePage";

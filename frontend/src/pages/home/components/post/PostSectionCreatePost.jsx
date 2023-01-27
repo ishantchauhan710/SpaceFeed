@@ -1,10 +1,7 @@
 import React from "react";
 import {
-  Paper,
   Box,
-  styled,
   TextField,
-  Chip,
   Typography,
   Avatar,
 } from "@mui/material";
@@ -54,7 +51,6 @@ const PostTypeChip = ({ label, icon }) => {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "rgba(0,0,0,0.1)",
         padding: "5px 10px",
         borderRadius: "5px",
         cursor: "pointer",
@@ -108,8 +104,8 @@ const PostSectionCreatePost = () => {
         justifyContent="flex-start"
         marginTop={2}
       >
-        {postTypeList.map((postType) => (
-          <PostTypeChip label={postType.label} icon={postType.icon} />
+        {postTypeList.map((postType,i) => (
+          <PostTypeChip key={i} label={postType.label} icon={postType.icon} />
         ))}
       </Box>
     </Box>

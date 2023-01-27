@@ -9,6 +9,7 @@ const ProfileSectionHeader = () => {
           width="100%"
           height="100px"
           style={{ borderRadius: 2 }}
+          alt="cover"
           src="https://i.pinimg.com/originals/28/35/be/2835be38b5274a4b20155999a7613542.jpg"
         />
         <div>
@@ -19,6 +20,7 @@ const ProfileSectionHeader = () => {
               borderRadius: "50px",
               cursor: "pointer",
             }}
+            alt="profile"
             width="90px"
             height="90px"
             src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"

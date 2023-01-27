@@ -1,21 +1,6 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import DescriptionIcon from "@mui/icons-material/Description";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
-import {
-  Menu,
-  Popover,
-  Box,
-  Typography,
-  Link,
-  Button,
-  styled,
-} from "@mui/material/";
+import { Popover, Box, Typography, Link, styled } from "@mui/material/";
 import BoxCentered from "../../../styled/BoxCentered";
 
 const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
@@ -160,8 +145,8 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
         <Box
           style={{ padding: "10px 0px", height: "300px", overflowY: "auto" }}
         >
-          {notificationData.slice(0, 5).map((notification) => (
-            <NotificationItemContainer>
+          {notificationData.slice(0, 5).map((notification,i) => (
+            <NotificationItemContainer key={i}>
               <NotificationItem>
                 <Box style={{ flex: "0.1" }}>
                   <img
@@ -169,6 +154,7 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
                     width={45}
                     height={45}
                     src={notification.image}
+                    alt="notification"
                   />
                 </Box>
                 <Typography

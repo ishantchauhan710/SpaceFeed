@@ -10,6 +10,7 @@ const PostBody = () => {
         item
       </Typography>
       <img
+        alt="post"
         style={{
           width: "100%",
           marginTop: "15px",

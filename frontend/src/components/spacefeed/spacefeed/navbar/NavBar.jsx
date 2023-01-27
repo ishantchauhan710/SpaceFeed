@@ -3,14 +3,9 @@ import {
   AppBar,
   Box,
   Toolbar,
-  TextField,
-  InputProps,
   InputAdornment,
   Avatar,
   Typography,
-  Menu,
-  MenuItem,
-  Button,
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
@@ -160,6 +155,7 @@ const NavBar = () => {
                 <img
                   width={40}
                   height={40}
+                  alt="Profile"
                   src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
                 />
               </StyledIconButton>
