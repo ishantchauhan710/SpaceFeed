@@ -3,17 +3,10 @@ import PostHeader from "./PostHeader";
 import PostBody from "./PostBody";
 import PostActions from "./PostActions";
 import PostComment from "./PostComment";
-import {
-  Box,
-  styled,
-  Typography,
-  IconButton,
-  Collapse,
-} from "@mui/material";
+import { Box, styled, Typography, IconButton, Collapse, Divider } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PaperBox from "../../../../../components/styled/PaperBox";
-
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -25,6 +18,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
+
 const Post = ({ post }) => {
   const [expanded, setExpanded] = React.useState({});
 
@@ -46,7 +40,7 @@ const Post = ({ post }) => {
           paddingX={2}
           style={{ textAlign: "left" }}
         >
-          <Typography variant="h6" fontSize={15}>
+          <Typography variant="h6" fontSize={14}>
             {expanded[post.id] ? "Show Comments" : "Comments:"}
           </Typography>
           <ExpandMore

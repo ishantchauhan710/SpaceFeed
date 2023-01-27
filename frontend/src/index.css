@@ -42,6 +42,8 @@
   border: 1px solid var(--colorPrimary);
 }
 
+/* Custom text field */
+
 .create-post-text-field textarea {
   font-size: 0.95rem;
 }
@@ -50,3 +52,4 @@
   color: #111111;
   font-size: 0.95rem;
 }
+

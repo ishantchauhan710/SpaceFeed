@@ -6,6 +6,7 @@ import {
   styled,
   Typography,
   Badge,
+  Tooltip,
 } from "@mui/material";
 
 import PaperBox from "../../../../components/styled/PaperBox";
@@ -178,18 +179,20 @@ const SuggestionSection = () => {
             max={5}
           >
             {onlineUsersList.map((user, i) => (
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-                key={i}
-              >
-                <Avatar
-                  style={{ cursor: "pointer" }}
-                  alt={user.name}
-                  src={user.image}
-                />
-              </StyledBadge>
+              <Tooltip title={user.name}>
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                  key={i}
+                >
+                  <Avatar
+                    style={{ cursor: "pointer" }}
+                    alt={user.name}
+                    src={user.image}
+                  />
+                </StyledBadge>
+              </Tooltip>
             ))}
           </AvatarGroup>
         </Box>

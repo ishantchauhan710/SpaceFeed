@@ -8,14 +8,23 @@ import {
   Divider,
   TextField,
   Avatar,
+  Menu,
+  ListItemButton,
 } from "@mui/material/";
 import CloseIcon from "@mui/icons-material/Close";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ImageIcon from "@mui/icons-material/Image";
 
-const UploadVideoModal = ({ open, setOpen }) => {
+const PostLikedUsersModal = ({ open, setOpen }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const likedByList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   return (
     <Dialog
@@ -34,7 +43,7 @@ const UploadVideoModal = ({ open, setOpen }) => {
           justifyContent="space-between"
         >
           <Typography variant="h1" fontSize={20} fontWeight={600}>
-            Upload Video
+            Likes
           </Typography>
           <IconButton
             aria-label="close"
@@ -47,40 +56,41 @@ const UploadVideoModal = ({ open, setOpen }) => {
           </IconButton>
         </Box>
         <Divider />
-        <Box padding={2}>
+        <Box>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              border: "2px dashed rgba(0,0,0,0.2)",
-              borderRadius: 2,
-              height: 300,
-              cursor: "pointer",
+              height: 400,
+              overflowY: "auto",
             }}
           >
-            <VideoLibraryIcon sx={{ width: 60, height: 60 }} />
-            <Typography variant="h6" fontSize={15} marginTop={1}>
-              Click here to upload a video
-            </Typography>
+            <List sx={{ bgcolor: "background.paper" }}>
+              {likedByList.map((item, i) => (
+                <ListItem key={i} disablePadding>
+                  <ListItemButton>
+                    <ListItemAvatar>
+                      <Avatar />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Ishant Chauhan"
+                      secondary="ishantchauhan@spacefeed.com"
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
           </Box>
           <Box
-            paddingTop={2}
+            padding={2}
             display="flex"
             alignItems="center"
             justifyContent="flex-end"
           >
             <Button
-              style={{ marginRight: "10px" }}
-              color="error"
+              color="primary"
               variant="outlined"
               disableElevation
             >
-              Cancel
-            </Button>
-            <Button color="primary" variant="contained" disableElevation>
-              Upload
+              Close
             </Button>
           </Box>
         </Box>
@@ -89,4 +99,4 @@ const UploadVideoModal = ({ open, setOpen }) => {
   );
 };
 
-export default UploadVideoModal;
+export default PostLikedUsersModal;

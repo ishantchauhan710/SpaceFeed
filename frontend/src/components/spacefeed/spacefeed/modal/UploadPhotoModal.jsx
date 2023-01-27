@@ -23,12 +23,9 @@ const UploadPhotoModal = ({ open, setOpen }) => {
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      fullWidth={true}
     >
-      <Box
-        sx={{
-          width: 500,
-        }}
-      >
+      <Box>
         <Box
           paddingX={2}
           paddingY={1}
