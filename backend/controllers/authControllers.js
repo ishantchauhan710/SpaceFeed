@@ -5,6 +5,7 @@ const UserModel = require("../models/userModel");
 const { reverseObject } = require("../util/objectUtil");
 const bcrypt = require("bcryptjs");
 const { REGEX_PHONE } = require("../util/regexUtil");
+const { uploadFileToStorage } = require("../util/cloudUtil");
 
 const signupController = async (req, res, next) => {
   const {
@@ -99,25 +100,29 @@ const signupController = async (req, res, next) => {
 
   // Create user's account
   try {
-    const userExists = await UserModel.findOne({ email: email })
-      .select("+password +email")
-      .exec();
+    // const userExists = await UserModel.findOne({ email: email })
+    //   .select("+password +email")
+    //   .exec();
 
-    if (userExists) {
-      throw createHttpError(401, "Email already taken");
-    }
+    // if (userExists) {
+    //   throw createHttpError(401, "Email already taken");
+    // }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const newUser = await UserModel.create({
-      username: username,
-      email: email,
-      password: passwordHash,
-      gender: gender,
-      country: country,
-      description: description,
-      dob: dob,
-      phone: phone,
-    });
+
+    uploadFileToStorage("/home/ishant/Desktop/ishant/ishant.png")
+    //res.status(201).json(data);
+    
+    // const newUser = await UserModel.create({
+    //   username: username,
+    //   email: email,
+    //   password: passwordHash,
+    //   gender: gender,
+    //   country: country,
+    //   description: description,
+    //   dob: dob,
+    //   phone: phone,
+    // });
     res.status(201).json(newUser);
   } catch (err) {
     next(err.message);
