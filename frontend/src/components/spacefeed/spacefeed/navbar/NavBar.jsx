@@ -3,9 +3,15 @@ import {
   AppBar,
   Box,
   Toolbar,
-  InputAdornment,
+  Autocomplete,
+  TextField,
   Avatar,
+  InputAdornment,
   Typography,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  ListItemButton,
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
@@ -45,6 +51,28 @@ const NavBar = () => {
       transition: "0.3s all ease",
     },
   }));
+
+  const AutoCompleteOutputLayout = () => {
+    return (
+      <ListItem disablePadding>
+        <ListItemButton>
+          <ListItemAvatar>
+            <Avatar />
+          </ListItemAvatar>
+          <ListItemText primary="Ishant" secondary="ishantchauhan@gmail.com" />
+        </ListItemButton>
+      </ListItem>
+    );
+  };
+
+  const countries = [
+    { code: "AD", label: "Andorra", phone: "376" },
+    {
+      code: "AE",
+      label: "United Arab Emirates",
+      phone: "971",
+    },
+  ];
 
   return (
     <>
@@ -99,7 +127,48 @@ const NavBar = () => {
               SpaceFeed
             </Typography>
 
-            <StyledTextField
+            <Autocomplete
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+              options={countries}
+              autoHighlight
+              getOptionLabel={(option) => option.label}
+              renderOption={(props, option) => (
+                <Box>
+                  <AutoCompleteOutputLayout />
+                </Box>
+              )}
+              renderInput={(params) => (
+                <div ref={params.InputProps.ref}>
+                  <StyledTextField
+                    variant="outlined"
+                    placeholder="Search..."
+                    autoComplete="off"
+                    {...params.inputProps}
+                    InputProps={{
+                      style: {
+                        height: 40,
+                        marginLeft: 10,
+                      },
+                      sx: {
+                        backgroundColor: "background.200",
+                      },
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+              )}
+            />
+
+            {/* <StyledTextField
               variant="outlined"
               placeholder="Search..."
               autoComplete="off"
@@ -123,7 +192,7 @@ const NavBar = () => {
                   sm: "block",
                 },
               }}
-            />
+            /> */}
           </Box>
           <Box
             style={{

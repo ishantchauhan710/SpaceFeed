@@ -1,16 +1,22 @@
-import { Box, TextField } from "@mui/material";
+import { alpha, Box, TextField } from "@mui/material";
 import React from "react";
 
 const OverviewTab = () => {
   return (
-    <Box padding={2}>
+    <Box paddingX={1} paddingY={2}>
       <TextField
         fullWidth
         multiline
         disableUnderline={true}
         variant="standard"
         InputProps={{
-          sx: { fontSize: 15, color: (theme) => theme.palette.grey[700] },
+          sx: {
+            fontSize: 14.5,
+            color: (theme) => theme.palette.grey[800],
+            padding: 1,
+            borderRadius: 2,
+            fontWeight: 300
+          },
         }}
         sx={{
           "& .MuiInput-root": {
