@@ -3,6 +3,7 @@ import NavBar from "../../components/spacefeed/spacefeed/navbar/NavBar";
 import { Box, Grid } from "@mui/material/";
 import PaperBox from "../../components/styled/PaperBox";
 import ProfileSection from "./components/profile/ProfileSection";
+import SuggestionSection from "./components/suggestion/SuggestionSection";
 
 const ProfilePage = () => {
   return (
@@ -25,7 +26,9 @@ const ProfilePage = () => {
             sx={{ display: { xs: "none", md: "block" } }}
           >
             <Box>
-              <PaperBox>Hi</PaperBox>
+              <PaperBox>
+                <SuggestionSection />
+              </PaperBox>
             </Box>
           </Grid>
         </Grid>
