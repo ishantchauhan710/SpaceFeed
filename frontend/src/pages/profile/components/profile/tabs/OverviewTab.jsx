@@ -12,7 +12,8 @@ const OverviewTab = () => {
         InputProps={{
           sx: {
             fontSize: 14.5,
-            color: (theme) => theme.palette.grey[800],
+            backgroundColor: (theme) => alpha(theme.palette.secondary.main,0.05),
+            color: (theme) => theme.palette.grey[900],
             padding: 1,
             borderRadius: 2,
             fontWeight: 300

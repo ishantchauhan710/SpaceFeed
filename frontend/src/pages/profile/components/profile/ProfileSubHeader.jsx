@@ -14,7 +14,8 @@ const ProfileSubHeaderItem = ({ label, icon }) => {
     <Box
       sx={{
         cursor: "pointer",
-        "&:hover": { color: (theme) => theme.palette.primary.main },
+        color: (theme) => theme.palette.grey[800],
+        "&:hover": { color: (theme) => theme.palette.primary[600] },
       }}
       display="flex"
       alignItems="center"

@@ -8,8 +8,10 @@ import {
   ListItemAvatar,
   Avatar,
   Button,
+  Divider,
 } from "@mui/material";
-
+import OnlineUsers from "../../../home/components/suggestion/OnlineUsers";
+import PaperBox from "../../../../components/styled/PaperBox";
 const suggestedUsersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const CustomListItem = () => {
@@ -21,10 +23,6 @@ const CustomListItem = () => {
       padding={1}
       sx={{
         cursor: "pointer",
-        borderRadius: 1,
-        "&:hover": {
-          backgroundColor: (theme) => theme.palette.background[200],
-        },
       }}
     >
       <Box style={{ flex: "0.7", overflow: "hidden" }}>
@@ -46,7 +44,7 @@ const CustomListItem = () => {
         </ListItem>
       </Box>
       <Box style={{ flex: "0.3", paddingLeft: "10px" }}>
-        <Button variant="outlined">Follow</Button>
+        <Button variant="contained" disableElevation>Follow</Button>
       </Box>
     </Box>
   );
@@ -54,18 +52,23 @@ const CustomListItem = () => {
 
 const SuggestionSection = () => {
   return (
-    <Box padding={1} style={{ textAlign: "left" }}>
-      <Typography variant="h2" fontSize={18} fontWeight={600}>
-        Suggested People
-      </Typography>
-      <Box  paddingTop={1}>
-        <List>
-          {suggestedUsersList.map((item, i) => (
-            <CustomListItem key={i} />
-          ))}
-        </List>
-      </Box>
-    </Box>
+    <>
+      <OnlineUsers />
+      <PaperBox style={{marginTop: "15px"}}>
+        <Box padding={1} style={{ textAlign: "left" }}>
+          <Typography variant="h2" fontSize={18} fontWeight={600}>
+            Suggested People
+          </Typography>
+          <Box paddingTop={1}>
+            <List>
+              {suggestedUsersList.map((item, i) => (
+                <CustomListItem key={i} />
+              ))}
+            </List>
+          </Box>
+        </Box>
+      </PaperBox>
+    </>
   );
 };
 

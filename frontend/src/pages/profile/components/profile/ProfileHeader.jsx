@@ -1,5 +1,6 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import ShareIcon from "@mui/icons-material/Share";
+import { Box, Fab, Typography } from "@mui/material";
 
 const ProfileHeader = () => {
   return (
@@ -15,7 +16,12 @@ const ProfileHeader = () => {
           src="https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788__340.jpg"
         />
       </Box>
-      <Box display="flex" flexDirection="column" paddingX={2}>
+      <Box
+        style={{ position: "relative" }}
+        display="flex"
+        flexDirection="column"
+        paddingX={2}
+      >
         <img
           style={{
             width: 120,
@@ -34,6 +40,19 @@ const ProfileHeader = () => {
           <Typography variant="h6" fontSize={15}>
             @ishantchauhan710
           </Typography>
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            margin: "15px 20px",
+            display: { xs: "none", sm: "block" },
+          }}
+        >
+          <Fab size="small" color="success" aria-label="add">
+            <ShareIcon />
+          </Fab>
         </Box>
       </Box>
     </Box>

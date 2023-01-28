@@ -26,9 +26,7 @@ const ProfilePage = () => {
             sx={{ display: { xs: "none", md: "block" } }}
           >
             <Box>
-              <PaperBox>
-                <SuggestionSection />
-              </PaperBox>
+              <SuggestionSection />
             </Box>
           </Grid>
         </Grid>

@@ -55,6 +55,8 @@ const ProfileTabs = () => {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          textColor="primary"
+          indicatorColor="primary"
         >
           <Tab
             sx={{ fontSize: 16, textTransform: "none" }}
