@@ -48,15 +48,8 @@ const AboutTab = () => {
   return (
     <Box>
       <Box display="flex" alignItems="flex-start" flexDirection="column">
-        <FormControl style={{ width: "100%" }} variant="standard">
-          <InputLabel sx={{ fontSize: 17 }} shrink>
-            About
-          </InputLabel>
-          <StyledLabelInput rows={3} multiline />
-        </FormControl>
-
         <FormControl
-          style={{ width: "100%", marginTop: "15px" }}
+          style={{ width: "100%"}}
           variant="standard"
         >
           <InputLabel sx={{ fontSize: 17 }} shrink>

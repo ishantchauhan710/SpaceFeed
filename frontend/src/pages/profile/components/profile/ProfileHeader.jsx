@@ -12,17 +12,17 @@ const ProfileHeader = () => {
             borderRadius: "5px 5px 0px 0px",
             objectFit: "cover",
           }}
-          src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__340.jpg"
+          src="https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788__340.jpg"
         />
       </Box>
-      <Box display="flex" paddingX={2}>
+      <Box display="flex" flexDirection="column" paddingX={2}>
         <img
           style={{
             width: 120,
             height: 120,
             borderRadius: "100px",
             border: "3px solid #fff",
-            marginTop: "-50px",
+            marginTop: "-60px",
             marginLeft: "10px",
           }}
           src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"

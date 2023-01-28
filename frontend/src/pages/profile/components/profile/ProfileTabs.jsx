@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AboutTab from "./tabs/AboutTab";
+import OverviewTab from "./tabs/OverviewTab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -18,7 +19,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -47,7 +48,7 @@ const ProfileTabs = () => {
   };
 
   return (
-    <Box paddingX={2} sx={{ width: "100%" }}>
+    <Box paddingX={2} marginTop={2} sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -56,7 +57,7 @@ const ProfileTabs = () => {
         >
           <Tab
             sx={{ fontSize: 16, textTransform: "none" }}
-            label="About"
+            label="Overview"
             {...a11yProps(0)}
           />
           <Tab
@@ -66,21 +67,19 @@ const ProfileTabs = () => {
           />
           <Tab
             sx={{ fontSize: 16, textTransform: "none" }}
-            label="Videos"
-            {...a11yProps(1)}
+            label="About"
+            {...a11yProps(2)}
           />
-
-          
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <AboutTab />
+        <OverviewTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        Hi
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <AboutTab />
       </TabPanel>
     </Box>
   );

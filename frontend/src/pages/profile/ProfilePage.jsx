@@ -9,7 +9,7 @@ const ProfilePage = () => {
     <div>
       <NavBar />
       <Box style={{ padding: "20px 10px" }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={{ xs: 0, md: 2 }}>
           <Grid
             item
             md={8}
