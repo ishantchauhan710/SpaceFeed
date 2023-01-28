@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AboutTab from "./tabs/AboutTab";
 import OverviewTab from "./tabs/OverviewTab";
+import PhotosTab from "./tabs/PhotosTab";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 2 }}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -76,7 +77,7 @@ const ProfileTabs = () => {
         <OverviewTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Hi
+        <PhotosTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <AboutTab />

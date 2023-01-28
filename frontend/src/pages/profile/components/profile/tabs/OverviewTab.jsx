@@ -3,7 +3,7 @@ import React from "react";
 
 const OverviewTab = () => {
   return (
-    <Box>
+    <Box padding={2}>
       <TextField
         fullWidth
         multiline

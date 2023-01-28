@@ -46,12 +46,9 @@ const StyledLabelInput = styled(InputBase)(({ theme }) => ({
 
 const AboutTab = () => {
   return (
-    <Box>
+    <Box padding={2}>
       <Box display="flex" alignItems="flex-start" flexDirection="column">
-        <FormControl
-          style={{ width: "100%"}}
-          variant="standard"
-        >
+        <FormControl style={{ width: "100%" }} variant="standard">
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Email
           </InputLabel>
@@ -74,6 +71,16 @@ const AboutTab = () => {
         >
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Gender
+          </InputLabel>
+          <StyledLabelInput />
+        </FormControl>
+
+        <FormControl
+          style={{ width: "100%", marginTop: "15px" }}
+          variant="standard"
+        >
+          <InputLabel sx={{ fontSize: 17 }} shrink>
+            Country
           </InputLabel>
           <StyledLabelInput />
         </FormControl>
