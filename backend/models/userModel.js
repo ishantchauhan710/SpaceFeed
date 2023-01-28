@@ -11,10 +11,12 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     trim: true,
+    select: false
   },
   password: {
     type: String,
     required: true,
+    select: false
   },
   dob: {
     type: String,
@@ -31,6 +33,7 @@ const userSchema = new Schema({
   phone: {
     type: String,
     required: false,
+    select: false
   },
   profilePictureURL: {
     type: String,
