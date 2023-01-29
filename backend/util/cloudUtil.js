@@ -1,6 +1,7 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getStorage } = require("firebase-admin/storage");
 const serviceAccount = require("../../secrets/spacefeed_firebase.json");
+const { getFileMimeType, getFileName } = require("./fileUtil");
 
 initializeApp({
   credential: cert(serviceAccount),
@@ -9,26 +10,18 @@ initializeApp({
 
 const bucket = getStorage().bucket();
 
-const uploadFileToStorage = async (filePath) => {
+const uploadFileToStorage = async (filePath, fileName) => {
+  const mimeType = getFileMimeType(filePath);
+  const originalFileName = getFileName(filePath);
+
   const uploadOptions = {
-    destination: "huehue.png",
+    destination: originalFileName + "_" + fileName + mimeType,
     public: true,
   };
   const data = await bucket.upload(filePath, uploadOptions);
   const metadata = data[0].metadata;
   const mediaLink = metadata.mediaLink;
-  console.log("File uploaded: " + mediaLink);
-};
-
-const uploadFileToStoragee = (filePath) => {
-  const uploadedFile = bucket
-    .upload(filePath, { public: true })
-    .then((data) => {
-      const metadata = data[0].metadata;
-      const filename = metadata.name;
-      const mediaLink = metadata.mediaLink;
-      //console.log("File uploaded: ", data[0].metadata.selfLink);
-    });
+  return mediaLink;
 };
 
 module.exports = { uploadFileToStorage };

@@ -1,11 +1,13 @@
 const createHttpError = require("http-errors");
 const moment = require("moment");
 const yup = require("yup");
-const UserModel = require("../models/userModel");
-const { reverseObject } = require("../util/objectUtil");
+const UserModel = require("../../models/userModel");
+const { reverseObject } = require("../../util/objectUtil");
 const bcrypt = require("bcryptjs");
-const { REGEX_PHONE } = require("../util/regexUtil");
-const { uploadFileToStorage } = require("../util/cloudUtil");
+const { REGEX_PHONE } = require("../../util/regexUtil");
+const { uploadFileToStorage } = require("../../util/cloudUtil");
+const { generateRandomWithEmail } = require("../../util/randomUtil");
+const { isImageFile } = require("../../util/fileUtil");
 
 const signupController = async (req, res, next) => {
   const {
@@ -54,8 +56,9 @@ const signupController = async (req, res, next) => {
 
   const phoneRegex = new RegExp(REGEX_PHONE);
 
-  validationSchema
-    .validate(
+  try {
+    // Validate user data
+    const validated = await validationSchema.validate(
       reverseObject({
         username: username,
         email: email,
@@ -64,73 +67,85 @@ const signupController = async (req, res, next) => {
         country: country,
         description: description,
       })
-    )
-    .then(() => {
+    );
+
+    if (validated) {
       if (!dob) {
-        next(createHttpError(400, "Please provide date of birth"));
+        throw new createHttpError(400, "Please provide date of birth");
       } else {
         const momentDate = moment(dob.toString());
         if (momentDate.isValid()) {
           if (moment().diff(momentDate, "years") > 10) {
             if (phone) {
               if (!phoneRegex.test(phone)) {
-                next(createHttpError(400, "Invalid phone number"));
+                throw new createHttpError(400, "Invalid phone number");
               }
             }
           } else {
-            next(
-              createHttpError(
-                400,
-                "You must be atleast 10 years old in order to create an account"
-              )
+            throw new createHttpError(
+              400,
+              "You must be atleast 10 years old in order to create an account"
             );
           }
         } else {
-          next(createHttpError(400, "Invalid date format"));
+          throw new createHttpError(400, "Invalid date format");
         }
       }
-    })
-    .catch((e) => {
-      let errMsg = "An unknown error occurred";
-      if (e && e.errors && e.errors[0]) {
-        errMsg = e.errors[0];
+    }
+
+    // Check if user exists
+    const userExists = await UserModel.findOne({ email: email })
+      .select("+email")
+      .exec();
+
+    if (userExists) {
+      throw new createHttpError(401, "Email already taken");
+    }
+
+    // Upload profile picture if exists
+
+    let uploadedFileURL;
+    if (profilePictureURL) {
+      if (!isImageFile(profilePictureURL)) {
+        throw new createHttpError(
+          400,
+          "Profile picture must be in JPG or PNG format"
+        );
       }
-      next(createHttpError(400, errMsg));
-    });
 
-  // Create user's account
-  try {
-    // const userExists = await UserModel.findOne({ email: email })
-    //   .select("+password +email")
-    //   .exec();
+      uploadedFileURL = await uploadFileToStorage(
+        "/home/ishant/Desktop/ishant/ishant.png",
+        generateRandomWithEmail(email)
+      );
 
-    // if (userExists) {
-    //   throw createHttpError(401, "Email already taken");
-    // }
+      if (!uploadedFileURL) {
+        throw new createHttpError(
+          400,
+          "An error occured while uploading profile picture"
+        );
+      }
+    }
 
+    // Secure the password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    uploadFileToStorage("/home/ishant/Desktop/ishant/ishant.png")
-    //res.status(201).json(data);
-    
-    // const newUser = await UserModel.create({
-    //   username: username,
-    //   email: email,
-    //   password: passwordHash,
-    //   gender: gender,
-    //   country: country,
-    //   description: description,
-    //   dob: dob,
-    //   phone: phone,
-    // });
+    // Finally create user's account
+    const newUser = await UserModel.create({
+      username: username,
+      email: email,
+      password: passwordHash,
+      gender: gender,
+      country: country,
+      description: description,
+      dob: dob,
+      phone: phone,
+      profilePictureURL: uploadedFileURL,
+    });
+
     res.status(201).json(newUser);
   } catch (err) {
-    next(err.message);
+    next(err);
   }
 };
 
-const loginController = async (req, res) => {
-  res.send("Hi");
-};
-
-module.exports = { signupController, loginController };
+module.exports = signupController;
