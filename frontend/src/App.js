@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { Backdrop, CircularProgress, CssBaseline } from "@mui/material";
@@ -17,6 +17,22 @@ function App() {
   const themeData = themeConfig();
   const theme = createTheme(themeData);
   const dispatch = useDispatch();
+
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const getLoggedInUser = async () => {
+    try {
+      const response = await axios.get("/api/user");
+      console.log("Success", response.data);
+    } catch (err) {
+      console.log("No cookie");
+    }
+  };
+
+  useEffect(() => {
+    getLoggedInUser();
+  }, []);
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
