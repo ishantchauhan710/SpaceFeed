@@ -12,6 +12,7 @@ import { hideNotification } from "./states/slices/notificationSlice";
 import ErrorPage from "./pages/error/ErrorPage";
 import HomePage from "./pages/home/HomePage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import axios from "axios";
 
 function App() {
   const themeData = themeConfig();

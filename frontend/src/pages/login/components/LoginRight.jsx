@@ -17,10 +17,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import ForgotPasswordDialog from "./ForgotPasswordDialog";
 import LinkButton from "../../../components/styled/LinkButton";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../states/slices/loadingSlice";
+import { showError } from "../../../states/slices/notificationSlice";
+import axios from "axios";
 
 const LoginRight = () => {
   const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
     React.useState(false);
+
+  const dispatch = useDispatch();
 
   const validationSchema = yup.object({
     email: yup
@@ -40,9 +46,26 @@ const LoginRight = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      loginUser(values.email, values.password);
     },
   });
+
+  const loginUser = async (email, password) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post("api/login", {
+        email: email,
+        password: password,
+      });
+
+      console.log("Response" + JSON.stringify(response.data));
+      console.log("Success");
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(setLoading(false));
+      dispatch(showError(err.response.data.error));
+    }
+  };
 
   return (
     <BoxCentered
@@ -63,7 +86,11 @@ const LoginRight = () => {
         width="80%"
       >
         <form onSubmit={formik.handleSubmit}>
-          <img alt="spacefeed logo" width="18%" src="/icons/logo_spacefeed_circle_dark.png" />
+          <img
+            alt="spacefeed logo"
+            width="18%"
+            src="/icons/logo_spacefeed_circle_dark.png"
+          />
           <Typography variant="h2" marginTop={2}>
             Hello there!
           </Typography>
