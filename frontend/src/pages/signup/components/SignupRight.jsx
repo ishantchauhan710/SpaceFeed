@@ -36,7 +36,6 @@ import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { showError } from "../../../states/slices/notificationSlice";
-import SignupOTPDialog from "./SignupOTPDialog";
 
 const SignupRight = () => {
   const [username, setUsername] = useState("");
@@ -49,7 +48,6 @@ const SignupRight = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState("");
-  const [showOTPDialog, setShowOTPDialog] = useState(false);
   const dispatch = useDispatch();
 
   // reverseObject() is used to reverse the keys so that error messages appear from top to bottom and not bottom to top
@@ -88,7 +86,7 @@ const SignupRight = () => {
   );
 
   const handleSuccess = async () => {
-    //setShowOTPDialog(true);
+
 
     try {
       const response = await axios.post(
@@ -120,9 +118,6 @@ const SignupRight = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    handleSuccess();
-    return;
 
     validationSchema
       .validate(
@@ -432,7 +427,7 @@ const SignupRight = () => {
         </Typography>
         <SpaceBox />
       </Stack>
-      <SignupOTPDialog open={showOTPDialog} setOpen={setShowOTPDialog} />
+     
     </BoxCentered>
   );
 };
