@@ -9,11 +9,29 @@ const port = process.env.PORT;
 const { default: mongoose } = require("mongoose");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
 const authRoutes = require("./routes/authRoutes");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const app = express();
 console.clear();
 
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60 * 60 * 1000,
+    },
+    rolling: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_CONNECTION_STRING,
+    }),
+  })
+);
+
 app.use("/api", authRoutes);
 
 app.use((req, res, next) => {

@@ -37,6 +37,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../states/slices/loadingSlice";
 import { showError } from "../../../states/slices/notificationSlice";
+import { useEffect } from "react";
 
 const SignupRight = () => {
   const [username, setUsername] = useState("");
@@ -50,6 +51,22 @@ const SignupRight = () => {
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState("");
   const dispatch = useDispatch();
+
+  const autoFillFields = () => {
+    setUsername("Ishant");
+    setEmail("ishant@gmail.com");
+    setPassword("12345");
+    setConfirmPassword("12345");
+    setBirthday("07/10/2001");
+    setGender("M");
+    setCountry(countryList[0]);
+    setPhoneNumber("1234567890");
+    setDescription("Hello world");
+  };
+
+  useEffect(() => {
+    autoFillFields();
+  }, []);
 
   // reverseObject() is used to reverse the keys so that error messages appear from top to bottom and not bottom to top
   const validationSchema = yup.object(
@@ -90,7 +107,7 @@ const SignupRight = () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.post(
-        "http://localhost:5000/api/signup",
+        "api/signup",
         {
           username: username,
           email: email,
@@ -113,7 +130,7 @@ const SignupRight = () => {
       console.log("Success");
       dispatch(setLoading(false));
     } catch (err) {
-      dispatch(setLoading(true));
+      dispatch(setLoading(false));
       dispatch(showError(err.response.data.error));
     }
   };

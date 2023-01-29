@@ -10,7 +10,7 @@ const {
   generateRandomWithEmail,
   generateRandomNumber,
 } = require("../../util/randomUtil");
-const { isImageFile } = require("../../util/fileUtil");
+
 
 const signupController = async (req, res, next) => {
   const {
@@ -143,6 +143,7 @@ const signupController = async (req, res, next) => {
       description: description,
     });
 
+    req.session.userId = newUser._id;
     res.status(201).json(newUser);
   } catch (err) {
     if (err.errors && err.errors[0]) {
