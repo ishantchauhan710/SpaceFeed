@@ -1,4 +1,4 @@
-const  isHttpError  = require("http-errors");
+const isHttpError = require("http-errors");
 
 const errorHandlingMiddleware = (err, req, res, next) => {
   let errMessage = "An unknown error occurred";
@@ -7,6 +7,7 @@ const errorHandlingMiddleware = (err, req, res, next) => {
     errMessage = err.message;
     statusCode = err.status;
   }
+  console.log(err);
   res.status(statusCode).json({ error: errMessage });
 };
 

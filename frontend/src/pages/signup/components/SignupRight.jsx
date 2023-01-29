@@ -11,6 +11,7 @@ import {
   InputLabel,
   Autocomplete,
 } from "@mui/material";
+import axios from "axios";
 
 import FormControl from "@mui/material/FormControl";
 
@@ -86,12 +87,43 @@ const SignupRight = () => {
     })
   );
 
-  const handleSuccess = () => {
-    setShowOTPDialog(true);
+  const handleSuccess = async () => {
+    //setShowOTPDialog(true);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/signup",
+        {
+          username: username,
+          email: email,
+          password: password,
+          dob: birthday,
+          gender: gender,
+          country: country,
+          phone: phoneNumber,
+          picture: picture,
+          description: description,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Response" + JSON.stringify(response.data));
+      console.log("Success");
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    handleSuccess();
+    return;
+
     validationSchema
       .validate(
         reverseObject({
@@ -164,7 +196,12 @@ const SignupRight = () => {
         <SpaceBox />
         <SpaceBox />
 
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           <img
             alt="country"
             width="18%"
@@ -350,16 +387,28 @@ const SignupRight = () => {
               fullWidth
               variant="outlined"
               InputProps={{
+                readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
                     <InsertPhotoIcon />
                   </InputAdornment>
                 ),
               }}
-              label="Profile Picture"
+              placeholder="Profile Picture"
               style={{ marginTop: "15px" }}
-              value={picture}
-              onChange={(e) => setPicture(e.target.value)}
+              onClick={() => {
+                document.getElementById("signupProfileImagePicker").click();
+              }}
+              value={picture ? "Image selected" : ""}
+            />
+            <input
+              id="signupProfileImagePicker"
+              hidden
+              accept="image/*"
+              multiple
+              type="file"
+              name="picture"
+              onChange={(e) => setPicture(e.target.files[0])}
             />
           </Box>
 

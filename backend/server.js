@@ -3,14 +3,16 @@ dotenv.config();
 
 const express = require("express");
 const createHttpError = require("http-errors");
-const { isHttpError } = require("http-errors");
+
+const cors = require("cors");
 const port = process.env.PORT;
 const { default: mongoose } = require("mongoose");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const app = express();
-console.clear()
+console.clear();
 
+app.use(cors());
 app.use(express.json());
 app.use("/api", authRoutes);
 

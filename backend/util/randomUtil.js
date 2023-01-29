@@ -11,4 +11,16 @@ const generateRandomWithEmail = (email) => {
   return username + randomValue;
 };
 
-module.exports = { generateRandom, generateRandomWithEmail };
+const generateRandomNumber = (lastValue = 100) => {
+  let randomValue = Math.round(Math.random() * lastValue);
+  if (randomValue === 0) {
+    randomValue += 1;
+  }
+  return randomValue.toString();
+};
+
+module.exports = {
+  generateRandom,
+  generateRandomWithEmail,
+  generateRandomNumber,
+};

@@ -6,7 +6,10 @@ const { reverseObject } = require("../../util/objectUtil");
 const bcrypt = require("bcryptjs");
 const { REGEX_PHONE } = require("../../util/regexUtil");
 const { uploadFileToStorage } = require("../../util/cloudUtil");
-const { generateRandomWithEmail } = require("../../util/randomUtil");
+const {
+  generateRandomWithEmail,
+  generateRandomNumber,
+} = require("../../util/randomUtil");
 const { isImageFile } = require("../../util/fileUtil");
 
 const signupController = async (req, res, next) => {
@@ -18,10 +21,11 @@ const signupController = async (req, res, next) => {
     gender,
     country,
     phone,
-    profilePictureURL,
-    profileBanner,
     description,
   } = req.body;
+
+  const profilePicture = req.file;
+  //console.log("File: ", profilePicture);
 
   // Validate the input
   const validationSchema = yup.object(
@@ -73,7 +77,7 @@ const signupController = async (req, res, next) => {
       if (!dob) {
         throw new createHttpError(400, "Please provide date of birth");
       } else {
-        const momentDate = moment(dob.toString());
+        const momentDate = moment(new Date(dob));
         if (momentDate.isValid()) {
           if (moment().diff(momentDate, "years") > 10) {
             if (phone) {
@@ -105,14 +109,7 @@ const signupController = async (req, res, next) => {
     // Upload profile picture if exists
 
     let uploadedFileURL;
-    if (profilePictureURL) {
-      if (!isImageFile(profilePictureURL)) {
-        throw new createHttpError(
-          400,
-          "Profile picture must be in JPG or PNG format"
-        );
-      }
-
+    if (profilePicture) {
       uploadedFileURL = await uploadFileToStorage(
         "/home/ishant/Desktop/ishant/ishant.png",
         generateRandomWithEmail(email)
@@ -126,6 +123,9 @@ const signupController = async (req, res, next) => {
       }
     }
 
+    // Handle profile banner
+    const profileBannerCode = generateRandomNumber(5);
+
     // Secure the password
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -134,17 +134,23 @@ const signupController = async (req, res, next) => {
       username: username,
       email: email,
       password: passwordHash,
+      dob: dob,
       gender: gender,
       country: country,
+      phone: phone ? phone : "",
+      profilePictureURL: uploadedFileURL ? uploadedFileURL : "",
+      profileBanner: profileBannerCode,
       description: description,
-      dob: dob,
-      phone: phone,
-      profilePictureURL: uploadedFileURL,
     });
 
     res.status(201).json(newUser);
   } catch (err) {
-    next(err);
+    if (err.errors && err.errors[0]) {
+      //console.log(err.errors[0]);
+      next(createHttpError(400, err.errors[0]));
+    } else {
+      next(err);
+    }
   }
 };
 

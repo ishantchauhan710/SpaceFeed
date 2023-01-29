@@ -43,7 +43,12 @@ const userSchema = new Schema(
     profileBanner: {
       type: String,
       required: false,
-    },  
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   { timestamps: true }
 );
