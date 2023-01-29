@@ -35,6 +35,7 @@ import { REGEX_PHONE } from "../../../util/regexUtil";
 import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
 import { useDispatch } from "react-redux";
+import { setLoading } from "../../../states/slices/loadingSlice";
 import { showError } from "../../../states/slices/notificationSlice";
 
 const SignupRight = () => {
@@ -86,9 +87,8 @@ const SignupRight = () => {
   );
 
   const handleSuccess = async () => {
-
-
     try {
+      dispatch(setLoading(true));
       const response = await axios.post(
         "http://localhost:5000/api/signup",
         {
@@ -111,7 +111,9 @@ const SignupRight = () => {
 
       console.log("Response" + JSON.stringify(response.data));
       console.log("Success");
+      dispatch(setLoading(false));
     } catch (err) {
+      dispatch(setLoading(true));
       dispatch(showError(err.response.data.error));
     }
   };
@@ -427,7 +429,6 @@ const SignupRight = () => {
         </Typography>
         <SpaceBox />
       </Stack>
-     
     </BoxCentered>
   );
 };

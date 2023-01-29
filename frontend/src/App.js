@@ -1,7 +1,7 @@
 import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { CssBaseline } from "@mui/material";
+import { Backdrop, CircularProgress, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeConfig } from "./config/themeConfig";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -40,6 +40,8 @@ function App() {
     (state) => state.notification.notificationVisible
   );
 
+  const isLoading = useSelector((state) => state.loading.isLoading);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -49,11 +51,16 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Snackbar
         open={notificationVisible}
         autoHideDuration={6000}
