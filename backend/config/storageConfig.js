@@ -1,8 +1,17 @@
 const createHttpError = require("http-errors");
-const multer = require("multer");
+const Multer = require("multer");
+const FirebaseStorage = require("multer-firebase-storage");
+const fbAdmin = require("firebase-admin");
+const serviceAccount = require("../../secrets/spacefeed_firebase.json");
+const { generateRandom } = require("../util/randomUtil");
 
-const imageStorageConfig = multer({
-  storage: multer.memoryStorage(),
+const imageStorageConfig = Multer({
+  storage: FirebaseStorage({
+    bucketName: process.env.FIREBASE_STORAGE_BUCKET,
+    credentials: fbAdmin.credential.cert(serviceAccount),
+    public: true,
+    nameSuffix: "_" + generateRandom(),
+  }),
   limits: { fileSize: 5000000 },
   fileFilter: (req, file, cb) => {
     if (

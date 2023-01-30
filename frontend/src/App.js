@@ -51,6 +51,8 @@ function App() {
     (state) => state.notification.notificationVisible
   );
 
+  const user = useSelector((state) => state.user.user);
+
   const isLoading = useSelector((state) => state.loading.isLoading);
 
   // Function to get the user details based on session id
@@ -88,7 +90,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={user && <HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
 
           <Route path="*" element={<ErrorPage />} />

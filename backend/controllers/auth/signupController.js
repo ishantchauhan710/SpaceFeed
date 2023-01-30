@@ -5,12 +5,10 @@ const UserModel = require("../../models/userModel");
 const { reverseObject } = require("../../util/objectUtil");
 const bcrypt = require("bcryptjs");
 const { REGEX_PHONE } = require("../../util/regexUtil");
-const { uploadFileToStorage } = require("../../util/cloudUtil");
 const {
   generateRandomWithEmail,
   generateRandomNumber,
 } = require("../../util/randomUtil");
-
 
 const signupController = async (req, res, next) => {
   const {
@@ -106,24 +104,8 @@ const signupController = async (req, res, next) => {
       throw new createHttpError(401, "Email already taken");
     }
 
-    // Upload profile picture if exists
-
-    let uploadedFileURL;
-    if (profilePicture) {
-      uploadedFileURL = await uploadFileToStorage(
-        "/home/ishant/Desktop/ishant/ishant.png",
-        generateRandomWithEmail(email)
-      );
-
-      if (!uploadedFileURL) {
-        throw new createHttpError(
-          400,
-          "An error occured while uploading profile picture"
-        );
-      }
-    }
-
-    // Handle profile banner
+    // Handle profile picture and banner
+    const uploadedFileURL = profilePicture ? profilePicture.publicUrl : "";
     const profileBannerCode = generateRandomNumber(5);
 
     // Secure the password
@@ -138,7 +120,7 @@ const signupController = async (req, res, next) => {
       gender: gender,
       country: country,
       phone: phone ? phone : "",
-      profilePictureURL: uploadedFileURL ? uploadedFileURL : "",
+      profilePictureURL: uploadedFileURL,
       profileBanner: profileBannerCode,
       description: description,
     });

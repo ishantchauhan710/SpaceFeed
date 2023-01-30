@@ -1,7 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-
+import { useSelector } from "react-redux";
+import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 const ProfileSectionHeader = () => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <div>
       <div>
@@ -23,7 +26,11 @@ const ProfileSectionHeader = () => {
             alt="profile"
             width="90px"
             height="90px"
-            src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+            src={
+              user.profilePictureURL
+                ? user.profilePictureURL
+                : PROFILE_PICTURE_PLACEHOLDER
+            }
           />
         </div>
       </div>

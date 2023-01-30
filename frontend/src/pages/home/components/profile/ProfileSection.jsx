@@ -9,7 +9,9 @@ import ProfileSectionStats from "./ProfileSectionStats";
 import ProfileSectionMenu from "./ProfileSectionMenu";
 import PaperBoxUnspaced from "../../../../components/styled/PaperBoxUnspaced";
 
+
 const ProfileSection = () => {
+
   return (
     <Box>
       <PaperBoxUnspaced elevation={1}>

@@ -122,6 +122,7 @@ const SignupRight = () => {
           phone: phoneNumber,
           picture: picture,
           description: description,
+          followings: [],
         },
         {
           headers: {

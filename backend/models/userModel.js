@@ -48,6 +48,11 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
+    followings: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
+      require: false,
+    },
   },
   { timestamps: true }
 );
