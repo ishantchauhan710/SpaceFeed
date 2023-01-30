@@ -16,10 +16,12 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { showError } from "../../../../states/slices/notificationSlice";
 import { setLoading } from "../../../../states/slices/loadingSlice";
+import { setUser } from "../../../../states/slices/userSlice";
+
 import { useState } from "react";
 import { useEffect } from "react";
 
-const CustomListItem = ({ user }) => {
+const CustomListItem = ({ user, toggleUserFollow, isFollowing }) => {
   return (
     <Box
       display="flex"
@@ -62,8 +64,12 @@ const CustomListItem = ({ user }) => {
         </ListItem>
       </Box>
       <Box style={{ flex: "0.3", paddingLeft: "10px" }}>
-        <Button variant="contained" disableElevation>
-          Follow
+        <Button
+          onClick={() => toggleUserFollow(user._id)}
+          variant={isFollowing ? "outlined" : "contained"}
+          disableElevation
+        >
+          {isFollowing === true ? "Unfollow" : "Follow"}
         </Button>
       </Box>
     </Box>
@@ -72,7 +78,7 @@ const CustomListItem = ({ user }) => {
 
 const SuggestionSection = () => {
   const dispatch = useDispatch();
-  const [suggestedUsers, setSuggestedUsers] = useState({});
+  const [suggestedUsers, setSuggestedUsers] = useState([]);
 
   const getSuggestedUsers = async () => {
     try {
@@ -86,6 +92,26 @@ const SuggestionSection = () => {
       dispatch(setLoading(false));
     }
   };
+
+  const toggleUserFollow = async (userId) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post("/api/follow", {
+        userToFollow: userId,
+      });
+
+      // Update the user in store
+      const newUser = response.data.user;
+      dispatch(setUser(newUser));
+
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
+  };
+
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     getSuggestedUsers();
@@ -103,8 +129,13 @@ const SuggestionSection = () => {
             <List>
               {suggestedUsers &&
                 suggestedUsers.length > 0 &&
-                suggestedUsers.map((user) => (
-                  <CustomListItem user={user} key={user._id} />
+                suggestedUsers.map((suggestedUser) => (
+                  <CustomListItem
+                    user={suggestedUser}
+                    key={suggestedUser._id}
+                    toggleUserFollow={toggleUserFollow}
+                    isFollowing={user.followings.includes(suggestedUser._id)}
+                  />
                 ))}
             </List>
           </Box>
