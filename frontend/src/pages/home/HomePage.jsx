@@ -6,6 +6,9 @@ import Grid from "@mui/material/Grid";
 import ProfileSection from "./components/profile/ProfileSection";
 import SuggestionSection from "./components/suggestion/SuggestionSection";
 import PostSection from "./components/post/PostSection";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const HomePage = () => {
   return (

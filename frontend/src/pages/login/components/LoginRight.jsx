@@ -20,6 +20,8 @@ import LinkButton from "../../../components/styled/LinkButton";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../states/slices/loadingSlice";
 import { showError } from "../../../states/slices/notificationSlice";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../../../states/slices/userSlice.js";
 import axios from "axios";
 
 const LoginRight = () => {
@@ -27,6 +29,8 @@ const LoginRight = () => {
     React.useState(false);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const validationSchema = yup.object({
     email: yup
@@ -58,9 +62,11 @@ const LoginRight = () => {
         password: password,
       });
 
-      console.log("Response" + JSON.stringify(response.data));
-      console.log("Success");
+      // console.log("Response" + JSON.stringify(response.data));
+      // console.log("Success");
+      dispatch(setUser(response.data));
       dispatch(setLoading(false));
+      navigate("/");
     } catch (err) {
       dispatch(setLoading(false));
       dispatch(showError(err.response.data.error));

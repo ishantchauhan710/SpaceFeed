@@ -38,6 +38,8 @@ import { useDispatch } from "react-redux";
 import { setLoading } from "../../../states/slices/loadingSlice";
 import { showError } from "../../../states/slices/notificationSlice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../../../states/slices/userSlice.js";
 
 const SignupRight = () => {
   const [username, setUsername] = useState("");
@@ -67,6 +69,8 @@ const SignupRight = () => {
   useEffect(() => {
     autoFillFields();
   }, []);
+
+  const navigate = useNavigate();
 
   // reverseObject() is used to reverse the keys so that error messages appear from top to bottom and not bottom to top
   const validationSchema = yup.object(
@@ -126,9 +130,12 @@ const SignupRight = () => {
         }
       );
 
-      console.log("Response" + JSON.stringify(response.data));
-      console.log("Success");
+      // console.log("Response" + JSON.stringify(response.data));
+      // console.log("Success");
+
+      dispatch(setUser(response.data));
       dispatch(setLoading(false));
+      navigate("/");
     } catch (err) {
       dispatch(setLoading(false));
       dispatch(showError(err.response.data.error));

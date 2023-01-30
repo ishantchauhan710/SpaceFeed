@@ -4,35 +4,29 @@ import MuiAlert from "@mui/material/Alert";
 import { Backdrop, CircularProgress, CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeConfig } from "./config/themeConfig";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import { useSelector, useDispatch } from "react-redux";
-import { hideNotification } from "./states/slices/notificationSlice";
+import { hideNotification, showError } from "./states/slices/notificationSlice";
+import { setUser } from "./states/slices/userSlice";
+
 import ErrorPage from "./pages/error/ErrorPage";
 import HomePage from "./pages/home/HomePage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import axios from "axios";
+import { setLoading } from "./states/slices/loadingSlice";
 
 function App() {
   const themeData = themeConfig();
   const theme = createTheme(themeData);
   const dispatch = useDispatch();
-
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  const getLoggedInUser = async () => {
-    try {
-      const response = await axios.get("/api/user");
-      console.log("Success", response.data);
-    } catch (err) {
-      console.log("No cookie");
-    }
-  };
-
-  useEffect(() => {
-    getLoggedInUser();
-  }, []);
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -58,6 +52,34 @@ function App() {
   );
 
   const isLoading = useSelector((state) => state.loading.isLoading);
+
+  // Function to get the user details based on session id
+  const getUserDetails = async () => {
+    const urlAry = window.location.pathname.split("/");
+    const endpoint = urlAry[urlAry.length - 1];
+
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get("/api/user");
+      const user = response.data;
+      if (endpoint === "login" || endpoint === "signup") {
+        window.location.href = "/";
+      }
+      dispatch(setUser(user));
+      dispatch(setLoading(false));
+    } catch (err) {
+      // Logout user if error occurs in fetching user details
+      if (endpoint !== "login" && endpoint !== "signup") {
+        window.location.href = "/login";
+        dispatch(showError(err.response.data.error));
+      }
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
