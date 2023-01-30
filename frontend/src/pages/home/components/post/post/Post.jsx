@@ -28,8 +28,8 @@ const Post = ({ post }) => {
   return (
     <Box key={post} marginTop={2} style={{ textAlign: "left" }}>
       <PaperBox>
-        <PostHeader />
-        <PostBody />
+        <PostHeader post={post} />
+        <PostBody post={post} />
         <PostActions />
 
         <Box
@@ -40,9 +40,9 @@ const Post = ({ post }) => {
           paddingX={2}
           style={{ textAlign: "left" }}
         >
-          <Typography variant="h6" fontSize={14}>
+          {/* <Typography variant="h6" fontSize={14}>
             {expanded[post.id] ? "Show Comments" : "Comments:"}
-          </Typography>
+          </Typography> */}
           <ExpandMore
             expand={!expanded[post.id]}
             onClick={() => handlePostExpandClick(post.id)}

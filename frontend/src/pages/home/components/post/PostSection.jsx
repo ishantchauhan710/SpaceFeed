@@ -4,33 +4,7 @@ import PostSectionCreatePost from "./PostSectionCreatePost";
 import Post from "./post/Post";
 import PaperBox from "../../../../components/styled/PaperBox";
 
-const postList = [
-  {
-    id: 1,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 2,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 3,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 4,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 5,
-    title: "Post Title",
-    data: "Post Data",
-  },
-];
+const postList = [];
 
 const PostSection = () => {
   return (

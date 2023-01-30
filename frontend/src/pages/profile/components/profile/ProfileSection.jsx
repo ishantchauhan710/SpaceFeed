@@ -5,36 +5,33 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileSubHeader from "./ProfileSubHeader";
 import ProfileTabs from "./ProfileTabs";
 import Post from "../../../home/components/post/post/Post";
-
-const postList = [
-  {
-    id: 1,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 2,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 3,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 4,
-    title: "Post Title",
-    data: "Post Data",
-  },
-  {
-    id: 5,
-    title: "Post Title",
-    data: "Post Data",
-  },
-];
+import { useDispatch } from "react-redux";
+import { showError } from "../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/slices/loadingSlice";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const ProfileLeftSection = () => {
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
+
+  const getUserPosts = async () => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get("/api/myposts");
+      const postList = response.data.posts;
+      setPosts(postList);
+      console.log(JSON.stringify(postList))
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    getUserPosts();
+  }, []);
+
   return (
     <Box>
       <PaperBoxUnspaced>
@@ -44,8 +41,8 @@ const ProfileLeftSection = () => {
       </PaperBoxUnspaced>
 
       <Box marginTop={2}>
-        {postList.map((post, i) => (
-          <Post key={i} post={post} />
+        {posts && posts.length>0 && posts.map((post) => (
+          <Post key={post._id} post={post} />
         ))}
       </Box>
     </Box>

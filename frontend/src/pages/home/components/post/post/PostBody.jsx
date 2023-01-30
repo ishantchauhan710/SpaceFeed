@@ -1,23 +1,35 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 
-const PostBody = () => {
+const PostBody = ({ post }) => {
   return (
-    <Box paddingX={2} paddingBottom={1} style={{ textAlign: "left" }}>
-      <Typography>
-        Icons are also appropriate for toggle buttons that allow a single choice
-        to be selected or deselected, such as adding or removing a star to an
-        item
-      </Typography>
-      <img
-        alt="post"
-        style={{
-          width: "100%",
-          marginTop: "15px",
-          borderRadius: "5px",
-        }}
-        src="https://www.w3schools.com/css/img_forest.jpg"
-      />
+    <Box paddingBottom={1} style={{ textAlign: "left" }}>
+      <Box paddingX={2}>
+        {post.content && (
+          <Typography
+            paddingTop={2}
+            variant="h3"
+            fontWeight={400}
+            fontSize={18}
+          >
+            {post.content}
+          </Typography>
+        )}
+        {post.mediaLink && (
+          <img
+            alt="post"
+            style={{
+              width: "100%",
+              maxHeight: "800px",
+              marginTop: "15px",
+              borderRadius: "5px",
+              marginBottom: "15px",
+            }}
+            src={post.mediaLink}
+          />
+        )}
+      </Box>
+      <Divider />
     </Box>
   );
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Typography, Avatar, IconButton, Link } from "@mui/material";
-
+import { parsePostDate } from "../../../../../util/dateUtil";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostMenu from "./PostMenu";
 
-const PostHeader = () => {
+const PostHeader = ({ post }) => {
   const [postAnchorEl, setPostAnchorEl] = React.useState(null);
 
   return (
@@ -15,7 +15,7 @@ const PostHeader = () => {
       padding={1}
     >
       <Box style={{ cursor: "pointer" }}>
-        <Avatar />
+        <Avatar src={post.createdBy.profilePictureURL} />
       </Box>
       <Box
         flex={1}
@@ -33,11 +33,11 @@ const PostHeader = () => {
           fontSize={14}
           href="#"
         >
-          Ishant Chauhan
+          {post.createdBy.username}
         </Link>
 
         <Typography variant="h6" fontSize={13}>
-          3h ago
+          {parsePostDate(post.createdAt)}
         </Typography>
       </Box>
       <Box>

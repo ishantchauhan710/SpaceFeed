@@ -83,14 +83,28 @@ const PostSectionCreatePost = () => {
   const dispatch = useDispatch();
   const [postContent, setPostContent] = useState("");
 
-  const uploadPost = async () => {
-    if (!postContent || postContent.trim().length < 1) {
-      dispatch(showError("Post content cannot be blank"));
+  const uploadPost = async (content, file) => {
+    if (
+      (!content || content.trim().length < 1) &&
+      (!file)
+    ) {
+      dispatch(
+        showError("Post should contain either some text or a media file")
+      );
       return;
     }
+
     try {
       dispatch(setLoading(true));
-      const post = await axios.post("/api/post", { content: postContent });
+      const post = await axios.post(
+        "/api/post",
+        { content: postContent, media: file },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       dispatch(setLoading(false));
       dispatch(showSuccess("Post uploaded successfully"));
     } catch (err) {
@@ -137,7 +151,7 @@ const PostSectionCreatePost = () => {
         </Box>
         <Box>
           <Button
-            onClick={() => uploadPost()}
+            onClick={() => uploadPost(postContent)}
             variant="contained"
             disableElevation
           >
@@ -148,6 +162,8 @@ const PostSectionCreatePost = () => {
       <UploadPhotoModal
         open={showUploadPhotoModal}
         setOpen={setShowUploadPhotoModal}
+        postContent={postContent}
+        uploadPost={uploadPost}
       />
       <UploadVideoModal
         open={showUploadVideoModal}

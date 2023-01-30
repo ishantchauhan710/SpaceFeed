@@ -427,7 +427,6 @@ const SignupRight = () => {
               id="signupProfileImagePicker"
               hidden
               accept="image/*"
-              multiple
               type="file"
               name="picture"
               onChange={(e) => setPicture(e.target.files[0])}

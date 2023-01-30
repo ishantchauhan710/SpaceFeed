@@ -9,12 +9,29 @@ import {
   TextField,
   Avatar,
 } from "@mui/material/";
+import { useDispatch } from "react-redux";
+import { showError } from "../../../../states/slices/notificationSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useState } from "react";
 
-const UploadPhotoModal = ({ open, setOpen }) => {
+const UploadPhotoModal = ({ open, setOpen, postContent, uploadPost }) => {
+  const [postPicture, setPostPicture] = useState(null);
+
+  const dispatch = useDispatch();
+
   const handleClose = () => {
+    setPostPicture();
     setOpen(false);
+  };
+
+  const handleUpload = () => {
+    if (postPicture === null) {
+      dispatch(showError("Please select an image"));
+      return;
+    }
+    handleClose();
+    uploadPost(postContent, postPicture);
   };
 
   return (
@@ -49,6 +66,9 @@ const UploadPhotoModal = ({ open, setOpen }) => {
         <Divider />
         <Box padding={2}>
           <Box
+            onClick={() => {
+              document.getElementById("postImagePicker").click();
+            }}
             sx={{
               display: "flex",
               alignItems: "center",
@@ -62,8 +82,16 @@ const UploadPhotoModal = ({ open, setOpen }) => {
           >
             <CameraAltIcon sx={{ width: 60, height: 60 }} />
             <Typography variant="h6" fontSize={15}>
-              Click here to upload an image
+              {postPicture ? "Image Selected" : "Click here to upload an image"}
             </Typography>
+            <input
+              type="file"
+              hidden
+              id="postImagePicker"
+              accept="image/*"
+              name="media"
+              onChange={(e) => setPostPicture(e.target.files[0])}
+            />
           </Box>
           <Box
             paddingTop={2}
@@ -76,10 +104,18 @@ const UploadPhotoModal = ({ open, setOpen }) => {
               color="error"
               variant="outlined"
               disableElevation
+              onClick={handleClose}
             >
               Cancel
             </Button>
-            <Button color="primary" variant="contained" disableElevation>
+            <Button
+              onClick={() => {
+                handleUpload();
+              }}
+              color="primary"
+              variant="contained"
+              disableElevation
+            >
               Upload
             </Button>
           </Box>

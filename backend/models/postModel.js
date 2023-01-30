@@ -9,8 +9,7 @@ const PostSchema = new Schema(
     },
     content: {
       type: String,
-      required: true,
-      unique: true,
+      required: false,
       trim: true,
     },
     mediaLink: {
