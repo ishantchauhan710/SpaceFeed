@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import generateBanner from "../../../../other/generateBanner";
 const ProfileSectionHeader = () => {
   const user = useSelector((state) => state.user.user);
 
@@ -13,7 +14,7 @@ const ProfileSectionHeader = () => {
           height="100px"
           style={{ borderRadius: 2 }}
           alt="cover"
-          src="https://i.pinimg.com/originals/28/35/be/2835be38b5274a4b20155999a7613542.jpg"
+          src={generateBanner(user.profileBanner)}
         />
         <div>
           <img
