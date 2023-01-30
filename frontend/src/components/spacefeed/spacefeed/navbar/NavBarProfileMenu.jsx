@@ -34,6 +34,11 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
     }
   };
 
+  const openProfilePage = () => {
+    handleClose();
+    navigate("/profile");
+  };
+
   return (
     <Menu
       anchorEl={anchorEl}
@@ -71,7 +76,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={() => openProfilePage()}>
         <Box
           style={{
             display: "flex",

@@ -4,7 +4,7 @@ const PostModel = require("../../models/postModel");
 const createPostController = async (req, res, next) => {
   const { content } = req.body;
   const postOwner = req.session.userId;
-  const mediaUrl = req.file.publicUrl ? req.file.publicUrl : "";
+  const mediaUrl = req.file ? req.file.publicUrl : "";
 
   try {
     if (!postOwner) {

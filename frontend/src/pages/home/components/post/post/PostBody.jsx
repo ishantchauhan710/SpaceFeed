@@ -29,7 +29,7 @@ const PostBody = ({ post }) => {
           />
         )}
       </Box>
-      <Divider />
+      <Divider style={{marginTop: "15px"}} />
     </Box>
   );
 };
