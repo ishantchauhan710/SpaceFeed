@@ -6,12 +6,32 @@ import Divider from "@mui/material/Divider";
 import DescriptionIcon from "@mui/icons-material/Description";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { showError } from "../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/slices/loadingSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logoutUser = async () => {
+    handleClose();
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post("/api/logout");
+      dispatch(setLoading(false));
+      navigate("/login");
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
   };
 
   return (
@@ -100,7 +120,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
         </ListItemIcon>
         Documentation
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={() => logoutUser()}>
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>
