@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   InputBase,
@@ -7,8 +8,8 @@ import {
   InputLabel,
   Grid,
 } from "@mui/material";
-import React from "react";
-
+import { useSelector } from "react-redux";
+import parseGender from "../../../../../other/parseGender";
 const StyledLabelInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
     marginTop: theme.spacing(3),
@@ -45,6 +46,7 @@ const StyledLabelInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const AboutTab = () => {
+  const user = useSelector((state) => state.user.user);
   return (
     <Box padding={2}>
       <Box display="flex" alignItems="flex-start" flexDirection="column">
@@ -52,7 +54,7 @@ const AboutTab = () => {
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Email
           </InputLabel>
-          <StyledLabelInput />
+          <StyledLabelInput value={user.email} />
         </FormControl>
 
         <FormControl
@@ -62,7 +64,7 @@ const AboutTab = () => {
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Birthday
           </InputLabel>
-          <StyledLabelInput />
+          <StyledLabelInput value={user.dob} />
         </FormControl>
 
         <FormControl
@@ -72,7 +74,7 @@ const AboutTab = () => {
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Gender
           </InputLabel>
-          <StyledLabelInput />
+          <StyledLabelInput value={parseGender(user.gender)} />
         </FormControl>
 
         <FormControl
@@ -82,18 +84,20 @@ const AboutTab = () => {
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Country
           </InputLabel>
-          <StyledLabelInput />
+          <StyledLabelInput value={user.country} />
         </FormControl>
 
-        <FormControl
-          style={{ width: "100%", marginTop: "15px" }}
-          variant="standard"
-        >
-          <InputLabel sx={{ fontSize: 17 }} shrink>
-            Phone Number
-          </InputLabel>
-          <StyledLabelInput />
-        </FormControl>
+        {user.phone && (
+          <FormControl
+            style={{ width: "100%", marginTop: "15px" }}
+            variant="standard"
+          >
+            <InputLabel sx={{ fontSize: 17 }} shrink>
+              Phone Number
+            </InputLabel>
+            <StyledLabelInput value={user.phone} />
+          </FormControl>
+        )}
       </Box>
     </Box>
   );

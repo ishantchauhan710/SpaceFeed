@@ -13,7 +13,7 @@ import PaperBoxUnspaced from "../../../../components/styled/PaperBoxUnspaced";
 const ProfileSection = () => {
 
   return (
-    <Box>
+    <Box sx={{width: "100%"}}>
       <PaperBoxUnspaced elevation={1}>
         <ProfileSectionHeader />
         <ProfileSectionStats />

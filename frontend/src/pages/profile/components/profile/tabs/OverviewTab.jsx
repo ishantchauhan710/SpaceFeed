@@ -1,7 +1,10 @@
 import { alpha, Box, TextField } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const OverviewTab = () => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <Box paddingX={1} paddingY={2}>
       <TextField
@@ -12,11 +15,12 @@ const OverviewTab = () => {
         InputProps={{
           sx: {
             fontSize: 14.5,
-            backgroundColor: (theme) => alpha(theme.palette.secondary.main,0.05),
+            backgroundColor: (theme) =>
+              alpha(theme.palette.secondary.main, 0.05),
             color: (theme) => theme.palette.grey[900],
             padding: 1,
             borderRadius: 2,
-            fontWeight: 300
+            fontWeight: 300,
           },
         }}
         sx={{
@@ -26,7 +30,7 @@ const OverviewTab = () => {
             },
           },
         }}
-        value="Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as adding or removing a star to an item. Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as adding or removing a star to an item."
+        value={user.description}
       />
     </Box>
   );

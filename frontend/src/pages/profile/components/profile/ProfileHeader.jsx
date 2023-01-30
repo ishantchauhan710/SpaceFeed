@@ -1,19 +1,24 @@
 import React from "react";
 import ShareIcon from "@mui/icons-material/Share";
 import { Box, Fab, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import generateBanner from "../../../../other/generateBanner";
+import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 
 const ProfileHeader = () => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <Box>
       <Box>
         <img
           style={{
             width: "100%",
-            height: 180,
+            height: 170,
             borderRadius: "5px 5px 0px 0px",
             objectFit: "cover",
           }}
-          src="https://cdn.pixabay.com/photo/2016/09/29/13/08/planet-1702788__340.jpg"
+          src={generateBanner(user.profileBanner)}
         />
       </Box>
       <Box
@@ -31,14 +36,18 @@ const ProfileHeader = () => {
             marginTop: "-60px",
             marginLeft: "10px",
           }}
-          src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+          src={
+            user.profilePictureURL
+              ? user.profilePictureURL
+              : PROFILE_PICTURE_PLACEHOLDER
+          }
         />
         <Box marginLeft={2} paddingY={1} textAlign="left">
           <Typography variant="h1" fontWeight={600} fontSize={21}>
-            Ishant Chauhan
+            {user.username}
           </Typography>
           <Typography variant="h6" fontSize={15}>
-            @ishantchauhan710
+            {user.email}
           </Typography>
         </Box>
         <Box

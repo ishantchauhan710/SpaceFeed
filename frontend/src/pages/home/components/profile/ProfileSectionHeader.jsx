@@ -37,11 +37,10 @@ const ProfileSectionHeader = () => {
       </div>
       <Box style={{ padding: "0px 10px 10px 10px" }}>
         <Typography variant="h2" marginTop={1} fontSize={20} fontWeight={600}>
-          Ishant Chauhan
+          {user.username}
         </Typography>
         <Typography variant="h6" marginTop={1} fontSize={13}>
-          Hello! I am the developer of SpaceFeed! Do checkout the github
-          repository of this project!
+          {user.description}
         </Typography>
       </Box>
     </div>
