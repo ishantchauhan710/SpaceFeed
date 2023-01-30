@@ -1,5 +1,4 @@
 const express = require("express");
-
 const authMiddleware = require("../middlewares/authMiddleware");
 const suggestedUsersController = require("../controllers/user/suggestedUsersController");
 const toggleUserFollowController = require("../controllers/user/toggleUserFollowController");

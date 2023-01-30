@@ -4,6 +4,13 @@ import { FcCompactCamera, FcVideoCall, FcCalendar } from "react-icons/fc";
 import UploadPhotoModal from "../../../../components/spacefeed/spacefeed/modal/UploadPhotoModal";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import UploadVideoModal from "../../../../components/spacefeed/spacefeed/modal/UploadVideoModal";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../../states/slices/loadingSlice";
+import {
+  showError,
+  showSuccess,
+} from "../../../../states/slices/notificationSlice";
+import axios from "axios";
 
 const POST_TYPE_LIST_ICON_SIZE = 21;
 
@@ -73,6 +80,25 @@ const PostSectionCreatePost = () => {
     },
   ];
 
+  const dispatch = useDispatch();
+  const [postContent, setPostContent] = useState("");
+
+  const uploadPost = async () => {
+    if (!postContent || postContent.trim().length < 1) {
+      dispatch(showError("Post content cannot be blank"));
+      return;
+    }
+    try {
+      dispatch(setLoading(true));
+      const post = await axios.post("/api/post", { content: postContent });
+      dispatch(setLoading(false));
+      dispatch(showSuccess("Post uploaded successfully"));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <Box padding={1}>
       <Box display="flex" alignItems="flex-start">
@@ -93,6 +119,8 @@ const PostSectionCreatePost = () => {
             InputProps={{
               disableUnderline: true,
             }}
+            value={postContent}
+            onChange={(e) => setPostContent(e.target.value)}
           />
         </Box>
       </Box>
@@ -108,7 +136,11 @@ const PostSectionCreatePost = () => {
           ))}
         </Box>
         <Box>
-          <Button variant="contained" disableElevation>
+          <Button
+            onClick={() => uploadPost()}
+            variant="contained"
+            disableElevation
+          >
             Post
           </Button>
         </Box>

@@ -9,6 +9,7 @@ const { default: mongoose } = require("mongoose");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/postRoutes");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -34,6 +35,7 @@ app.use(
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", postRoutes);
 
 app.use((req, res, next) => {
   next(createHttpError(404, "URL not found"));
