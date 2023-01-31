@@ -40,7 +40,13 @@ const PostActionButton = ({
     </Box>
   );
 };
-const PostActions = ({ post, user, postLiked, setPostLiked }) => {
+const PostActions = ({
+  post,
+  user,
+  postLiked,
+  setPostLiked,
+  setShowCommentModal,
+}) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -97,17 +103,22 @@ const PostActions = ({ post, user, postLiked, setPostLiked }) => {
                 }}
               />
             }
-            iconAction={() => togglePostLike(post._id)}
             labelAction={() => {
               if (post.likedBy.length > 0) {
                 setShowLikesModal(true);
               }
             }}
+            iconAction={() => togglePostLike(post._id)}
             postLiked={postLiked}
           />
         </Grid>
         <Grid item>
-          <PostActionButton label="Comment" icon={<CommentIcon />} />
+          <PostActionButton
+            label="Comment"
+            icon={<CommentIcon />}
+            iconAction={() => setShowCommentModal(true)}
+            labelAction={() => setShowCommentModal(true)}
+          />
         </Grid>
         <Grid item>
           <PostActionButton label="Share" icon={<ShareIcon />} />

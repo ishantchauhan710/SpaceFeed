@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PaperBox from "../../../../../components/styled/PaperBox";
 import { useEffect } from "react";
+import CommentModal from "../../../../../components/spacefeed/spacefeed/modal/CommentModal";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,6 +31,7 @@ const ExpandMore = styled((props) => {
 const Post = ({ post }) => {
   const [expanded, setExpanded] = React.useState({});
   const [postLiked, setPostLiked] = React.useState(false);
+  const [showCommentModal, setShowCommentModal] = React.useState(false);
 
   const handlePostExpandClick = (id) => {
     setExpanded((prevState) => ({ ...prevState, [id]: !prevState[id] }));
@@ -55,6 +57,7 @@ const Post = ({ post }) => {
           user={user}
           postLiked={postLiked}
           setPostLiked={setPostLiked}
+          setShowCommentModal={setShowCommentModal}
         />
 
         <Box
@@ -81,6 +84,12 @@ const Post = ({ post }) => {
           </Box>
         </Collapse>
       </PaperBox>
+      <CommentModal
+        post={post}
+        open={showCommentModal}
+        setOpen={setShowCommentModal}
+        label="Comment"
+      />
     </Box>
   );
 };

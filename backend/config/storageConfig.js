@@ -30,6 +30,6 @@ const imageStorageConfig = Multer({
       );
     }
   },
-});
+}); 
 
 module.exports = { imageStorageConfig };
