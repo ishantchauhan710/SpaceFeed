@@ -97,8 +97,7 @@ const signupController = async (req, res, next) => {
 
     // Check if user exists
     const userExists = await UserModel.findOne({ email: email })
-      .select("+email")
-      .exec();
+    .exec();
 
     if (userExists) {
       throw new createHttpError(401, "Email already taken");
@@ -126,7 +125,7 @@ const signupController = async (req, res, next) => {
     });
 
     req.session.userId = newUser._id;
-    res.status(201).json(newUser);
+    res.sendStatus(201);
   } catch (err) {
     if (err.errors && err.errors[0]) {
       //console.log(err.errors[0]);

@@ -4,7 +4,12 @@ const suggestedUsersController = require("../controllers/user/suggestedUsersCont
 const toggleUserFollowController = require("../controllers/user/toggleUserFollowController");
 const router = express.Router();
 
-router.get("/suggested", authMiddleware, suggestedUsersController);
-router.post("/follow", authMiddleware, toggleUserFollowController);
+// @POST
+// @desc Follow and unfollow
+router.post("/user/follow", authMiddleware, toggleUserFollowController);
+
+// @GET
+// @desc Suggest users to follow
+router.get("/user/suggested", authMiddleware, suggestedUsersController);
 
 module.exports = router;

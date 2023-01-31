@@ -7,16 +7,23 @@ const togglePostLikeController = async (req, res, next) => {
   const userId = req.session.userId;
   const { postId } = req.body;
   try {
+    if (!postId) {
+      throw new createHttpError("Post ID cannot be blank");
+    }
+
     const post = await PostModel.findById(postId);
     const likes = post.likedBy;
+    let action;
 
     let updatedLikes;
     if (likes.includes(userId)) {
       // Unlike Post
       updatedLikes = likes.filter((item) => item != userId);
+      action = "unlike";
     } else {
       // Like Post
       updatedLikes = [userId, ...likes];
+      action = "like";
     }
 
     if (updatedLikes === [null]) {
@@ -26,7 +33,7 @@ const togglePostLikeController = async (req, res, next) => {
     post.likedBy = updatedLikes;
     await post.save();
 
-    return res.status(201).json({ post: post });
+    return res.status(200).json({ action: action });
   } catch (err) {
     next(err);
   }

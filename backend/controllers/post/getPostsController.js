@@ -2,7 +2,7 @@ const createHttpError = require("http-errors");
 const UserModel = require("../../models/userModel");
 const PostModel = require("../../models/postModel");
 
-const getPostsOfUser = async (req, res, next) => {
+const getPosts = async (req, res, next) => {
   try {
     const userId = req.session.userId;
     let posts = await PostModel.find({
@@ -15,7 +15,7 @@ const getPostsOfUser = async (req, res, next) => {
   }
 };
 
-const getPostsOfUserFollowings = async (req, res, next) => {
+const getFeed = async (req, res, next) => {
   const userId = req.session.userId;
   try {
     const user = await UserModel.findById(userId);
@@ -47,4 +47,4 @@ const getPostsOfUserFollowings = async (req, res, next) => {
   }
 };
 
-module.exports = { getPostsOfUser, getPostsOfUserFollowings };
+module.exports = { getPosts, getFeed };

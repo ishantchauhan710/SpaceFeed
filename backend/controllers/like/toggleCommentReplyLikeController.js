@@ -5,18 +5,27 @@ const CommentReplyModel = require("../../models/commentReplyModel");
 // Function to like or unlike a comment reply
 const toggleCommentReplyLikeController = async (req, res, next) => {
   const userId = req.session.userId;
-  const { commentReplyId } = req.body;
+  const { replyId } = req.body;
   try {
-    const commentReply = await CommentReplyModel.findById(commentReplyId);
+    if (!replyId) {
+      throw new createHttpError(400, "Reply Id cannot be null");
+    }
+    const commentReply = await CommentReplyModel.findById(replyId);
+    if (!commentReply) {
+      throw new createHttpError(400, "Comment reply not found");
+    }
     const likes = commentReply.likedBy;
 
     let updatedLikes;
+    let action;
     if (likes.includes(userId)) {
       // Unlike Comment Reply
       updatedLikes = likes.filter((item) => item != userId);
+      action = "unlike";
     } else {
       // Like Comment Reply
       updatedLikes = [userId, ...likes];
+      action = "like";
     }
 
     if (updatedLikes === [null]) {
@@ -26,7 +35,7 @@ const toggleCommentReplyLikeController = async (req, res, next) => {
     commentReply.likedBy = updatedLikes;
     await commentReply.save();
 
-    return res.status(201).json({ commentReply: commentReply });
+    return res.status(200).json({ action: action });
   } catch (err) {
     next(err);
   }

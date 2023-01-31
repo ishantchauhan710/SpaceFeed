@@ -1,40 +1,30 @@
 const express = require("express");
 const createPostController = require("../controllers/post/createPostController");
 const getPostsController = require("../controllers/post/getPostsController");
-const { imageStorageConfig } = require("../config/storageConfig");
+const storageConfig = require("../config/storageConfig");
 const authMiddleware = require("../middlewares/authMiddleware");
-const togglePostLikeController = require("../controllers/post/togglePostLikeController");
-const commentPostController = require("../controllers/post/commentPostController");
-const toggleCommentLikeController = require("../controllers/post/toggleCommentLikeController");
-const commentReplyController = require("../controllers/post/commentReplyController");
-const toggleCommentReplyLikeController = require("../controllers/post/toggleCommentReplyLikeController");
-const getCommentsOnPostController = require("../controllers/post/getCommentsOnPostController");
 const router = express.Router();
 
+
+// @POST
+// @desc Upload Post
 router.post(
-  "/post",
+  "/posts/create",
   authMiddleware,
-  imageStorageConfig.single("media"),
+  storageConfig.single("media"),
   createPostController
 );
-router.get("/myposts", authMiddleware, getPostsController.getPostsOfUser);
+
+// @GET
+// @desc Get posts [Posts created by user]
+router.get("/posts/:id", authMiddleware, getPostsController.getPosts);
+
+// @GET
+// @desc Get feed [Posts created by followings]
 router.get(
-  "/posts",
+  "/posts/feed",
   authMiddleware,
-  getPostsController.getPostsOfUserFollowings
-);
-router.post("/like", authMiddleware, togglePostLikeController);
-
-router.post("/comment", authMiddleware, commentPostController);
-router.get("/comment/:id", authMiddleware, getCommentsOnPostController);
-
-router.post("/comment/like", authMiddleware, toggleCommentLikeController);
-
-router.post("/comment/reply", authMiddleware, commentReplyController);
-router.post(
-  "/comment/reply/like",
-  authMiddleware,
-  toggleCommentReplyLikeController
+  getPostsController.getFeed
 );
 
 module.exports = router;

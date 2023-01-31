@@ -11,19 +11,22 @@ const commentReplyController = async (req, res, next) => {
     }
 
     if (!commentId) {
-      throw new createHttpError(400, "Comment ID is required");
+      throw new createHttpError(400, "Comment Id is required");
     }
 
-    if ((!content || content.trim().length < 1) && !mediaUrl) {
+    if (!content || content.trim().length < 1) {
       throw new createHttpError(400, "Comment reply cannot be blank");
     }
 
-    const commentReply = await CommentReplyModel.create({
+    let commentReply = await CommentReplyModel.create({
       replyBy: userId,
       comment: commentId,
       content: content,
       likedBy: [],
     });
+
+    commentReply = await commentReply.populate("replyBy");
+
     res.status(201).json({ reply: commentReply });
   } catch (err) {
     next(err);

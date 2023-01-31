@@ -5,7 +5,7 @@ const fbAdmin = require("firebase-admin");
 const serviceAccount = require("../../secrets/spacefeed_firebase.json");
 const { generateRandom } = require("../util/randomUtil");
 
-const imageStorageConfig = Multer({
+const storageConfig = Multer({
   storage: FirebaseStorage({
     bucketName: process.env.FIREBASE_STORAGE_BUCKET,
     credentials: fbAdmin.credential.cert(serviceAccount),
@@ -30,6 +30,6 @@ const imageStorageConfig = Multer({
       );
     }
   },
-}); 
+});
 
-module.exports = { imageStorageConfig };
+module.exports = storageConfig;

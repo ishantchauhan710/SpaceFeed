@@ -3,13 +3,15 @@ dotenv.config();
 
 const express = require("express");
 const createHttpError = require("http-errors");
-
 const port = process.env.PORT;
 const { default: mongoose } = require("mongoose");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
+const likeRoutes = require("./routes/likeRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const commentReplyRoutes = require("./routes/commentReplyRoutes");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -36,6 +38,10 @@ app.use(
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", postRoutes);
+app.use("/api", likeRoutes);
+app.use("/api", commentRoutes);
+app.use("/api", commentReplyRoutes);
+
 
 app.use((req, res, next) => {
   next(createHttpError(404, "URL not found"));

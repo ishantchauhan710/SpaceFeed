@@ -11,19 +11,21 @@ const commentPostController = async (req, res, next) => {
     }
 
     if (!postId) {
-      throw new createHttpError(400, "Post ID is required");
+      throw new createHttpError(400, "Post Id cannot be null");
     }
 
-    if ((!content || content.trim().length < 1) && !mediaUrl) {
+    if (!content || content.trim().length < 1) {
       throw new createHttpError(400, "Comment cannot be blank");
     }
 
-    const comment = await CommentModel.create({
+    let comment = await CommentModel.create({
       commentedBy: userId,
       post: postId,
       content: content,
       likedBy: [],
     });
+
+    comment = await comment.populate("commentedBy");
     res.status(201).json({ comment: comment });
   } catch (err) {
     next(err);

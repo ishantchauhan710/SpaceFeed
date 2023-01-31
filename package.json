@@ -26,5 +26,9 @@
     "multer-firebase-storage": "^4.1.2",
     "nodemon": "^2.0.20",
     "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.32.2"
   }
 }

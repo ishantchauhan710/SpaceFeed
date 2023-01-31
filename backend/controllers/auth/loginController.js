@@ -35,7 +35,7 @@ const loginController = async (req, res, next) => {
     }
 
     req.session.userId = user._id;
-    res.status(201).json(user);
+    res.sendStatus(201);
   } catch (err) {
     if (err.errors && err.errors[0]) {
       next(createHttpError(401, err.errors[0]));
