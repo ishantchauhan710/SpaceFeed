@@ -15,7 +15,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useState } from "react";
 
-const UploadPhotoModal = ({ open, setOpen, postContent, uploadPost }) => {
+const UploadPhotoModal = ({
+  open,
+  setOpen,
+  postContent,
+  setPostContent,
+  uploadPost,
+}) => {
   const [postPicture, setPostPicture] = useState(null);
 
   const dispatch = useDispatch();
@@ -31,7 +37,7 @@ const UploadPhotoModal = ({ open, setOpen, postContent, uploadPost }) => {
       return;
     }
     handleClose();
-    uploadPost(postContent, postPicture);
+    uploadPost(postContent, setPostContent, postPicture);
   };
 
   return (

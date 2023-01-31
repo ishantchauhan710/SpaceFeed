@@ -73,7 +73,7 @@ const PostSectionCreatePost = () => {
 
   const [postContent, setPostContent] = useState("");
 
-  const uploadPost = async (content, file) => {
+  const uploadPost = async (content, setContent, file) => {
     if ((!content || content.trim().length < 1) && !file) {
       dispatch(
         showError("Post should contain either some text or a media file")
@@ -92,6 +92,7 @@ const PostSectionCreatePost = () => {
           },
         }
       );
+      setContent("");
       dispatch(setLoading(false));
       dispatch(showSuccess("Post uploaded successfully"));
     } catch (err) {
@@ -178,7 +179,7 @@ const PostSectionCreatePost = () => {
           </Box>
 
           <Button
-            onClick={() => uploadPost(postContent)}
+            onClick={() => uploadPost(postContent, setPostContent)}
             variant="contained"
             disableElevation
           >
@@ -190,6 +191,7 @@ const PostSectionCreatePost = () => {
         open={showUploadPhotoModal}
         setOpen={setShowUploadPhotoModal}
         postContent={postContent}
+        setPostContent={setPostContent}
         uploadPost={uploadPost}
       />
     </Box>

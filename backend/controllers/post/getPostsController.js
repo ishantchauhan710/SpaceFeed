@@ -23,16 +23,25 @@ const getPostsOfUserFollowings = async (req, res, next) => {
 
     let posts = [];
 
+    // Get posts of user
+    let userPostList = await PostModel.find({
+      createdBy: userId,
+    }).populate("createdBy");
+    posts = [...userPostList, ...posts];
+
+    // Get posts of followings
     for (let i in followings) {
-      //console.log("Following: ", followings[i]);
       const postList = await PostModel.find({
         createdBy: followings[i],
       }).populate("createdBy");
       posts = [...postList, ...posts];
     }
 
-    //console.log(posts);
-    res.status(201).json({ posts: posts });
+    const sortedPosts = posts.sort((i, j) => {
+      return new Date(j.createdAt) - new Date(i.createdAt);
+    });
+
+    res.status(201).json({ posts: sortedPosts });
   } catch (err) {
     next(err);
   }
