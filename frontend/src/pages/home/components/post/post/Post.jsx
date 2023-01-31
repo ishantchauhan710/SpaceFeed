@@ -3,10 +3,18 @@ import PostHeader from "./PostHeader";
 import PostBody from "./PostBody";
 import PostActions from "./PostActions";
 import PostComment from "./PostComment";
-import { Box, styled, Typography, IconButton, Collapse, Divider } from "@mui/material";
-
+import {
+  Box,
+  styled,
+  Typography,
+  IconButton,
+  Collapse,
+  Divider,
+} from "@mui/material";
+import { useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PaperBox from "../../../../../components/styled/PaperBox";
+import { useEffect } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -21,16 +29,32 @@ const ExpandMore = styled((props) => {
 
 const Post = ({ post }) => {
   const [expanded, setExpanded] = React.useState({});
+  const [postLiked, setPostLiked] = React.useState(false);
 
   const handlePostExpandClick = (id) => {
     setExpanded((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
+
+  const user = useSelector((state) => state.user.user);
+  const checkIfPostLiked = () => {
+    const result = post.likedBy.includes(user._id)
+    setPostLiked(result);
+  };
+
+  useEffect(() => {
+    checkIfPostLiked();
+  }, []);
+
   return (
     <Box key={post} marginTop={2} style={{ textAlign: "left" }}>
       <PaperBox>
         <PostHeader post={post} />
         <PostBody post={post} />
-        <PostActions />
+        <PostActions
+          post={post}
+          postLiked={postLiked}
+          setPostLiked={setPostLiked}
+        />
 
         <Box
           display="flex"

@@ -3,6 +3,7 @@ const createPostController = require("../controllers/post/createPostController")
 const getPostsController = require("../controllers/post/getPostsController");
 const { imageStorageConfig } = require("../config/storageConfig");
 const authMiddleware = require("../middlewares/authMiddleware");
+const togglePostLikeController = require("../controllers/post/togglePostLikeController");
 const router = express.Router();
 
 router.post(
@@ -17,5 +18,6 @@ router.get(
   authMiddleware,
   getPostsController.getPostsOfUserFollowings
 );
+router.post("/like", authMiddleware, togglePostLikeController);
 
 module.exports = router;
