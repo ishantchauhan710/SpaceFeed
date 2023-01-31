@@ -11,28 +11,30 @@ const getPostsOfUser = async (req, res, next) => {
 
     res.status(201).json({ posts: posts });
   } catch (err) {
-    next(err.response.data.error);
+    next(err);
   }
 };
 
 const getPostsOfUserFollowings = async (req, res, next) => {
+  const userId = req.session.userId;
   try {
-    const userId = req.session._id;
-    const user = await UserModel.findByid(userId);
+    const user = await UserModel.findById(userId);
     const followings = user.followings;
 
     let posts = [];
 
-    followings.forEach(async (followingId) => {
+    for (let i in followings) {
+      //console.log("Following: ", followings[i]);
       const postList = await PostModel.find({
-        createdBy: followingId,
-      });
+        createdBy: followings[i],
+      }).populate("createdBy");
       posts = [...postList, ...posts];
-    });
+    }
 
+    //console.log(posts);
     res.status(201).json({ posts: posts });
   } catch (err) {
-    next(err.response.data.error);
+    next(err);
   }
 };
 

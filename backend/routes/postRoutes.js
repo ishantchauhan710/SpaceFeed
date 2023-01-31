@@ -12,5 +12,10 @@ router.post(
   createPostController
 );
 router.get("/myposts", authMiddleware, getPostsController.getPostsOfUser);
+router.get(
+  "/posts",
+  authMiddleware,
+  getPostsController.getPostsOfUserFollowings
+);
 
 module.exports = router;

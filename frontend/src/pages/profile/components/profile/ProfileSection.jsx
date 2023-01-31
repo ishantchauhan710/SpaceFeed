@@ -24,6 +24,7 @@ const ProfileLeftSection = () => {
       console.log(JSON.stringify(postList))
       dispatch(setLoading(false));
     } catch (err) {
+      dispatch(showError(err.response.data.error))
       dispatch(setLoading(false));
     }
   };
