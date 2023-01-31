@@ -19,12 +19,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ImageIcon from "@mui/icons-material/Image";
 
-const PostLikedUsersModal = ({ open, setOpen }) => {
+const PostLikedUsersModal = ({ open, setOpen, likedByList }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const likedByList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   return (
     <Dialog
@@ -64,15 +62,15 @@ const PostLikedUsersModal = ({ open, setOpen }) => {
             }}
           >
             <List sx={{ bgcolor: "background.paper" }}>
-              {likedByList.map((item, i) => (
-                <ListItem key={i} disablePadding>
+              {likedByList.map((likedUser) => (
+                <ListItem key={likedUser._id} disablePadding>
                   <ListItemButton>
                     <ListItemAvatar>
-                      <Avatar />
+                      <Avatar src={likedUser.profilePictureURL} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary="Ishant Chauhan"
-                      secondary="ishantchauhan@spacefeed.com"
+                      primary={likedUser.username}
+                      secondary={likedUser.email}
                     />
                   </ListItemButton>
                 </ListItem>
@@ -89,6 +87,7 @@ const PostLikedUsersModal = ({ open, setOpen }) => {
               color="primary"
               variant="outlined"
               disableElevation
+              onClick={() => handleClose()}
             >
               Close
             </Button>

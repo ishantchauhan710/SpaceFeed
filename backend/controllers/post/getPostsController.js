@@ -7,7 +7,7 @@ const getPostsOfUser = async (req, res, next) => {
     const userId = req.session.userId;
     let posts = await PostModel.find({
       createdBy: userId,
-    }).populate("createdBy");
+    }).populate("createdBy likedBy");
 
     res.status(201).json({ posts: posts });
   } catch (err) {
@@ -26,14 +26,14 @@ const getPostsOfUserFollowings = async (req, res, next) => {
     // Get posts of user
     let userPostList = await PostModel.find({
       createdBy: userId,
-    }).populate("createdBy");
+    }).populate("createdBy likedBy");
     posts = [...userPostList, ...posts];
 
     // Get posts of followings
     for (let i in followings) {
       const postList = await PostModel.find({
         createdBy: followings[i],
-      }).populate("createdBy");
+      }).populate("createdBy likedBy");
       posts = [...postList, ...posts];
     }
 

@@ -37,8 +37,8 @@ const Post = ({ post }) => {
 
   const user = useSelector((state) => state.user.user);
   const checkIfPostLiked = () => {
-    const result = post.likedBy.includes(user._id)
-    setPostLiked(result);
+    const result = post.likedBy.find((item) => item._id === user._id);
+    setPostLiked(result !== undefined);
   };
 
   useEffect(() => {
@@ -52,6 +52,7 @@ const Post = ({ post }) => {
         <PostBody post={post} />
         <PostActions
           post={post}
+          user={user}
           postLiked={postLiked}
           setPostLiked={setPostLiked}
         />

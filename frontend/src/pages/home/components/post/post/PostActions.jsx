@@ -40,7 +40,7 @@ const PostActionButton = ({
     </Box>
   );
 };
-const PostActions = ({ post, postLiked, setPostLiked }) => {
+const PostActions = ({ post, user, postLiked, setPostLiked }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -52,10 +52,10 @@ const PostActions = ({ post, postLiked, setPostLiked }) => {
       return;
     }
     setPostLiked(!postLiked);
-    if (postLiked===true) {
-      post.likedBy.length -= 1;
+    if (postLiked === true) {
+      post.likedBy.pop(user);
     } else {
-      post.likedBy.length += 1;
+      post.likedBy.push(user);
     }
 
     try {
@@ -98,7 +98,11 @@ const PostActions = ({ post, postLiked, setPostLiked }) => {
               />
             }
             iconAction={() => togglePostLike(post._id)}
-            labelAction={() => setShowLikesModal(true)}
+            labelAction={() => {
+              if (post.likedBy.length > 0) {
+                setShowLikesModal(true);
+              }
+            }}
             postLiked={postLiked}
           />
         </Grid>
@@ -109,7 +113,11 @@ const PostActions = ({ post, postLiked, setPostLiked }) => {
           <PostActionButton label="Share" icon={<ShareIcon />} />
         </Grid>
       </Grid>
-      <PostLikedUsersModal open={showLikesModal} setOpen={setShowLikesModal} />
+      <PostLikedUsersModal
+        open={showLikesModal}
+        setOpen={setShowLikesModal}
+        likedByList={post.likedBy}
+      />
     </Box>
   );
 };
