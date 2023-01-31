@@ -1,8 +1,9 @@
 import { Avatar, Box, Typography, Link } from "@mui/material";
 import React from "react";
+import { parsePostDate } from "../../../../../util/dateUtil";
 import PostCommentReply from "./PostCommentReply";
 
-const PostComment = () => {
+const PostComment = ({ comment }) => {
   return (
     <Box
       style={{ cursor: "pointer" }}
@@ -10,9 +11,13 @@ const PostComment = () => {
       paddingTop={1}
       display="flex"
       alignItems="flex-start"
+      marginBottom={2}
     >
-      <Avatar style={{ width: 35, height: 35 }} />
-      <Box>
+      <Avatar
+        style={{ width: 35, height: 35 }}
+        src={comment.commentedBy.profilePictureURL}
+      />
+      <Box width="100%">
         <Box
           sx={{
             textAlign: "left",
@@ -37,7 +42,7 @@ const PostComment = () => {
               href="#"
               flex={1}
             >
-              Ishant Chauhan
+              {comment.commentedBy.username}
             </Link>{" "}
             <Typography
               style={{ marginTop: "5px" }}
@@ -45,14 +50,12 @@ const PostComment = () => {
               component="span"
               fontSize={13}
             >
-              3h ago
+              {parsePostDate(comment.createdAt)}
             </Typography>
           </Box>
 
           <Typography style={{ marginTop: "5px" }} variant="h6" fontSize={13}>
-            Often a card allow users to interact with the entirety of its
-            surface to trigger its main action, be it an expansion, a link to
-            another screen or some other behavior.
+            {comment.content}
           </Typography>
           <Box marginTop={1} textAlign="right">
             <Link
@@ -102,9 +105,9 @@ const PostComment = () => {
             </Link>
           </Box>
         </Box>
-        <Box>
+        {/* <Box>
           <PostCommentReply />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

@@ -8,6 +8,7 @@ const commentPostController = require("../controllers/post/commentPostController
 const toggleCommentLikeController = require("../controllers/post/toggleCommentLikeController");
 const commentReplyController = require("../controllers/post/commentReplyController");
 const toggleCommentReplyLikeController = require("../controllers/post/toggleCommentReplyLikeController");
+const getCommentsOnPostController = require("../controllers/post/getCommentsOnPostController");
 const router = express.Router();
 
 router.post(
@@ -25,6 +26,8 @@ router.get(
 router.post("/like", authMiddleware, togglePostLikeController);
 
 router.post("/comment", authMiddleware, commentPostController);
+router.get("/comment/:id", authMiddleware, getCommentsOnPostController);
+
 router.post("/comment/like", authMiddleware, toggleCommentLikeController);
 
 router.post("/comment/reply", authMiddleware, commentReplyController);
