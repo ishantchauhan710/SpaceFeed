@@ -12,6 +12,7 @@ const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const commentReplyRoutes = require("./routes/commentReplyRoutes");
+const { saveDummyUsersToDB } = require("./util/dummyUtil");
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -42,6 +43,11 @@ app.use("/api", likeRoutes);
 app.use("/api", commentRoutes);
 app.use("/api", commentReplyRoutes);
 
+// Use it to generate and store dummy data in database
+// app.get("/dummy", async (req, res) => {
+//   await saveDummyUsersToDB(20);
+//   res.send("Success");
+// });
 
 app.use((req, res, next) => {
   next(createHttpError(404, "URL not found"));
