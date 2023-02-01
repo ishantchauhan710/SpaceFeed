@@ -1,8 +1,49 @@
 import { Avatar, Box, Typography, Link } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { parsePostDate } from "../../../../../util/dateUtil";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../../../states/slices/loadingSlice";
+import { showError } from "../../../../../states/slices/notificationSlice";
+import { useState } from "react";
 
-const PostComment = ({ comment }) => {
+const PostComment = ({ comment, user }) => {
+  const dispatch = useDispatch();
+  const [likeLoading, setLikeLoading] = useState(false);
+  const [commentLiked, setCommentLiked] = useState(false);
+
+  const checkIfCommentLiked = () => {
+    const result = comment.likedBy.find((item) => item._id === user._id);
+    setCommentLiked(result !== undefined);
+  };
+
+  useEffect(() => {
+    if (comment) {
+      checkIfCommentLiked();
+    }
+  }, []);
+
+  const likeComment = async () => {
+    if (likeLoading === true) {
+      return;
+    }
+    setCommentLiked(!commentLiked);
+    if (commentLiked === true) {
+      comment.likedBy.pop(user);
+    } else {
+      comment.likedBy.push(user);
+    }
+    try {
+      setLikeLoading(true);
+      await axios.post("/api/like/comment", { commentId: comment._id });
+      setLikeLoading(false);
+    } catch (err) {
+      dispatch(showError(err.response.data.message));
+      setCommentLiked(!commentLiked);
+      setLikeLoading(false);
+    }
+  };
+
   return (
     <Box
       style={{ cursor: "pointer" }}
@@ -10,7 +51,7 @@ const PostComment = ({ comment }) => {
       paddingTop={1}
       display="flex"
       alignItems="flex-start"
-      marginBottom={2}
+      marginBottom={1}
     >
       <Avatar
         style={{ width: 35, height: 35 }}
@@ -53,7 +94,7 @@ const PostComment = ({ comment }) => {
             </Typography>
           </Box>
 
-          <Typography style={{ marginTop: "5px" }} variant="h6" fontSize={13}>
+          <Typography style={{ marginTop: "5px" }} variant="h6" fontSize={14}>
             {comment.content}
           </Typography>
           <Box marginTop={1} textAlign="right">
@@ -65,10 +106,13 @@ const PostComment = ({ comment }) => {
               underline="none"
               fontWeight={400}
               fontSize={13}
-              href="#"
               flex={1}
+              onClick={() => likeComment()}
             >
-              Like
+              {commentLiked ? `Liked` : `Like`}{" "}
+              {comment.likedBy.length == 0
+                ? ""
+                : "(" + comment.likedBy.length + ")"}
             </Link>
             <Typography component="span" marginX={1}>
               •

@@ -44,6 +44,7 @@ const Post = ({ post }) => {
   };
 
   const user = useSelector((state) => state.user.user);
+
   const checkIfPostLiked = () => {
     const result = post.likedBy.find((item) => item._id === user._id);
     setPostLiked(result !== undefined);
@@ -98,7 +99,7 @@ const Post = ({ post }) => {
               paddingTop={2}
               paddingX={2}
               width="100%"
-              style={{ textAlign: "left" }} 
+              style={{ textAlign: "left" }}
             >
               {/* <Typography variant="h6" fontSize={14}>
             {expanded[post.id] ? "Show Comments" : "Comments:"}
@@ -112,9 +113,14 @@ const Post = ({ post }) => {
             </Box>
             <Collapse in={!expanded[post.id]} timeout="auto" unmountOnExit>
               <Box paddingY={1}>
-                {comments.map((comment) => (
-                  <PostComment key={comment._id} comment={comment} />
-                ))}
+                {comments &&
+                  comments.map((comment) => (
+                    <PostComment
+                      key={comment._id}
+                      comment={comment}
+                      user={user}
+                    />
+                  ))}
               </Box>
             </Collapse>
           </>
