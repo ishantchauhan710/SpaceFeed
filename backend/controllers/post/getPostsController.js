@@ -3,8 +3,11 @@ const UserModel = require("../../models/userModel");
 const PostModel = require("../../models/postModel");
 
 const getPosts = async (req, res, next) => {
+  const userId = req.params.id;
   try {
-    const userId = req.session.userId;
+    if (!userId) {
+      throw new createHttpError("User id cannot be null");
+    }
     let posts = await PostModel.find({
       createdBy: userId,
     }).populate("createdBy likedBy");

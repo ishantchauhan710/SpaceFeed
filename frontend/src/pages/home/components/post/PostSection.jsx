@@ -16,7 +16,7 @@ const PostSection = () => {
   const getPosts = async () => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get("/api/posts/feed");
+      const response = await axios.get("/api/posts/feed/");
       const postList = response.data.posts;
       setPosts(postList);
       //console.log(JSON.stringify(postList));
@@ -34,7 +34,7 @@ const PostSection = () => {
   return (
     <Box>
       <PaperBox>
-        <PostSectionCreatePost />
+        <PostSectionCreatePost posts={posts} setPosts={setPosts} />
       </PaperBox>
       <Box marginTop={2}>
         {posts.map((post, i) => (

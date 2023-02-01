@@ -17,7 +17,7 @@ router.post(
 
 // @GET
 // @desc Get posts [Posts created by user]
-router.get("/posts/:id", authMiddleware, getPostsController.getPosts);
+router.get("/posts/user/:id", authMiddleware, getPostsController.getPosts);
 
 // @GET
 // @desc Get feed [Posts created by followings]

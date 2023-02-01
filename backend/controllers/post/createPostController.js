@@ -18,12 +18,14 @@ const createPostController = async (req, res, next) => {
       );
     }
 
-    const post = await PostModel.create({
+    let post = await PostModel.create({
       createdBy: postOwner,
       content: content,
       mediaLink: mediaUrl,
       likedBy: [],
     });
+
+    post = await post.populate("createdBy");
     res.status(201).json({ post: post });
   } catch (err) {
     next(err);

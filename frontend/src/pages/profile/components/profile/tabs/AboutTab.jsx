@@ -46,7 +46,7 @@ const StyledLabelInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const AboutTab = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.profileUser);
   return (
     <Box padding={2}>
       <Box display="flex" alignItems="flex-start" flexDirection="column">

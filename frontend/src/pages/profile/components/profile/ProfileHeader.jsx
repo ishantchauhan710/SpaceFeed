@@ -6,7 +6,7 @@ import generateBanner from "../../../../other/generateBanner";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 
 const ProfileHeader = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.profileUser);
 
   return (
     <Box>

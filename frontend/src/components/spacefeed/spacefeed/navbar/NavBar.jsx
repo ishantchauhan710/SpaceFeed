@@ -21,6 +21,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavBarProfileMenu from "./NavBarProfileMenu";
 import NavBarNotificationMenu from "./NavBarNotificationMenu";
 import StyledTextField from "../../../styled/StyledTextField";
+import { useSelector } from "react-redux";
+import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 
 const NavBar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
@@ -33,6 +35,8 @@ const NavBar = () => {
   const showNotificationMenu = (e) => {
     setNotificationMenuAnchor(e.currentTarget);
   };
+
+  const user = useSelector((state) => state.user.user);
 
   const StyledIconButton = styled("div")(({ theme }) => ({
     width: "40px",
@@ -225,7 +229,11 @@ const NavBar = () => {
                   width={40}
                   height={40}
                   alt="Profile"
-                  src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+                  src={
+                    user.profilePictureURL
+                      ? user.profilePictureURL
+                      : PROFILE_PICTURE_PLACEHOLDER
+                  }
                 />
               </StyledIconButton>
             </Box>
@@ -234,6 +242,7 @@ const NavBar = () => {
       </AppBar>
 
       <NavBarProfileMenu
+        user={user}
         anchorEl={profileMenuAnchor}
         setAnchorEl={setProfileMenuAnchor}
       />

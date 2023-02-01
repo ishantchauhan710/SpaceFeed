@@ -64,7 +64,7 @@ import axios from "axios";
 //   },
 // ];
 
-const PostSectionCreatePost = () => {
+const PostSectionCreatePost = ({posts,setPosts}) => {
   const [showUploadPhotoModal, setShowUploadPhotoModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ const PostSectionCreatePost = () => {
 
     try {
       dispatch(setLoading(true));
-      const post = await axios.post(
+      const response = await axios.post(
         "/api/posts/create",
         { content: postContent, media: file },
         {
@@ -94,6 +94,7 @@ const PostSectionCreatePost = () => {
       );
       setContent("");
       dispatch(setLoading(false));
+      setPosts([response.data.post,...posts])
       dispatch(showSuccess("Post uploaded successfully"));
     } catch (err) {
       dispatch(showError(err.response.data.error));

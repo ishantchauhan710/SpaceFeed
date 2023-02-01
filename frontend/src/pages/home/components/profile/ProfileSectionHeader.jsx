@@ -3,9 +3,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 import generateBanner from "../../../../other/generateBanner";
+import { useNavigate } from "react-router-dom";
 const ProfileSectionHeader = () => {
   const user = useSelector((state) => state.user.user);
-
+  const navigate = useNavigate();
   return (
     <div>
       <div>
@@ -16,7 +17,7 @@ const ProfileSectionHeader = () => {
           alt="cover"
           src={generateBanner(user.profileBanner)}
         />
-        <div>
+        <div onClick={() => navigate(`/profile/${user._id}`)}>
           <img
             style={{
               marginTop: "-50px",

@@ -14,12 +14,12 @@ import { useState, useEffect } from "react";
 const ProfileLeftSection = () => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.profileUser);
 
   const getUserPosts = async () => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get(`/api/posts/${user._id}`);
+      const response = await axios.get(`/api/posts/user/${user._id}`);
       const postList = response.data.posts;
       setPosts(postList);
       console.log(JSON.stringify(postList));

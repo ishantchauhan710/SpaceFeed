@@ -11,8 +11,9 @@ import { useDispatch } from "react-redux";
 import { showError } from "../../../../states/slices/notificationSlice";
 import { setLoading } from "../../../../states/slices/loadingSlice";
 import { useNavigate } from "react-router-dom";
+import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 
-const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
+const NavBarProfileMenu = ({ user, anchorEl, setAnchorEl }) => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
 
   const openProfilePage = () => {
     handleClose();
-    navigate("/profile");
+    navigate(`/profile/${user._id}`);
   };
 
   return (
@@ -84,13 +85,17 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
             justifyContent: "space-betweem",
           }}
         >
-          <Box style={{ flex: "0.2" }}>
+          <Box style={{ flex: "0.2", paddingTop: "3px" }}>
             <img
               style={{ borderRadius: "50px" }}
               width={40}
               height={40}
               alt="Profile"
-              src="https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
+              src={
+                user.profilePictureURL
+                  ? user.profilePictureURL
+                  : PROFILE_PICTURE_PLACEHOLDER
+              }
             />
           </Box>
           <Box

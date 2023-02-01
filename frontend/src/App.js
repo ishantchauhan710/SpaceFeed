@@ -91,7 +91,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={user && <HomePage />} />
-          <Route path="/profile" element={user && <ProfilePage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>
