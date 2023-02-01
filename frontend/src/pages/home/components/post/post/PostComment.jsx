@@ -10,17 +10,16 @@ import { useState } from "react";
 const PostComment = ({ comment, user }) => {
   const dispatch = useDispatch();
   const [likeLoading, setLikeLoading] = useState(false);
-  const [commentLiked, setCommentLiked] = useState(false);
+  const [commentLiked, setCommentLiked] = useState();
 
   const checkIfCommentLiked = () => {
-    const result = comment.likedBy.find((item) => item._id === user._id);
+    const result = comment.likedBy.find((item) => item == user._id);
     setCommentLiked(result !== undefined);
+    //console.log("Result: " + commentLiked);
   };
 
   useEffect(() => {
-    if (comment) {
-      checkIfCommentLiked();
-    }
+    checkIfCommentLiked();
   }, []);
 
   const likeComment = async () => {

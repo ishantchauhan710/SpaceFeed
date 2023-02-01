@@ -16,7 +16,7 @@ const { saveDummyUsersToDB } = require("./util/dummyUtil");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const app = express();
-console.clear();
+//console.clear();
 
 app.use(express.json());
 
