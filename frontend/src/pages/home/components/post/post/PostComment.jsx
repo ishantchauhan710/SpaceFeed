@@ -1,7 +1,6 @@
 import { Avatar, Box, Typography, Link } from "@mui/material";
 import React from "react";
 import { parsePostDate } from "../../../../../util/dateUtil";
-import PostCommentReply from "./PostCommentReply";
 
 const PostComment = ({ comment }) => {
   return (
@@ -105,9 +104,6 @@ const PostComment = ({ comment }) => {
             </Link>
           </Box>
         </Box>
-        {/* <Box>
-          <PostCommentReply />
-        </Box> */}
       </Box>
     </Box>
   );

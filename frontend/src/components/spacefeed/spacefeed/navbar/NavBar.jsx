@@ -230,7 +230,7 @@ const NavBar = () => {
                   height={40}
                   alt="Profile"
                   src={
-                    user.profilePictureURL
+                    (user && user.profilePictureURL)
                       ? user.profilePictureURL
                       : PROFILE_PICTURE_PLACEHOLDER
                   }

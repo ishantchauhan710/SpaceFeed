@@ -11,7 +11,6 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const commentReplyRoutes = require("./routes/commentReplyRoutes");
 const { saveDummyUsersToDB } = require("./util/dummyUtil");
 
 const session = require("express-session");
@@ -41,7 +40,6 @@ app.use("/api", userRoutes);
 app.use("/api", postRoutes);
 app.use("/api", likeRoutes);
 app.use("/api", commentRoutes);
-app.use("/api", commentReplyRoutes);
 
 // Use it to generate and store dummy data in database
 // app.get("/dummy", async (req, res) => {
