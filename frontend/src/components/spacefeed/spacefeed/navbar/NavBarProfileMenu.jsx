@@ -107,10 +107,10 @@ const NavBarProfileMenu = ({ user, anchorEl, setAnchorEl }) => {
             }}
           >
             <Typography variant="h3" fontSize={15}>
-              Ishant Chauhan
+              {user && user.username}
             </Typography>
             <Typography variant="h6" fontSize={12}>
-              @ishantchauhan
+              {user && user.email}
             </Typography>
           </Box>
         </Box>

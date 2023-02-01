@@ -88,6 +88,8 @@ const Post = ({ post }) => {
           open={showCommentModal}
           setOpen={setShowCommentModal}
           label="Comment"
+          comments={comments}
+          setComments={setComments}
         />
 
         {comments && comments.length > 0 && (
@@ -119,6 +121,8 @@ const Post = ({ post }) => {
                       key={comment._id}
                       comment={comment}
                       user={user}
+                      comments={comments}
+                      setComments={setComments}
                     />
                   ))}
               </Box>

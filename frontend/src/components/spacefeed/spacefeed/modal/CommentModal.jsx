@@ -21,7 +21,7 @@ import StyledTextField from "../../../styled/StyledTextField";
 import axios from "axios";
 import { setLoading } from "../../../../states/slices/loadingSlice";
 
-const CommentModal = ({ post, open, setOpen }) => {
+const CommentModal = ({ post, open, setOpen, comments, setComments }) => {
   const dispatch = useDispatch();
 
   const [comment, setComment] = useState("");
@@ -43,11 +43,15 @@ const CommentModal = ({ post, open, setOpen }) => {
         postId: post._id,
         content: comment,
       });
+      console.log("Response: " + JSON.stringify(response));
+      const newComment = response.data.comment;
       setComment("");
+      setComments([newComment, ...comments]);
       dispatch(showSuccess("Comment successful!"));
       dispatch(setLoading(false));
     } catch (err) {
-      dispatch(showError(err.response.data.error));
+      // dispatch(showError(err.response.data.error));
+      dispatch(showError(err.message));
       dispatch(setLoading(false));
     }
   };

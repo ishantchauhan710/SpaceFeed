@@ -17,11 +17,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { showError } from "../../../../states/slices/notificationSlice";
 import { setLoading } from "../../../../states/slices/loadingSlice";
 import { setUser } from "../../../../states/slices/userSlice";
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const CustomListItem = ({ user, toggleUserFollow, isFollowing }) => {
+const CustomListItem = ({
+  user,
+  toggleUserFollow,
+  isFollowing,
+  openProfile,
+}) => {
   return (
     <Box
       display="flex"
@@ -37,6 +42,7 @@ const CustomListItem = ({ user, toggleUserFollow, isFollowing }) => {
           flex: "0.7",
           overflow: "hidden",
         }}
+        onClick={() => openProfile(user._id)}
       >
         <ListItem disablePadding>
           <ListItemAvatar>
@@ -79,6 +85,7 @@ const CustomListItem = ({ user, toggleUserFollow, isFollowing }) => {
 const SuggestionSection = () => {
   const dispatch = useDispatch();
   const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getSuggestedUsers = async () => {
     try {
@@ -117,6 +124,10 @@ const SuggestionSection = () => {
     getSuggestedUsers();
   }, []);
 
+  const openProfile = (id) => {
+    navigate(`/profile/${id}`);
+  };
+
   return (
     <>
       <OnlineUsers />
@@ -135,6 +146,7 @@ const SuggestionSection = () => {
                     key={suggestedUser._id}
                     toggleUserFollow={toggleUserFollow}
                     isFollowing={user.followings.includes(suggestedUser._id)}
+                    openProfile={openProfile}
                   />
                 ))}
             </List>

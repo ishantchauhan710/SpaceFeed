@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUserDetails();
-  }, []);
+  }, [id]);
 
   return (
     profileUser && (

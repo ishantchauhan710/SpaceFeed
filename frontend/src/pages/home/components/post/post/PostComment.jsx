@@ -113,22 +113,7 @@ const PostComment = ({ comment, user }) => {
                 ? ""
                 : "(" + comment.likedBy.length + ")"}
             </Link>
-            <Typography component="span" marginX={1}>
-              •
-            </Typography>
-            <Link
-              sx={{
-                color: "grey.700",
-                "&:hover": { color: "primary.600" },
-              }}
-              underline="none"
-              fontWeight={400}
-              fontSize={13}
-              href="#"
-              flex={1}
-            >
-              Reply
-            </Link>
+
             <Typography component="span" marginX={1}>
               •
             </Typography>

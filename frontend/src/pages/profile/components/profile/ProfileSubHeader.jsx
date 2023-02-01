@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
@@ -8,6 +8,9 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import BoxCentered from "../../../../components/styled/BoxCentered";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { showError } from "../../../../states/slices/notificationSlice";
 
 const ProfileSubHeaderItem = ({ label, icon }) => {
   return (
@@ -32,6 +35,27 @@ const ProfileSubHeaderItem = ({ label, icon }) => {
 };
 
 const ProfileSubHeader = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.profileUser);
+  const loggedInUser = useSelector((state) => state.user.user);
+
+  const [stats, setStats] = useState({});
+
+  const getUserStats = async () => {
+    try {
+      const response = await axios.get(`/api/user/stats/${user._id}`);
+      const statsData = response.data.stats;
+      setStats(statsData);
+      console.log("Stats:" + JSON.stringify(response));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+    }
+  };
+
+  useEffect(() => {
+    getUserStats();
+  }, []);
+
   return (
     <>
       <Box
@@ -49,34 +73,40 @@ const ProfileSubHeader = () => {
             },
           }}
         >
-          <ProfileSubHeaderItem label="97 Posts" icon={<FeedOutlinedIcon />} />
+          <ProfileSubHeaderItem
+            label={`${stats && stats.posts} Posts`}
+            icon={<FeedOutlinedIcon />}
+          />
         </Box>
         <ProfileSubHeaderItem
-          label="28 Followers"
+          label={`${stats && stats.followers} Followers`}
           icon={<EmojiEventsOutlinedIcon />}
         />
         <ProfileSubHeaderItem
-          label="29 Following"
+          label={`${stats && stats.followings} Followings`}
           icon={<HandshakeOutlinedIcon />}
         />
       </Box>
-      <Box
-        paddingX={4}
-        display="flex"
-        alignItems="center"
-        justifyContent="flex-start"
-      >
-        <Button
-          style={{ marginRight: "10px" }}
-          variant="contained"
-          disableElevation
+      {user._id !== loggedInUser._id && (
+        <Box
+          paddingX={4}
+          marginBottom={2}
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-start"
         >
-          Follow
-        </Button>
-        <Button variant="outlined" disableElevation>
-          Message
-        </Button>
-      </Box>
+          <Button
+            style={{ marginRight: "10px" }}
+            variant="contained"
+            disableElevation
+          >
+            Follow
+          </Button>
+          <Button variant="outlined" disableElevation>
+            Message
+          </Button>
+        </Box>
+      )}
     </>
   );
 };

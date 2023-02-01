@@ -49,7 +49,7 @@ const ProfileTabs = () => {
   };
 
   return (
-    <Box paddingX={2} marginTop={2} sx={{ width: "100%" }}>
+    <Box paddingX={2}  sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}

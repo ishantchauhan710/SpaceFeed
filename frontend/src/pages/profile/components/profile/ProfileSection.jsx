@@ -32,7 +32,7 @@ const ProfileLeftSection = () => {
 
   useEffect(() => {
     getUserPosts();
-  }, []);
+  }, [user]);
 
   return (
     <Box>
