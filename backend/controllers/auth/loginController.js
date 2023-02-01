@@ -35,7 +35,23 @@ const loginController = async (req, res, next) => {
     }
 
     req.session.userId = user._id;
-    res.sendStatus(201);
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        dob: user.dob,
+        gender: user.gender,
+        country: user.country,
+        phone: user.phone,
+        profilePictureURL: user.profilePictureURL,
+        profileBanner: user.profileBanner,
+        description: user.description,
+        followings: user.followings,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
   } catch (err) {
     if (err.errors && err.errors[0]) {
       next(createHttpError(401, err.errors[0]));

@@ -62,8 +62,8 @@ function App() {
 
     try {
       dispatch(setLoading(true));
-      const response = await axios.get("/api/user");
-      const user = response.data;
+      const response = await axios.get("/api/auth/user");
+      const user = response.data.user;
       if (endpoint === "login" || endpoint === "signup") {
         window.location.href = "/";
       }

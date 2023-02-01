@@ -57,14 +57,14 @@ const LoginRight = () => {
   const loginUser = async (email, password) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.post("api/login", {
+      const response = await axios.post("api/auth/login", {
         email: email,
         password: password,
       });
 
       // console.log("Response" + JSON.stringify(response.data));
       // console.log("Success");
-      dispatch(setUser(response.data));
+      dispatch(setUser(response.data.user));
       dispatch(setLoading(false));
       navigate("/");
     } catch (err) {

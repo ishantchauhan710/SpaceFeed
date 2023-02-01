@@ -83,7 +83,7 @@ const SuggestionSection = () => {
   const getSuggestedUsers = async () => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get("/api/suggested");
+      const response = await axios.get("/api/user/suggested");
       const userList = response.data.suggestedUsers;
       setSuggestedUsers(userList);
       dispatch(setLoading(false));
@@ -96,7 +96,7 @@ const SuggestionSection = () => {
   const toggleUserFollow = async (userId) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.post("/api/follow", {
+      const response = await axios.post("/api/user/follow", {
         userToFollow: userId,
       });
 

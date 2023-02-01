@@ -25,7 +25,7 @@ const NavBarProfileMenu = ({ anchorEl, setAnchorEl }) => {
     handleClose();
     try {
       dispatch(setLoading(true));
-      const response = await axios.post("/api/logout");
+      const response = await axios.post("/api/auth/logout");
       dispatch(setLoading(false));
       navigate("/login");
     } catch (err) {

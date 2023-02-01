@@ -84,7 +84,7 @@ const PostSectionCreatePost = () => {
     try {
       dispatch(setLoading(true));
       const post = await axios.post(
-        "/api/post",
+        "/api/posts/create",
         { content: postContent, media: file },
         {
           headers: {

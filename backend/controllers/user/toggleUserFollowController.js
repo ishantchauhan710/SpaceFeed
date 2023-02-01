@@ -9,6 +9,10 @@ const toggleUserFollowController = async (req, res, next) => {
     const user = await UserModel.findById(id);
     const followings = user.followings;
 
+    if (!userToFollow) {
+      throw new createHttpError(400, "User to follow Id cannot be null");
+    }
+
     let updatedFollowings;
     if (followings.includes(userToFollow)) {
       // Unfollow user

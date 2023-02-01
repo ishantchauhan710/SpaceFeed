@@ -96,8 +96,7 @@ const signupController = async (req, res, next) => {
     }
 
     // Check if user exists
-    const userExists = await UserModel.findOne({ email: email })
-    .exec();
+    const userExists = await UserModel.findOne({ email: email }).exec();
 
     if (userExists) {
       throw new createHttpError(401, "Email already taken");
@@ -125,7 +124,23 @@ const signupController = async (req, res, next) => {
     });
 
     req.session.userId = newUser._id;
-    res.sendStatus(201);
+    res.status(201).json({
+      user: {
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        dob: newUser.dob,
+        gender: newUser.gender,
+        country: newUser.country,
+        phone: newUser.phone,
+        profilePictureURL: newUser.profilePictureURL,
+        profileBanner: newUser.profileBanner,
+        description: newUser.description,
+        followings: newUser.followings,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt,
+      },
+    });
   } catch (err) {
     if (err.errors && err.errors[0]) {
       //console.log(err.errors[0]);

@@ -111,7 +111,7 @@ const SignupRight = () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.post(
-        "api/signup",
+        "api/auth/signup",
         {
           username: username,
           email: email,
@@ -134,7 +134,7 @@ const SignupRight = () => {
       // console.log("Response" + JSON.stringify(response.data));
       // console.log("Success");
 
-      dispatch(setUser(response.data));
+      dispatch(setUser(response.data.user));
       dispatch(setLoading(false));
       navigate("/");
     } catch (err) {

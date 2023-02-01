@@ -16,10 +16,10 @@ const PostSection = () => {
   const getPosts = async () => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get("/api/posts");
+      const response = await axios.get("/api/posts/feed");
       const postList = response.data.posts;
       setPosts(postList);
-      console.log(JSON.stringify(postList));
+      //console.log(JSON.stringify(postList));
       dispatch(setLoading(false));
     } catch (err) {
       dispatch(showError(err.response.data.error));
