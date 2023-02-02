@@ -8,8 +8,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 

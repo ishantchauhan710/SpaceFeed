@@ -13,13 +13,13 @@ import { useDispatch } from "react-redux";
 import {
   showError,
   showSuccess,
-} from "../../../../states/slices/notificationSlice";
+} from "../../../../states/other/notificationSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useState } from "react";
 import StyledTextField from "../../../styled/StyledTextField";
 import axios from "axios";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 
 const CommentModal = ({ post, open, setOpen, comments, setComments }) => {
   const dispatch = useDispatch();

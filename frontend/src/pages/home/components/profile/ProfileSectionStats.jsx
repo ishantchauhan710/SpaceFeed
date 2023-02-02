@@ -2,11 +2,11 @@ import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { showError } from "../../../../states/slices/notificationSlice";
+import { showError } from "../../../../states/other/notificationSlice";
 
 const ProfileSectionStats = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
   const [stats, setStats] = useState({});
 
   const getUserStats = async () => {

@@ -5,11 +5,11 @@ import UploadPhotoModal from "../../../../components/app/common/modal/UploadPhot
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 import {
   showError,
   showSuccess,
-} from "../../../../states/slices/notificationSlice";
+} from "../../../../states/other/notificationSlice";
 import axios from "axios";
 
 ////////// USE BELOW COMMENTED CODE TO ADD MULTIPLE CHIP BUTTONS
@@ -69,7 +69,7 @@ const PostSectionCreatePost = ({posts,setPosts}) => {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
 
   const [postContent, setPostContent] = useState("");
 

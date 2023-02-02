@@ -5,7 +5,7 @@ import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 import generateBanner from "../../../../other/generateBanner";
 import { useNavigate } from "react-router-dom";
 const ProfileSectionHeader = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
   const navigate = useNavigate();
   return (
     <div>

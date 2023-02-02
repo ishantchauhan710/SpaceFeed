@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loadingSlice from "./slices/loadingSlice";
-import notificationSlice from "./slices/notificationSlice";
-import userSlice from "./slices/userSlice";
+import homeSlice from "./homeSlice";
+import loadingSlice from "./other/loadingSlice";
+import notificationSlice from "./other/notificationSlice";
+import profileSlice from "./profileSlice";
 export const store = configureStore({
   reducer: {
     notification: notificationSlice,
     loading: loadingSlice,
-    user: userSlice,
+    home: homeSlice,
+    profile: profileSlice,
   },
 });

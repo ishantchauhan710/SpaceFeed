@@ -14,9 +14,9 @@ import OnlineUsers from "../../../home/components/suggestion/OnlineUsers";
 import PaperBox from "../../../../components/styled/PaperBox";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../states/slices/loadingSlice";
-import { setUser } from "../../../../states/slices/userSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
+import { setUser } from "../../../../states/homeSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -118,7 +118,7 @@ const SuggestionSection = () => {
     }
   };
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
 
   useEffect(() => {
     getSuggestedUsers();

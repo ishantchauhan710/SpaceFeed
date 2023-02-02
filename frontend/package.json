@@ -52,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.33.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "react-router-dom": "^6.7.0"
   }
 }

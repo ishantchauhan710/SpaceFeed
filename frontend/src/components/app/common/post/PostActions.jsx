@@ -6,8 +6,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import PostLikedUsersModal from "../modal/PostLikedUsersModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 import axios from "axios";
 
 const PostActionButton = ({

@@ -17,8 +17,8 @@ import PaperBox from "../../../styled/PaperBox";
 import { useEffect } from "react";
 import CommentModal from "../modal/CommentModal";
 import axios from "axios";
-import { setLoading } from "../../../../states/slices/loadingSlice";
-import { showError } from "../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -43,7 +43,7 @@ const Post = ({ post }) => {
     setExpanded((prevState) => ({ ...prevState, [id]: !prevState[id] }));
   };
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
 
   const checkIfPostLiked = () => {
     const result = post.likedBy.find((item) => item._id === user._id);

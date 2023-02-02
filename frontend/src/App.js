@@ -14,14 +14,14 @@ import {
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import { useSelector, useDispatch } from "react-redux";
-import { hideNotification, showError } from "./states/slices/notificationSlice";
-import { setUser } from "./states/slices/userSlice";
+import { hideNotification, showError } from "./states/other/notificationSlice";
+import { setUser } from "./states/homeSlice";
 
 import ErrorPage from "./pages/error/ErrorPage";
 import HomePage from "./pages/home/HomePage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import axios from "axios";
-import { setLoading } from "./states/slices/loadingSlice";
+import { setLoading } from "./states/other/loadingSlice";
 
 function App() {
   const themeData = themeConfig();
@@ -51,7 +51,7 @@ function App() {
     (state) => state.notification.notificationVisible
   );
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
 
   const isLoading = useSelector((state) => state.loading.isLoading);
 

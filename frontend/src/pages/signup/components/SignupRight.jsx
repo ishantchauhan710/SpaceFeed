@@ -35,11 +35,11 @@ import { REGEX_PHONE } from "../../../util/regexUtil";
 import { reverseObject } from "../../../util/objectUtil";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { setLoading } from "../../../states/slices/loadingSlice";
-import { showError } from "../../../states/slices/notificationSlice";
+import { setLoading } from "../../../states/other/loadingSlice";
+import { showError } from "../../../states/other/notificationSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../../../states/slices/userSlice.js";
+import { setUser } from "../../../states/homeSlice.js";
 
 const SignupRight = () => {
   const [username, setUsername] = useState("");

@@ -6,22 +6,22 @@ import SuggestionSection from "./components/suggestion/SuggestionSection";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../states/slices/loadingSlice";
-import { showError } from "../../states/slices/notificationSlice";
-import { setProfileUser } from "../../states/slices/userSlice";
+import { setLoading } from "../../states/other/loadingSlice";
+import { showError } from "../../states/other/notificationSlice";
+import { setUser } from "../../states/profileSlice";
 import { useEffect } from "react";
 
 const ProfilePage = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
-  const profileUser = useSelector((state) => state.user.profileUser);
+  const profileUser = useSelector((state) => state.profile.user);
 
   const getUserDetails = async () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.get(`/api/user/${id}`);
       const user = response.data.user;
-      dispatch(setProfileUser(user));
+      dispatch(setUser(user));
       dispatch(setLoading(false));
     } catch (err) {
       dispatch(setLoading(false));

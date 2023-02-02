@@ -10,7 +10,7 @@ import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import BoxCentered from "../../../../components/styled/BoxCentered";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { showError } from "../../../../states/slices/notificationSlice";
+import { showError } from "../../../../states/other/notificationSlice";
 
 const ProfileSubHeaderItem = ({ label, icon }) => {
   return (
@@ -36,8 +36,8 @@ const ProfileSubHeaderItem = ({ label, icon }) => {
 
 const ProfileSubHeader = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.profileUser);
-  const loggedInUser = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.profile.user);
+  const loggedInUser = useSelector((state) => state.home.user);
 
   const [stats, setStats] = useState({});
 

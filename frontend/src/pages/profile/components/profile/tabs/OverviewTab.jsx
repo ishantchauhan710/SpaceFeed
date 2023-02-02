@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const OverviewTab = () => {
-  const user = useSelector((state) => state.user.profileUser);
+  const user = useSelector((state) => state.profile.user);
 
   return (
     <Box paddingX={1} paddingY={2}>

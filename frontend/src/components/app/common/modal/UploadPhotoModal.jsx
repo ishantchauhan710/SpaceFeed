@@ -10,7 +10,7 @@ import {
   Avatar,
 } from "@mui/material/";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
+import { showError } from "../../../../states/other/notificationSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { useState } from "react";

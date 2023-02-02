@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { parsePostDate } from "../../../../util/dateUtil";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setLoading } from "../../../../states/slices/loadingSlice";
-import { showError } from "../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
 import { useState } from "react";
 
 const PostComment = ({ comment, user }) => {

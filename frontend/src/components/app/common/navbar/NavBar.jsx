@@ -36,7 +36,7 @@ const NavBar = () => {
     setNotificationMenuAnchor(e.currentTarget);
   };
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.home.user);
 
   const StyledIconButton = styled("div")(({ theme }) => ({
     width: "40px",

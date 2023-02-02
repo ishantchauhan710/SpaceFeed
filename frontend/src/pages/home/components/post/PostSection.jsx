@@ -4,8 +4,8 @@ import PostSectionCreatePost from "./PostSectionCreatePost";
 import Post from "../../../../components/app/common/post/Post";
 import PaperBox from "../../../../components/styled/PaperBox";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 import axios from "axios";
 import { useState, useEffect } from "react";
 

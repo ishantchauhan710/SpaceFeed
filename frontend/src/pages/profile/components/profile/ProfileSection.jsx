@@ -6,15 +6,15 @@ import ProfileSubHeader from "./ProfileSubHeader";
 import ProfileTabs from "./ProfileTabs";
 import Post from "../../../../components/app/common/post/Post";
 import { useDispatch, useSelector } from "react-redux";
-import { showError } from "../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 const ProfileLeftSection = () => {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  const user = useSelector((state) => state.user.profileUser);
+  const user = useSelector((state) => state.profile.user);
 
   const getUserPosts = async () => {
     try {
