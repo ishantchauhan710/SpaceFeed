@@ -58,35 +58,42 @@ const ProfileSubHeader = () => {
 
   return (
     <>
-      <Box
-        paddingX={4}
-        paddingBottom={2}
-        display="flex"
-        alignItems="center"
-        justifyContent="flex-start"
-      >
+      {stats && (
         <Box
-          sx={{
-            display: {
-              xs: "none",
-              sm: "flex",
-            },
-          }}
+          paddingX={4}
+          paddingBottom={2}
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-start"
         >
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                sm: "flex",
+              },
+            }}
+          >
+            <ProfileSubHeaderItem
+              label={`${stats.posts !== undefined ? stats.posts : 0} Posts`}
+              icon={<FeedOutlinedIcon />}
+            />
+          </Box>
           <ProfileSubHeaderItem
-            label={`${stats && stats.posts} Posts`}
-            icon={<FeedOutlinedIcon />}
+            label={`${
+              stats.followers !== undefined ? stats.followers : 0
+            } Followers`}
+            icon={<EmojiEventsOutlinedIcon />}
+          />
+          <ProfileSubHeaderItem
+            label={`${
+              stats.followings !== undefined ? stats.followings : 0
+            } Followings`}
+            icon={<HandshakeOutlinedIcon />}
           />
         </Box>
-        <ProfileSubHeaderItem
-          label={`${stats && stats.followers} Followers`}
-          icon={<EmojiEventsOutlinedIcon />}
-        />
-        <ProfileSubHeaderItem
-          label={`${stats && stats.followings} Followings`}
-          icon={<HandshakeOutlinedIcon />}
-        />
-      </Box>
+      )}
+
       {user._id !== loggedInUser._id && (
         <Box
           paddingX={4}

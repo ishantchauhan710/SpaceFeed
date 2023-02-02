@@ -4,10 +4,12 @@ import { Box, Fab, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import generateBanner from "../../../../other/generateBanner";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import { useDispatch } from "react-redux";
+import { showImageModal } from "../../../../states/other/imageModalSlice";
 
 const ProfileHeader = () => {
   const user = useSelector((state) => state.profile.user);
-
+  const dispatch = useDispatch();
   return (
     <Box>
       <Box>
@@ -35,12 +37,23 @@ const ProfileHeader = () => {
             border: "3px solid #fff",
             marginTop: "-60px",
             marginLeft: "10px",
+            cursor: "pointer",
           }}
+          alt="profile"
           src={
             user.profilePictureURL
               ? user.profilePictureURL
               : PROFILE_PICTURE_PLACEHOLDER
           }
+          onClick={() => {
+            dispatch(
+              showImageModal(
+                user.profilePictureURL
+                  ? user.profilePictureURL
+                  : PROFILE_PICTURE_PLACEHOLDER
+              )
+            );
+          }}
         />
         <Box marginLeft={2} paddingY={1} textAlign="left">
           <Typography variant="h1" fontWeight={600} fontSize={21}>

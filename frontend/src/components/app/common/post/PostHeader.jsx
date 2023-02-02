@@ -3,9 +3,15 @@ import { Box, Typography, Avatar, IconButton, Link } from "@mui/material";
 import { parsePostDate } from "../../../../util/dateUtil";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostMenu from "./PostMenu";
+import { useNavigate } from "react-router-dom";
 
 const PostHeader = ({ post }) => {
   const [postAnchorEl, setPostAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+
+  const openProfile = () => {
+    navigate(`/profile/${post.createdBy._id}`);
+  };
 
   return (
     <Box
@@ -31,7 +37,7 @@ const PostHeader = ({ post }) => {
           underline="none"
           fontWeight={600}
           fontSize={14}
-          href="#"
+          onClick={() => openProfile()}
         >
           {post.createdBy.username}
         </Link>

@@ -9,7 +9,7 @@ export const imageModalSlice = createSlice({
   initialState: initialState,
   reducers: {
     showImageModal: (state, action) => {
-      state.imageSrc = action.payload.src;
+      state.imageSrc = action.payload;
       state.imageVisible = true;
     },
     hideImageModal: (state) => {

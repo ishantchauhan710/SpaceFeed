@@ -28,10 +28,12 @@ const PostBody = ({ post }) => {
               marginTop: "15px",
               borderRadius: "5px",
               marginBottom: "15px",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             src={post.mediaLink}
-            onClick={() => {dispatch(showImageModal({src: post.mediaLink, caption: post.content}))}}
+            onClick={() => {
+              dispatch(showImageModal(post.mediaLink));
+            }}
           />
         )}
       </Box>
