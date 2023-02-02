@@ -144,6 +144,7 @@ const Post = ({ post, setPosts }) => {
                     comments.map((comment) => (
                       <PostComment
                         key={comment._id}
+                        post={post}
                         comment={comment}
                         user={user}
                         comments={comments}
