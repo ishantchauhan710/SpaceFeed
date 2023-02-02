@@ -5,7 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostMenu from "./PostMenu";
 import { useNavigate } from "react-router-dom";
 
-const PostHeader = ({ post }) => {
+const PostHeader = ({ post, setIsPostDeleted }) => {
   const [postAnchorEl, setPostAnchorEl] = React.useState(null);
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const PostHeader = ({ post }) => {
           <MoreVertIcon style={{ width: 21, height: 21 }} />
         </IconButton>
       </Box>
-      <PostMenu anchorEl={postAnchorEl} setAnchorEl={setPostAnchorEl} />
+      <PostMenu anchorEl={postAnchorEl} setAnchorEl={setPostAnchorEl} post={post} setIsPostDeleted={setIsPostDeleted} />
     </Box>
   );
 };

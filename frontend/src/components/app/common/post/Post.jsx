@@ -31,11 +31,14 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const Post = ({ post }) => {
+const Post = ({ post, setPosts }) => {
   const [expanded, setExpanded] = React.useState({});
   const [postLiked, setPostLiked] = React.useState(false);
   const [showCommentModal, setShowCommentModal] = React.useState(false);
   const [comments, setComments] = React.useState([]);
+
+  // This will be used to hide the post when it is deleted
+  const [isPostDeleted, setIsPostDeleted] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -71,66 +74,72 @@ const Post = ({ post }) => {
   }, []);
 
   return (
-    <Box key={post} marginTop={2} style={{ textAlign: "left" }}>
-      <PaperBox>
-        <PostHeader post={post} />
-        <PostBody post={post} />
-        <PostActions
-          post={post}
-          user={user}
-          postLiked={postLiked}
-          setPostLiked={setPostLiked}
-          setShowCommentModal={setShowCommentModal}
-        />
+    !isPostDeleted && (
+      <Box key={post} marginTop={2} style={{ textAlign: "left" }}>
+        <PaperBox>
+          <PostHeader
+            post={post}
+            setPosts={setPosts}
+            setIsPostDeleted={setIsPostDeleted}
+          />
+          <PostBody post={post} />
+          <PostActions
+            post={post}
+            user={user}
+            postLiked={postLiked}
+            setPostLiked={setPostLiked}
+            setShowCommentModal={setShowCommentModal}
+          />
 
-        <CommentModal
-          post={post}
-          open={showCommentModal}
-          setOpen={setShowCommentModal}
-          label="Comment"
-          comments={comments}
-          setComments={setComments}
-        />
+          <CommentModal
+            post={post}
+            open={showCommentModal}
+            setOpen={setShowCommentModal}
+            label="Comment"
+            comments={comments}
+            setComments={setComments}
+          />
 
-        {comments && comments.length > 0 && (
-          <>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              paddingTop={2}
-              paddingX={2}
-              width="100%"
-              style={{ textAlign: "left" }}
-            >
-              {/* <Typography variant="h6" fontSize={14}>
-            {expanded[post.id] ? "Show Comments" : "Comments:"}
-          </Typography> */}
-              <ExpandMore
-                expand={!expanded[post.id]}
-                onClick={() => handlePostExpandClick(post.id)}
+          {comments && comments.length > 0 && (
+            <>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                paddingTop={2}
+                paddingX={2}
+                width="100%"
+                style={{ textAlign: "left" }}
               >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </Box>
-            <Collapse in={!expanded[post.id]} timeout="auto" unmountOnExit>
-              <Box paddingY={1}>
-                {comments &&
-                  comments.map((comment) => (
-                    <PostComment
-                      key={comment._id}
-                      comment={comment}
-                      user={user}
-                      comments={comments}
-                      setComments={setComments}
-                    />
-                  ))}
+                {/* <Typography variant="h6" fontSize={14}>
+        {expanded[post.id] ? "Show Comments" : "Comments:"}
+      </Typography> */}
+                <ExpandMore
+                  expand={!expanded[post.id]}
+                  onClick={() => handlePostExpandClick(post.id)}
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
               </Box>
-            </Collapse>
-          </>
-        )}
-      </PaperBox>
-    </Box>
+              <Collapse in={!expanded[post.id]} timeout="auto" unmountOnExit>
+                <Box paddingY={1}>
+                  {comments &&
+                    comments.map((comment) => (
+                      <PostComment
+                        key={comment._id}
+                        comment={comment}
+                        user={user}
+                        comments={comments}
+                        setComments={setComments}
+                      />
+                    ))}
+                </Box>
+              </Collapse>
+            </>
+          )}
+        </PaperBox>
+      </Box>
+    )
   );
 };
 
