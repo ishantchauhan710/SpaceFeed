@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import SignupRight from "./components/SignupRight";
-import AuthWelcomeScreen from "../../components/spacefeed/auth/AuthWelcomeScreen";
+import AuthWelcomeScreen from "../../components/app/auth/AuthWelcomeScreen";
 
 const SignupPage = () => {
   return (

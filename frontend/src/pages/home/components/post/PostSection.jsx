@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import PostSectionCreatePost from "./PostSectionCreatePost";
-import Post from "./post/Post";
+import Post from "../../../../components/app/common/post/Post";
 import PaperBox from "../../../../components/styled/PaperBox";
 import { useDispatch } from "react-redux";
 import { showError } from "../../../../states/slices/notificationSlice";

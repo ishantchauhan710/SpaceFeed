@@ -13,12 +13,12 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PaperBox from "../../../../../components/styled/PaperBox";
+import PaperBox from "../../../styled/PaperBox";
 import { useEffect } from "react";
-import CommentModal from "../../../../../components/spacefeed/spacefeed/modal/CommentModal";
+import CommentModal from "../modal/CommentModal";
 import axios from "axios";
-import { setLoading } from "../../../../../states/slices/loadingSlice";
-import { showError } from "../../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/slices/notificationSlice";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

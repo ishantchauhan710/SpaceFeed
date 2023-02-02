@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
-import AuthWelcomeScreen from "../../components/spacefeed/auth/AuthWelcomeScreen";
+import AuthWelcomeScreen from "../../components/app/auth/AuthWelcomeScreen";
 import LoginRight from "./components/LoginRight";
 const LoginPage = () => {
   return (

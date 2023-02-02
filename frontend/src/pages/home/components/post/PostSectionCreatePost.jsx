@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Typography, Avatar, Button } from "@mui/material";
 import { FcCompactCamera, FcVideoCall, FcCalendar } from "react-icons/fc";
-import UploadPhotoModal from "../../../../components/spacefeed/spacefeed/modal/UploadPhotoModal";
+import UploadPhotoModal from "../../../../components/app/common/modal/UploadPhotoModal";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 
 import { useDispatch, useSelector } from "react-redux";

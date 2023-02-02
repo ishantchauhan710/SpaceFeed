@@ -3,11 +3,11 @@ import { Box, Grid, IconButton, Link } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
-import PostLikedUsersModal from "../../../../../components/spacefeed/spacefeed/modal/PostLikedUsersModal";
+import PostLikedUsersModal from "../modal/PostLikedUsersModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../../states/slices/notificationSlice";
-import { setLoading } from "../../../../../states/slices/loadingSlice";
+import { showError } from "../../../../states/slices/notificationSlice";
+import { setLoading } from "../../../../states/slices/loadingSlice";
 import axios from "axios";
 
 const PostActionButton = ({

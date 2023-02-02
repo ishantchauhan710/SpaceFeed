@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../../components/spacefeed/spacefeed/navbar/NavBar";
+import NavBar from "../../components/app/common/navbar/NavBar";
 import Box from "@mui/material/Box";
 
 import Grid from "@mui/material/Grid";

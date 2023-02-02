@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Avatar, IconButton, Link } from "@mui/material";
-import { parsePostDate } from "../../../../../util/dateUtil";
+import { parsePostDate } from "../../../../util/dateUtil";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostMenu from "./PostMenu";
 

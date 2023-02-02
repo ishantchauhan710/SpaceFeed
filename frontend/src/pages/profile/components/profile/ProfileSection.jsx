@@ -4,7 +4,7 @@ import PaperBoxUnspaced from "../../../../components/styled/PaperBoxUnspaced";
 import ProfileHeader from "./ProfileHeader";
 import ProfileSubHeader from "./ProfileSubHeader";
 import ProfileTabs from "./ProfileTabs";
-import Post from "../../../home/components/post/post/Post";
+import Post from "../../../../components/app/common/post/Post";
 import { useDispatch, useSelector } from "react-redux";
 import { showError } from "../../../../states/slices/notificationSlice";
 import { setLoading } from "../../../../states/slices/loadingSlice";
