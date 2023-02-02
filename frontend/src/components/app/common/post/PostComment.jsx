@@ -15,11 +15,14 @@ const PostComment = ({ comment, user }) => {
 
   const navigate = useNavigate();
 
+  
+
   const checkIfCommentLiked = () => {
     const result = comment.likedBy.find((item) => item == user._id);
     setCommentLiked(result !== undefined);
     //console.log("Result: " + commentLiked);
   };
+
 
   useEffect(() => {
     checkIfCommentLiked();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PostHeader from "./PostHeader";
 import PostBody from "./PostBody";
 import PostActions from "./PostActions";
@@ -10,6 +10,7 @@ import {
   IconButton,
   Collapse,
   Divider,
+  Link,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -18,7 +19,10 @@ import { useEffect } from "react";
 import CommentModal from "../modal/CommentModal";
 import axios from "axios";
 import { setLoading } from "../../../../states/other/loadingSlice";
-import { showError } from "../../../../states/other/notificationSlice";
+import {
+  showError,
+  showInfo,
+} from "../../../../states/other/notificationSlice";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -53,12 +57,20 @@ const Post = ({ post, setPosts }) => {
     setPostLiked(result !== undefined);
   };
 
+  // A skip variable for pagination
+  const [skip, setSkip] = useState(0);
+
   const getPostComments = async (postId) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get(`/api/comment/${postId}`);
+      const response = await axios.get(`/api/comment/${postId}?skip=${skip}&limit=2`);
       const commentList = response.data.comments;
-      setComments(commentList);
+      if (commentList.length === 0) {
+        dispatch(showInfo("All comments loaded"));
+        dispatch(setLoading(false));
+        return;
+      }
+      setComments([...comments, ...commentList]);
       dispatch(setLoading(false));
     } catch (err) {
       dispatch(showError(err.response.data.error));
@@ -69,9 +81,14 @@ const Post = ({ post, setPosts }) => {
   useEffect(() => {
     if (post) {
       checkIfPostLiked();
-      getPostComments(post._id);
     }
   }, []);
+
+  useEffect(() => {
+    if (post) {
+      getPostComments(post._id);
+    }
+  }, [skip]);
 
   return (
     !isPostDeleted && (
@@ -133,6 +150,23 @@ const Post = ({ post, setPosts }) => {
                         setComments={setComments}
                       />
                     ))}
+                  <Box
+                    paddingRight={2}
+                    paddingTop={1}
+                    style={{ textAlign: "right" }}
+                    onClick={() => setSkip(skip + 3)}
+                  >
+                    <Typography
+                      fontSize={14}
+                      color="primary.main"
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: "primary.700" },
+                      }}
+                    >
+                      Load more comments
+                    </Typography>
+                  </Box>
                 </Box>
               </Collapse>
             </>
