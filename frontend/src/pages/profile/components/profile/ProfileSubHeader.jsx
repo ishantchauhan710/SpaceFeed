@@ -11,8 +11,9 @@ import BoxCentered from "../../../../components/styled/BoxCentered";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { showError } from "../../../../states/other/notificationSlice";
+import UserListModal from "../../../../components/app/common/modal/UserListModal";
 
-const ProfileSubHeaderItem = ({ label, icon }) => {
+const ProfileSubHeaderItem = ({ label, icon, clickAction }) => {
   return (
     <Box
       sx={{
@@ -23,6 +24,7 @@ const ProfileSubHeaderItem = ({ label, icon }) => {
       display="flex"
       alignItems="center"
       marginRight={2}
+      onClick={() => clickAction()}
     >
       <BoxCentered>{icon}</BoxCentered>
       <BoxCentered>
@@ -38,11 +40,26 @@ const ProfileSubHeader = () => {
   const user = useSelector((state) => state.profile.user);
   const loggedInUser = useSelector((state) => state.home.user);
 
-  const followers = useSelector(
-    (state) => state.profile.followers
-  );
+  const followers = useSelector((state) => state.profile.followers);
   const followings = useSelector((state) => state.profile.user.followings);
   const posts = useSelector((state) => state.profile.posts);
+
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingsModal, setShowFollowingsModal] = useState(false);
+
+  const showFollowers = () => {
+    if (followers.length <= 0) {
+      return;
+    }
+    setShowFollowersModal(true);
+  };
+
+  const showFollowings = () => {
+    if (followings.length <= 0) {
+      return;
+    }
+    setShowFollowingsModal(true);
+  };
 
   return (
     <>
@@ -69,12 +86,27 @@ const ProfileSubHeader = () => {
         <ProfileSubHeaderItem
           label={`${followers ? followers.length : 0} Followers`}
           icon={<EmojiEventsOutlinedIcon />}
+          clickAction={showFollowers}
         />
         <ProfileSubHeaderItem
           label={`${followings ? followings.length : 0} Followings`}
           icon={<HandshakeOutlinedIcon />}
+          clickAction={showFollowings}
         />
       </Box>
+
+      <UserListModal
+        label="Followers"
+        open={showFollowersModal}
+        setOpen={setShowFollowersModal}
+        userList={followers}
+      />
+      <UserListModal
+        label="Followings"
+        open={showFollowingsModal}
+        setOpen={setShowFollowingsModal}
+        userList={followings}
+      />
 
       {user && loggedInUser && user._id !== loggedInUser._id && (
         <Box

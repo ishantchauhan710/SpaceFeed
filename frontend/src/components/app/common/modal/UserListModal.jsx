@@ -17,9 +17,11 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ImageIcon from "@mui/icons-material/Image";
+import { useNavigate } from "react-router-dom";
 
-const FollowersModal = ({ open, setOpen }) => {
+const UserListModal = ({ label, open, setOpen, userList }) => {
+  const navigate = useNavigate();
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -41,7 +43,7 @@ const FollowersModal = ({ open, setOpen }) => {
           justifyContent="space-between"
         >
           <Typography variant="h1" fontSize={20} fontWeight={600}>
-            Followers
+            {label}
           </Typography>
           <IconButton
             aria-label="close"
@@ -62,15 +64,22 @@ const FollowersModal = ({ open, setOpen }) => {
             }}
           >
             <List sx={{ bgcolor: "background.paper" }}>
-              {followersList.map((follower) => (
-                <ListItem key={follower._id} disablePadding>
+              {userList.map((user) => (
+                <ListItem
+                  onClick={() => {
+                    handleClose();
+                    navigate(`/profile/${user._id}`);
+                  }}
+                  key={user._id}
+                  disablePadding
+                >
                   <ListItemButton>
                     <ListItemAvatar>
-                      <Avatar src={follower.profilePictureURL} />
+                      <Avatar src={user.profilePictureURL} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={follower.username}
-                      secondary={follower.email}
+                      primary={user.username}
+                      secondary={user.email}
                     />
                   </ListItemButton>
                 </ListItem>
@@ -98,4 +107,4 @@ const FollowersModal = ({ open, setOpen }) => {
   );
 };
 
-export default FollowersModal;
+export default UserListModal;

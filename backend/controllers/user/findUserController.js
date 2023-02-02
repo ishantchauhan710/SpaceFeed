@@ -7,7 +7,7 @@ const findUserController = async (req, res, next) => {
     if (!id) {
       throw new createHttpError(400, "User id cannot be null");
     }
-    const user = await UserModel.findById(id).exec();
+    const user = await UserModel.findById(id).populate("followings");
     res.status(200).json({ user: user });
   } catch (error) {
     next(error);

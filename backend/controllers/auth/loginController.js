@@ -22,12 +22,14 @@ const loginController = async (req, res, next) => {
       password,
     });
 
-    const user = await UserModel.findOne({ email: email })
+    let user = await UserModel.findOne({ email: email })
       .select("+password")
       .exec();
     if (!user) {
       throw createHttpError(401, "User not found");
     }
+
+    user = await user.populate("followings");
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
