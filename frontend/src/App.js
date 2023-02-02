@@ -15,7 +15,7 @@ import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import { useSelector, useDispatch } from "react-redux";
 import { hideNotification, showError } from "./states/other/notificationSlice";
-import { setUser } from "./states/homeSlice";
+import { setUser, setPosts, setFollowers } from "./states/homeSlice";
 
 import ErrorPage from "./pages/error/ErrorPage";
 import HomePage from "./pages/home/HomePage";
@@ -52,8 +52,6 @@ function App() {
     (state) => state.notification.notificationVisible
   );
 
-  const user = useSelector((state) => state.home.user);
-
   const isLoading = useSelector((state) => state.loading.isLoading);
 
   const imageModalVisible = useSelector(
@@ -83,6 +81,8 @@ function App() {
       dispatch(setLoading(false));
     }
   };
+
+  const user = useSelector((state) => state.home.user);
 
   useEffect(() => {
     getUserDetails();

@@ -6,11 +6,36 @@ import Grid from "@mui/material/Grid";
 import ProfileSection from "./components/profile/ProfileSection";
 import SuggestionSection from "./components/suggestion/SuggestionSection";
 import PostSection from "./components/post/PostSection";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
+import { setFollowers } from "../../states/homeSlice";
+import { setLoading } from "../../states/other/loadingSlice";
+import { showError } from "../../states/other/notificationSlice";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.home.user);
+
+  const getUserFollowers = async () => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(`/api/user/followers/${user._id}`);
+      const followersList = response.data.followers;
+      dispatch(setFollowers(followersList));
+      //console.log(JSON.stringify(followersList));
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    getUserFollowers();
+  }, []);
+
   return (
     <div>
       <NavBar />

@@ -5,24 +5,10 @@ import axios from "axios";
 import { showError } from "../../../../states/other/notificationSlice";
 
 const ProfileSectionStats = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.home.user);
-  const [stats, setStats] = useState({});
-
-  const getUserStats = async () => {
-    try {
-      const response = await axios.get(`/api/user/stats/${user._id}`);
-      const statsData = response.data.stats;
-      setStats(statsData);
-      console.log("Stats:" + JSON.stringify(response));
-    } catch (err) {
-      dispatch(showError(err.response.data.error));
-    }
-  };
-
-  useEffect(() => {
-    getUserStats();
-  }, []);
+  const followers = useSelector((state) => state.home.followers);
+  const followings = useSelector((state) => state.home.user.followings);
+  const posts = useSelector((state) => state.home.posts);
 
   const StatItem = ({ label, value, hideBorder }) => {
     return (
@@ -45,25 +31,26 @@ const ProfileSectionStats = () => {
   };
 
   return (
-    stats && (
-      <Box style={{ padding: "5px 10px" }}>
-        <Grid container>
-          <Grid item xs={3}>
-            <StatItem label="Post" value={stats.posts} />
-          </Grid>
-          <Grid item xs={5}>
-            <StatItem label="Followers" value={stats.followers} />
-          </Grid>
-          <Grid item xs={4}>
-            <StatItem
-              hideBorder={true}
-              label="Following"
-              value={stats.followings}
-            />
-          </Grid>
+    <Box style={{ padding: "5px 10px" }}>
+      <Grid container>
+        <Grid item xs={3}>
+          <StatItem label="Post" value={posts ? posts.length : 0} />
         </Grid>
-      </Box>
-    )
+        <Grid item xs={5}>
+          <StatItem
+            label="Followers"
+            value={followers ? followers.length : 0}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <StatItem
+            hideBorder={true}
+            label="Following"
+            value={followings ? followings.length : 0}
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

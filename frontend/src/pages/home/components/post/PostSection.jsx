@@ -3,22 +3,28 @@ import { Box } from "@mui/material";
 import PostSectionCreatePost from "./PostSectionCreatePost";
 import Post from "../../../../components/app/common/post/Post";
 import PaperBox from "../../../../components/styled/PaperBox";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showError } from "../../../../states/other/notificationSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { setPosts } from "../../../../states/homeSlice";
 
 const PostSection = () => {
-  const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]);
+  const [postsList, setPostsList] = useState([]);
 
-  const getPosts = async () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.home.user);
+
+  // Here I am using 2 states for posts, one is a redux state and another is react state. Redux state is to display posts in other pages where as use state is used as it is mutable and can be updated instantly on new post creation
+  const getUserPosts = async () => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get("/api/posts/feed/");
-      const postList = response.data.posts;
-      setPosts(postList);
+      const response = await axios.get(`/api/posts/user/${user._id}`);
+      const list = response.data.posts;
+      dispatch(setPosts(list));
+      setPostsList(list);
       //console.log(JSON.stringify(postList));
       dispatch(setLoading(false));
     } catch (err) {
@@ -28,18 +34,18 @@ const PostSection = () => {
   };
 
   useEffect(() => {
-    getPosts();
+    getUserPosts();
   }, []);
 
   return (
     <Box>
       <PaperBox>
-        <PostSectionCreatePost posts={posts} setPosts={setPosts} />
+        <PostSectionCreatePost posts={postsList} setPosts={setPostsList} />
       </PaperBox>
       <Box marginTop={2}>
-        {posts.map((post, i) => (
-          <Post key={post._id} post={post} />
-        ))}
+        {postsList &&
+          postsList.length > 0 &&
+          postsList.map((post, i) => <Post key={post._id} post={post} />)}
       </Box>
     </Box>
   );
