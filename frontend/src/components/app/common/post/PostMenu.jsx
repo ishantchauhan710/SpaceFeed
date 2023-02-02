@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import {
   showError,
+  showInfo,
   showSuccess,
 } from "../../../../states/other/notificationSlice";
+import copyToClipboard from "../../../../other/copyToClipboard";
+import { BASE_URL } from "../../../../other/constants";
 
 const PostMenu = ({ anchorEl, setAnchorEl, post, setIsPostDeleted }) => {
   const open = Boolean(anchorEl);
@@ -18,6 +21,12 @@ const PostMenu = ({ anchorEl, setAnchorEl, post, setIsPostDeleted }) => {
   };
 
   const user = useSelector((state) => state.home.user);
+
+  const copyPost = (url) => {
+    handleClose();
+    copyToClipboard(url);
+    dispatch(showInfo("Post link copied to clipboard"));
+  };
 
   const deletePost = async () => {
     handleClose();
@@ -43,7 +52,9 @@ const PostMenu = ({ anchorEl, setAnchorEl, post, setIsPostDeleted }) => {
         "aria-labelledby": "basic-button",
       }}
     >
-      <MenuItem onClick={() => {}}>Copy Link</MenuItem>
+      <MenuItem onClick={() => copyPost(`${BASE_URL}/post/${post._id}`)}>
+        Copy Link
+      </MenuItem>
       {user._id === post.createdBy._id && (
         <MenuItem onClick={() => deletePost()}>Delete Post</MenuItem>
       )}

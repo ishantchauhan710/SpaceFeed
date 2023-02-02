@@ -6,11 +6,16 @@ import ShareIcon from "@mui/icons-material/Share";
 import PostLikedUsersModal from "../modal/PostLikedUsersModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { showError } from "../../../../states/other/notificationSlice";
+import {
+  showError,
+  showInfo,
+} from "../../../../states/other/notificationSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import { pushPost, popPost } from "../../../../states/profileSlice";
 import axios from "axios";
 import { useEffect } from "react";
+import copyToClipboard from "../../../../other/copyToClipboard";
+import { BASE_URL } from "../../../../other/constants";
 
 const PostActionButton = ({
   label,
@@ -91,6 +96,11 @@ const PostActions = ({
     }
   };
 
+  const copyPost = (url) => {
+    copyToClipboard(url);
+    dispatch(showInfo("Post link copied to clipboard"));
+  };
+
   return (
     <Box paddingX={2}>
       <Grid container justifyContent="space-between">
@@ -129,7 +139,12 @@ const PostActions = ({
           />
         </Grid>
         <Grid item>
-          <PostActionButton label="Share" icon={<ShareIcon />} />
+          <PostActionButton
+            label="Share"
+            icon={<ShareIcon />}
+            iconAction={() => copyPost(`${BASE_URL}/post/${post._id}`)}
+            labelAction={() => copyPost(`${BASE_URL}/post/${post._id}`)}
+          />
         </Grid>
       </Grid>
       <PostLikedUsersModal
