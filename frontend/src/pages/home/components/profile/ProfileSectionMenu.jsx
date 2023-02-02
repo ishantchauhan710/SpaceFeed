@@ -15,9 +15,16 @@ import {
   FcSettings,
   FcInfo,
 } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { showInfo } from "../../../../states/other/notificationSlice";
 
 const ProfileSectionMenu = () => {
   const PROFILE_MENU_ITEM_ICON_SIZE = 22;
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.home.user);
+  const dispatch = useDispatch();
 
   const profileMenuList = [
     {
@@ -30,7 +37,9 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        navigate(`/profile/${user._id}`);
+      },
     },
     {
       label: "Photos",
@@ -42,7 +51,9 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        navigate(`/profile/${user._id}`);
+      },
     },
     {
       label: "News",
@@ -54,7 +65,9 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        dispatch(showInfo("This menu item is for display purposes"));
+      },
     },
     {
       label: "Events",
@@ -66,7 +79,9 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        dispatch(showInfo("This menu item is for display purposes"));
+      },
     },
     {
       label: "Settings",
@@ -78,7 +93,9 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        dispatch(showInfo("This menu item is for display purposes"));
+      },
     },
     {
       label: "About",
@@ -90,15 +107,17 @@ const ProfileSectionMenu = () => {
           }}
         />
       ),
-      clickListener: () => {},
+      clickListener: () => {
+        window.location.href = "https://github.com/ishantchauhan710/SpaceFeed";
+      },
     },
   ];
 
   return (
     <Box style={{ textAlign: "left" }}>
       <MenuList>
-        {profileMenuList.map((menuItem,i) => (
-          <MenuItem key={i}>
+        {profileMenuList.map((menuItem, i) => (
+          <MenuItem onClick={() => menuItem.clickListener()} key={i}>
             <ListItemIcon>{menuItem.iconComponent}</ListItemIcon>
             <ListItemText>
               <Typography variant="h3" fontSize={14} fontWeight={600}>

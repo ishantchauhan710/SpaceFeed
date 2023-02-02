@@ -6,11 +6,14 @@ import { useDispatch } from "react-redux";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import { showError } from "../../../../states/other/notificationSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PostComment = ({ comment, user }) => {
   const dispatch = useDispatch();
   const [likeLoading, setLikeLoading] = useState(false);
   const [commentLiked, setCommentLiked] = useState();
+
+  const navigate = useNavigate();
 
   const checkIfCommentLiked = () => {
     const result = comment.likedBy.find((item) => item == user._id);
@@ -72,13 +75,14 @@ const PostComment = ({ comment, user }) => {
           <Box display="flex" alignItems="center">
             <Link
               sx={{
+                cursor: "pointer",
                 color: "grey.900",
                 "&:hover": { color: "primary.600" },
               }}
               underline="none"
               fontWeight={600}
               fontSize={14}
-              href="#"
+              onClick={() => navigate(`/profile/${comment.commentedBy._id}`)}
               flex={1}
             >
               {comment.commentedBy.username}

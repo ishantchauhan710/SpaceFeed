@@ -18,11 +18,17 @@ export const notificationSlice = createSlice({
       state.notificationType = "success";
       state.notificationVisible = true;
     },
+    showInfo: (state, action) => {
+      state.notificationMessage = action.payload;
+      state.notificationType = "info";
+      state.notificationVisible = true;
+    },
     hideNotification: (state) => {
       state.notificationVisible = false;
     },
   },
 });
 
-export const { showError, showSuccess, hideNotification } = notificationSlice.actions;
+export const { showError, showSuccess, showInfo, hideNotification } =
+  notificationSlice.actions;
 export default notificationSlice.reducer;

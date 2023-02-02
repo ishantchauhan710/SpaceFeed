@@ -12,6 +12,8 @@ import { showError } from "../../../../states/other/notificationSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 
 const NavBarProfileMenu = ({ user, anchorEl, setAnchorEl }) => {
   const open = Boolean(anchorEl);
@@ -33,6 +35,16 @@ const NavBarProfileMenu = ({ user, anchorEl, setAnchorEl }) => {
       dispatch(showError(err.response.data.error));
       dispatch(setLoading(false));
     }
+  };
+
+  const openDocumentation = () => {
+    handleClose();
+    window.location.href = "https://github.com/ishantchauhan710/SpaceFeed";
+  };
+
+  const openDeveloper = () => {
+    handleClose();
+    window.location.href = "https://github.com/ishantchauhan710/";
   };
 
   const openProfilePage = () => {
@@ -118,17 +130,17 @@ const NavBarProfileMenu = ({ user, anchorEl, setAnchorEl }) => {
 
       <Divider />
 
-      <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-          <Settings fontSize="small" />
-        </ListItemIcon>
-        Settings
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={() => openDocumentation()}>
         <ListItemIcon>
           <DescriptionIcon fontSize="small" />
         </ListItemIcon>
         Documentation
+      </MenuItem>
+      <MenuItem onClick={() => openDeveloper()}>
+        <ListItemIcon>
+          <CodeOutlinedIcon fontSize="small" />
+        </ListItemIcon>
+        Developer
       </MenuItem>
       <MenuItem onClick={() => logoutUser()}>
         <ListItemIcon>

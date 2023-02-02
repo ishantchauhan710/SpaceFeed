@@ -9,11 +9,14 @@ import ProfileSectionStats from "./ProfileSectionStats";
 import ProfileSectionMenu from "./ProfileSectionMenu";
 import PaperBoxUnspaced from "../../../../components/styled/PaperBoxUnspaced";
 
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ProfileSection = () => {
-
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.home.user);
   return (
-    <Box sx={{width: "100%"}}>
+    <Box sx={{ width: "100%" }}>
       <PaperBoxUnspaced elevation={1}>
         <ProfileSectionHeader />
         <ProfileSectionStats />
@@ -22,11 +25,11 @@ const ProfileSection = () => {
         <Divider />
         <BoxCentered style={{ padding: "10px 0px" }}>
           <Link
-            sx={{ "&:hover": { color: "primary.600" } }}
+            sx={{ cursor: "pointer", "&:hover": { color: "primary.600" } }}
             underline="none"
             fontWeight={600}
             fontSize={14}
-            href="#"
+            onClick={() => navigate(`/profile/${user._id}`)}
           >
             View Profile
           </Link>
