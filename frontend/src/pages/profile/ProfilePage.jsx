@@ -8,7 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../states/other/loadingSlice";
 import { showError } from "../../states/other/notificationSlice";
-import { setUser } from "../../states/profileSlice";
+import { setUser, setPosts, setFollowers } from "../../states/profileSlice";
 import { useEffect } from "react";
 
 const ProfilePage = () => {
@@ -29,8 +29,38 @@ const ProfilePage = () => {
     }
   };
 
+  const getUserPosts = async () => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(`/api/posts/user/${id}`);
+      const postList = response.data.posts;
+      dispatch(setPosts(postList));
+      //console.log(JSON.stringify(postList));
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
+  };
+
+  const getUserFollowers = async () => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(`/api/user/followers/${id}`);
+      const followersList = response.data.followers;
+      dispatch(setFollowers(followersList));
+      //console.log(JSON.stringify(followersList));
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+    }
+  };
+
   useEffect(() => {
     getUserDetails();
+    getUserPosts();
+    getUserFollowers();
   }, [id]);
 
   return (

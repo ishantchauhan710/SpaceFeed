@@ -35,66 +35,48 @@ const ProfileSubHeaderItem = ({ label, icon }) => {
 };
 
 const ProfileSubHeader = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.profile.user);
   const loggedInUser = useSelector((state) => state.home.user);
 
-  const [stats, setStats] = useState({});
-
-  const getUserStats = async () => {
-    try {
-      const response = await axios.get(`/api/user/stats/${user._id}`);
-      const statsData = response.data.stats;
-      setStats(statsData);
-      console.log("Stats:" + JSON.stringify(response));
-    } catch (err) {
-      dispatch(showError(err.response.data.error));
-    }
-  };
-
-  useEffect(() => {
-    getUserStats();
-  }, []);
+  const followers = useSelector(
+    (state) => state.profile.followers
+  );
+  const followings = useSelector((state) => state.profile.user.followings);
+  const posts = useSelector((state) => state.profile.posts);
 
   return (
     <>
-      {stats && (
+      <Box
+        paddingX={4}
+        paddingBottom={2}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-start"
+      >
         <Box
-          paddingX={4}
-          paddingBottom={2}
-          display="flex"
-          alignItems="center"
-          justifyContent="flex-start"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
         >
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                sm: "flex",
-              },
-            }}
-          >
-            <ProfileSubHeaderItem
-              label={`${stats.posts !== undefined ? stats.posts : 0} Posts`}
-              icon={<FeedOutlinedIcon />}
-            />
-          </Box>
           <ProfileSubHeaderItem
-            label={`${
-              stats.followers !== undefined ? stats.followers : 0
-            } Followers`}
-            icon={<EmojiEventsOutlinedIcon />}
-          />
-          <ProfileSubHeaderItem
-            label={`${
-              stats.followings !== undefined ? stats.followings : 0
-            } Followings`}
-            icon={<HandshakeOutlinedIcon />}
+            label={`${posts ? posts.length : 0} Posts`}
+            icon={<FeedOutlinedIcon />}
           />
         </Box>
-      )}
+        <ProfileSubHeaderItem
+          label={`${followers ? followers.length : 0} Followers`}
+          icon={<EmojiEventsOutlinedIcon />}
+        />
+        <ProfileSubHeaderItem
+          label={`${followings ? followings.length : 0} Followings`}
+          icon={<HandshakeOutlinedIcon />}
+        />
+      </Box>
 
-      {user._id !== loggedInUser._id && (
+      {user && loggedInUser && user._id !== loggedInUser._id && (
         <Box
           paddingX={4}
           marginBottom={2}

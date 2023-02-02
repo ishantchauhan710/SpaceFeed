@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: null,
-  posts: null,
-  followers: null,
+  posts: [],
+  followers: [],
 };
 
 export const profileSlice = createSlice({

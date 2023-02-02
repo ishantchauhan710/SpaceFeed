@@ -3,7 +3,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const suggestedUsersController = require("../controllers/user/suggestedUsersController");
 const toggleUserFollowController = require("../controllers/user/toggleUserFollowController");
 const findUserController = require("../controllers/user/findUserController");
-const userStatsController = require("../controllers/user/userStatsController");
+const userFollowersController = require("../controllers/user/userFollowersController");
 const router = express.Router();
 
 // @POST
@@ -19,8 +19,8 @@ router.get("/user/suggested", authMiddleware, suggestedUsersController);
 router.get("/user/:id", authMiddleware, findUserController);
 
 // @GET
-// @desc Get followers, followings and posts count of a user
-router.get("/user/stats/:id", authMiddleware, userStatsController);
+// @desc Get followers of a user
+router.get("/user/followers/:id", authMiddleware, userFollowersController);
 
 
 

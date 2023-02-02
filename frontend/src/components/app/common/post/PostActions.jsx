@@ -8,7 +8,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showError } from "../../../../states/other/notificationSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
+import { pushPost, popPost } from "../../../../states/profileSlice";
 import axios from "axios";
+import { useEffect } from "react";
 
 const PostActionButton = ({
   label,
@@ -16,7 +18,6 @@ const PostActionButton = ({
   iconAction,
   labelAction,
   postLiked,
-  setPostLiked,
 }) => {
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
@@ -52,6 +53,11 @@ const PostActions = ({
 
   // A custom loading variable to prevent multiple API calls when liking a post
   const [likeLoading, setLikeLoading] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
+  useEffect(() => {
+    setLikesCount(post.likedBy.length);
+  }, []);
 
   const togglePostLike = async (postId) => {
     if (likeLoading === true) {
@@ -59,9 +65,11 @@ const PostActions = ({
     }
     setPostLiked(!postLiked);
     if (postLiked === true) {
-      post.likedBy.pop(user);
+      //dispatch(popPost(user));
+      setLikesCount(likesCount - 1);
     } else {
-      post.likedBy.push(user);
+      //dispatch(pushPost(user));
+      setLikesCount(likesCount + 1);
     }
 
     try {
@@ -91,7 +99,7 @@ const PostActions = ({
             label={
               (postLiked ? `Liked` : `Like`) +
               " " +
-              (post.likedBy.length == 0 ? "" : "(" + post.likedBy.length + ")")
+              (likesCount <= 0 ? "" : "(" + likesCount + ")")
             }
             icon={
               <FavoriteIcon
