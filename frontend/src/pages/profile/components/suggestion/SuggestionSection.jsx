@@ -1,25 +1,22 @@
-import React from "react";
 import {
+  Avatar,
   Box,
-  Typography,
+  Button,
   List,
   ListItem,
-  ListItemText,
   ListItemAvatar,
-  Avatar,
-  Button,
-  Divider,
+  ListItemText,
+  Typography,
 } from "@mui/material";
-import OnlineUsers from "../../../home/components/suggestion/OnlineUsers";
-import PaperBox from "../../../../components/styled/PaperBox";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showError } from "../../../../states/other/notificationSlice";
-import { setLoading } from "../../../../states/other/loadingSlice";
-import { setUser } from "../../../../states/homeSlice";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import PaperBox from "../../../../components/styled/PaperBox";
+import { setUser } from "../../../../states/homeSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
+import { showError } from "../../../../states/other/notificationSlice";
+import OnlineUsers from "../../../home/components/suggestion/OnlineUsers";
 
 const CustomListItem = ({
   user,

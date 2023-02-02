@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   notificationVisible: false,
-  notificationMessage: "dd",
-  notificationType: "dd",
+  notificationMessage: "",
+  notificationType: "",
 };
 export const notificationSlice = createSlice({
   name: "notificationSlice",

@@ -1,7 +1,11 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { showImageModal } from "../../../../states/other/imageModalSlice";
 
 const PostBody = ({ post }) => {
+  const dispatch = useDispatch();
+
   return (
     <Box paddingBottom={1} style={{ textAlign: "left" }}>
       <Box paddingX={2}>
@@ -24,12 +28,14 @@ const PostBody = ({ post }) => {
               marginTop: "15px",
               borderRadius: "5px",
               marginBottom: "15px",
+              cursor: "pointer"
             }}
             src={post.mediaLink}
+            onClick={() => {dispatch(showImageModal({src: post.mediaLink, caption: post.content}))}}
           />
         )}
       </Box>
-      <Divider style={{marginTop: "15px"}} />
+      <Divider style={{ marginTop: "15px" }} />
     </Box>
   );
 };

@@ -22,6 +22,7 @@ import HomePage from "./pages/home/HomePage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import axios from "axios";
 import { setLoading } from "./states/other/loadingSlice";
+import ImageModal from "./components/app/common/modal/ImageModal";
 
 function App() {
   const themeData = themeConfig();
@@ -54,6 +55,10 @@ function App() {
   const user = useSelector((state) => state.home.user);
 
   const isLoading = useSelector((state) => state.loading.isLoading);
+
+  const imageModalVisible = useSelector(
+    (state) => state.imageModal.imageVisible
+  );
 
   // Function to get the user details based on session id
   const getUserDetails = async () => {
@@ -116,6 +121,7 @@ function App() {
           {notificationMessage}
         </Alert>
       </Snackbar>
+      {imageModalVisible && <ImageModal />}
     </ThemeProvider>
   );
 }

@@ -1,28 +1,28 @@
-import React from "react";
 import {
   Box,
-  Stack,
-  Typography,
-  TextField,
   InputAdornment,
   Link,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
+import React from "react";
 
-import BoxCentered from "../../../components/styled/BoxCentered";
-import ActionButton from "../../../components/styled/ActionButton";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
+import ActionButton from "../../../components/styled/ActionButton";
+import BoxCentered from "../../../components/styled/BoxCentered";
 
+import axios from "axios";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import ForgotPasswordDialog from "./ForgotPasswordDialog";
-import LinkButton from "../../../components/styled/LinkButton";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import LinkButton from "../../../components/styled/LinkButton";
+import { setUser } from "../../../states/homeSlice.js";
 import { setLoading } from "../../../states/other/loadingSlice";
 import { showError } from "../../../states/other/notificationSlice";
-import { useNavigate } from "react-router-dom";
-import { setUser } from "../../../states/homeSlice.js";
-import axios from "axios";
+import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 const LoginRight = () => {
   const [showForgotPasswordDialog, setShowForgotPasswordDialog] =
@@ -61,9 +61,6 @@ const LoginRight = () => {
         email: email,
         password: password,
       });
-
-      // console.log("Response" + JSON.stringify(response.data));
-      // console.log("Success");
       dispatch(setUser(response.data.user));
       dispatch(setLoading(false));
       navigate("/");
