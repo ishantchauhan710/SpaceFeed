@@ -45,7 +45,7 @@ const PostSection = () => {
       <Box marginTop={2}>
         {postsList &&
           postsList.length > 0 &&
-          postsList.map((post, i) => <Post key={post._id} post={post} />)}
+          postsList.map((post, i) => <Post key={post._id} post={post} setPosts={setPostsList} />)}
       </Box>
     </Box>
   );

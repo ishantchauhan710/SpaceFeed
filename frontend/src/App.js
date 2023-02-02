@@ -23,6 +23,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import axios from "axios";
 import { setLoading } from "./states/other/loadingSlice";
 import ImageModal from "./components/app/common/modal/ImageModal";
+import PostPage from "./pages/post/PostPage";
 
 function App() {
   const themeData = themeConfig();
@@ -97,6 +98,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={user && <HomePage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
+          <Route path="/post/:id" element={user && <PostPage />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>

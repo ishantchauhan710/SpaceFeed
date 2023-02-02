@@ -4,6 +4,7 @@ const getPostsController = require("../controllers/post/getPostsController");
 const storageConfig = require("../config/storageConfig");
 const authMiddleware = require("../middlewares/authMiddleware");
 const deletePostController = require("../controllers/post/deletePostController");
+const { getPostController } = require("../controllers/post/getPostController");
 const router = express.Router();
 
 // @POST
@@ -22,6 +23,10 @@ router.get("/posts/user/:id", authMiddleware, getPostsController.getPosts);
 // @GET
 // @desc Get feed [Posts created by followings]
 router.get("/posts/feed", authMiddleware, getPostsController.getFeed);
+
+// @GET
+// @desc Get a single post
+router.get("/posts/post/:id", authMiddleware, getPostController);
 
 // @DELETE
 // @desc Delete a post

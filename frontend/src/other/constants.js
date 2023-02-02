@@ -15,4 +15,4 @@ export const BANNER4_URL =
 export const BANNER5_URL =
   "https://img.freepik.com/premium-photo/smooth-simple-yellow-abstract-gradient-background_8087-4416.jpg";
 
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "http://localhost:3000";
