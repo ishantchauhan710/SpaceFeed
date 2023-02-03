@@ -4,6 +4,7 @@ const suggestedUsersController = require("../controllers/user/suggestedUsersCont
 const toggleUserFollowController = require("../controllers/user/toggleUserFollowController");
 const findUserController = require("../controllers/user/findUserController");
 const userFollowersController = require("../controllers/user/userFollowersController");
+const searchUsersController = require("../controllers/user/searchUsersController");
 const router = express.Router();
 
 // @POST
@@ -22,6 +23,8 @@ router.get("/user/:id", authMiddleware, findUserController);
 // @desc Get followers of a user
 router.get("/user/followers/:id", authMiddleware, userFollowersController);
 
-
+// @GET
+// @desc Get followers of a user
+router.get("/user-search", authMiddleware, searchUsersController);
 
 module.exports = router;
