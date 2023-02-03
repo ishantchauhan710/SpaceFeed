@@ -21,8 +21,12 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavBarProfileMenu from "./NavBarProfileMenu";
 import NavBarNotificationMenu from "./NavBarNotificationMenu";
 import StyledTextField from "../../../styled/StyledTextField";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import axios from "axios";
+import { useEffect } from "react";
+import { showError } from "../../../../states/other/notificationSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
@@ -37,6 +41,7 @@ const NavBar = () => {
   };
 
   const user = useSelector((state) => state.home.user);
+  const navigate = useNavigate()
 
   const StyledIconButton = styled("div")(({ theme }) => ({
     width: "40px",
@@ -56,27 +61,54 @@ const NavBar = () => {
     },
   }));
 
-  const AutoCompleteOutputLayout = () => {
+
+  const AutoCompleteOutputLayout = ({ data }) => {
     return (
-      <ListItem disablePadding>
+      <ListItem onClick={() => navigate(`/profile/${data._id}`)} disablePadding>
         <ListItemButton>
           <ListItemAvatar>
-            <Avatar />
+            <Avatar src={data.profilePictureURL} />
           </ListItemAvatar>
-          <ListItemText primary="Ishant" secondary="ishantchauhan@gmail.com" />
+          <ListItemText primary={data.username} secondary={data.email} />
         </ListItemButton>
       </ListItem>
     );
   };
 
-  const countries = [
-    { code: "AD", label: "Andorra", phone: "376" },
-    {
-      code: "AE",
-      label: "United Arab Emirates",
-      phone: "971",
-    },
-  ];
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (searchQuery.length <= 2) {
+      return;
+    }
+    const searchUsers = setTimeout(() => {
+      try {
+        axios.get(`/api/user-search?search=${searchQuery}`).then((response) => {
+          setSearchedUsers(response.data.users);
+          console.log("Called" + JSON.stringify(response.data.users));
+        });
+      } catch (err) {
+        setSearchedUsers([]);
+        dispatch(showError(err.response.data.error));
+      }
+    }, 1000);
+    return () => clearTimeout(searchUsers);
+  }, [searchQuery]);
+
+  // useEffect(() => {
+  //   console.log("Use effect called" + searchQuery)
+  //   try {
+  //     axios.get(`/api/user-search?search=${searchQuery}`).then((response) => {
+  //       setSearchedUsers(response.data.users);
+  //       console.log("Called" + JSON.stringify(response.data.users));
+  //     });
+  //   } catch (err) {
+  //     setSearchedUsers([]);
+  //     dispatch(showError(err.response.data.error));
+  //   }
+  // }, [searchQuery]);
 
   return (
     <>
@@ -138,14 +170,15 @@ const NavBar = () => {
                   sm: "block",
                 },
               }}
-              options={countries}
+              options={searchedUsers}
               autoHighlight
-              getOptionLabel={(option) => option.label}
+              getOptionLabel={(option) => option.username}
               renderOption={(props, option) => (
                 <Box>
-                  <AutoCompleteOutputLayout />
+                  <AutoCompleteOutputLayout data={option} />
                 </Box>
               )}
+              onInputChange={(e) => setSearchQuery(e.target.value)}
               renderInput={(params) => (
                 <div ref={params.InputProps.ref}>
                   <StyledTextField
@@ -230,7 +263,7 @@ const NavBar = () => {
                   height={40}
                   alt="Profile"
                   src={
-                    (user && user.profilePictureURL)
+                    user && user.profilePictureURL
                       ? user.profilePictureURL
                       : PROFILE_PICTURE_PLACEHOLDER
                   }

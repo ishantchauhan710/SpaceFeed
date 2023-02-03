@@ -7,10 +7,10 @@ const searchUsersController = async (req, res, next) => {
     if (!text) {
       throw new createHttpError(400, "Search query cannot be blank");
     }
-    const user = await UserModel.find({
+    const users = await UserModel.find({
       $or: [{ email: { $regex: text } }, { username: { $regex: text } }],
-    });
-    res.status(200).json({ user: user });
+    }).limit(5);
+    res.status(200).json({ users: users });
   } catch (error) {
     next(error);
   }
