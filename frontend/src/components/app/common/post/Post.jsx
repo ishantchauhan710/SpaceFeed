@@ -170,7 +170,7 @@ const Post = ({ post, setPosts }) => {
                       paddingRight={2}
                       paddingTop={1}
                       style={{ textAlign: "right" }}
-                      onClick={() => setSkip(skip + 3)}
+                      onClick={() => setSkip(skip + 2)}
                     >
                       <Typography
                         fontSize={14}

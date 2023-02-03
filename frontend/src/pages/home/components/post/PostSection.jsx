@@ -53,7 +53,7 @@ const PostSection = () => {
         ) : (
           postsList &&
           postsList.length > 0 &&
-          postsList.map((post, i) => (
+          postsList.slice(0).reverse().map((post, i) => (
             <Post key={post._id} post={post} setPosts={setPostsList} />
           ))
         )}

@@ -12,9 +12,10 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { showError } from "../../../../states/other/notificationSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
-import { setUser } from "../../../../states/homeSlice";
+import { setUser } from "../../../../states/profileSlice";
 
 import UserListModal from "../../../../components/app/common/modal/UserListModal";
+import { useLocation, useParams } from "react-router-dom";
 
 const ProfileSubHeaderItem = ({ label, icon, clickAction }) => {
   return (
@@ -74,11 +75,6 @@ const ProfileSubHeader = () => {
       setIsLoggedInUserFollowingProfileUser(
         !isLoggedInUserFollowingProfileUser
       );
-      if (isLoggedInUserFollowingProfileUser) {
-        setFollowersCount(followersCount - 1);
-      } else {
-        setFollowersCount(followersCount + 1);
-      }
     } catch (err) {
       dispatch(showError(err.response.data.error));
       dispatch(setLoading(false));
@@ -91,10 +87,6 @@ const ProfileSubHeader = () => {
   const followers = useSelector((state) => state.profile.followers);
   const followings = useSelector((state) => state.profile.user.followings);
   const posts = useSelector((state) => state.profile.posts);
-
-  const [followersCount, setFollowersCount] = useState(followers.length);
-  const [followingsCount, setFollowingsCount] = useState(followings.length);
-  const [postsCount, setPostsCount] = useState(posts.length);
 
   const showFollowers = () => {
     if (followers.length <= 0) {
@@ -128,17 +120,17 @@ const ProfileSubHeader = () => {
           }}
         >
           <ProfileSubHeaderItem
-            label={`${postsCount} Posts`}
+            label={`${posts.length} Posts`}
             icon={<FeedOutlinedIcon />}
           />
         </Box>
         <ProfileSubHeaderItem
-          label={`${followersCount} Followers`}
+          label={`${followers.length} Followers`}
           icon={<EmojiEventsOutlinedIcon />}
           clickAction={showFollowers}
         />
         <ProfileSubHeaderItem
-          label={`${followingsCount} Followings`}
+          label={`${followings.length} Followings`}
           icon={<HandshakeOutlinedIcon />}
           clickAction={showFollowings}
         />

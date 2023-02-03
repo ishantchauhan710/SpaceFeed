@@ -27,7 +27,7 @@ const ProfileLeftSection = ({ postsLoading }) => {
           user &&
           posts &&
           posts.length > 0 &&
-          posts.map((post) => <Post key={post._id} post={post} />)
+          posts.slice(0).reverse().map((post) => <Post key={post._id} post={post} />)
         )}
       </Box>
     </Box>

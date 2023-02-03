@@ -21,7 +21,9 @@ const getCommentsOnPostController = async (req, res, next) => {
     let comments = await CommentModel.find({ post: postId }, null, {
       skip: skip,
       limit: limit,
-    }).populate("commentedBy");
+    })
+      .sort({ createdAt: -1 })
+      .populate("commentedBy");
 
     res.status(200).json({ comments: comments });
   } catch (err) {

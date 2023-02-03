@@ -3,7 +3,7 @@ import NavBar from "../../components/app/common/navbar/NavBar";
 import { Box, Grid } from "@mui/material/";
 import ProfileSection from "./components/profile/ProfileSection";
 import SuggestionSection from "./components/suggestion/SuggestionSection";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../states/other/loadingSlice";

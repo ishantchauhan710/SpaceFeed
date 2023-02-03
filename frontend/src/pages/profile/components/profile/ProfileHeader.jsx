@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ShareIcon from "@mui/icons-material/Share";
-import { Box, Fab, Typography } from "@mui/material";
+import { Box, Fab, IconButton, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import generateBanner from "../../../../other/generateBanner";
 import {
@@ -12,6 +12,7 @@ import { showImageModal } from "../../../../states/other/imageModalSlice";
 import { showInfo } from "../../../../states/other/notificationSlice";
 
 import copyToClipboard from "../../../../other/copyToClipboard";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ProfileHeader = () => {
   const user = useSelector((state) => state.profile.user);
@@ -22,9 +23,20 @@ const ProfileHeader = () => {
     dispatch(showInfo("Profile link copied to clipboard"));
   };
 
+  const [banner, setBanner] = useState(user.profileBanner);
+
+  const changeBanner = () => {
+    if (parseInt(banner) >= 5) {
+      setBanner("1");
+    } else {
+      setBanner((parseInt(banner) + 1).toString());
+    }
+    console.log(banner);
+  };
+
   return (
     <Box>
-      <Box>
+      <Box style={{ position: "relative" }}>
         <img
           style={{
             width: "100%",
@@ -33,8 +45,28 @@ const ProfileHeader = () => {
             objectFit: "cover",
           }}
           alt="banner"
-          src={generateBanner(user.profileBanner)}
+          src={generateBanner(banner)}
         />
+        <IconButton
+          onClick={() => changeBanner()}
+          sx={{
+            position: "absolute",
+            marginTop: "20px",
+            marginLeft: "-60px",
+            backgroundColor: (theme) => theme.palette.primary[400],
+            "&:hover": {
+              backgroundColor: (theme) => theme.palette.primary[300],
+            },
+          }}
+        >
+          <EditIcon
+            style={{
+              width: "20px",
+              height: "18px",
+              color: "#ffffff",
+            }}
+          />
+        </IconButton>
       </Box>
       <Box
         style={{ position: "relative" }}

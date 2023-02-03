@@ -64,7 +64,7 @@ import axios from "axios";
 //   },
 // ];
 
-const PostSectionCreatePost = ({posts,setPosts}) => {
+const PostSectionCreatePost = ({ posts, setPosts }) => {
   const [showUploadPhotoModal, setShowUploadPhotoModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -94,7 +94,7 @@ const PostSectionCreatePost = ({posts,setPosts}) => {
       );
       setContent("");
       dispatch(setLoading(false));
-      setPosts([response.data.post,...posts])
+      setPosts([...posts, response.data.post]);
       dispatch(showSuccess("Post uploaded successfully"));
     } catch (err) {
       dispatch(showError(err.response.data.error));
