@@ -1,6 +1,7 @@
 const createHttpError = require("http-errors");
 const PostModel = require("../../models/postModel");
 const CommentModel = require("../../models/commentModel");
+const { deleteFile } = require("../../util/cloudUtil");
 
 const deletePostController = async (req, res, next) => {
   const userId = req.session.userId;
@@ -25,6 +26,12 @@ const deletePostController = async (req, res, next) => {
     for (i in comments) {
       //console.log("Comment deleted: " + comments[i]);
       await comments[i].delete();
+    }
+
+    // Delete associated media fille
+    const mediaLink = post.mediaLink
+    if(mediaLink!="") {
+      await deleteFile(mediaLink)
     }
 
     await post.delete();
