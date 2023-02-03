@@ -1,7 +1,7 @@
 import React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -17,25 +17,33 @@ const PhotosTab = () => {
   }, []);
 
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const matchMediaQuery = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box paddingBottom={1}>
-      <ImageList cols={3}>
-        {imagePosts &&
-          imagePosts.length > 0 &&
-          imagePosts.map((item) => (
-            <ImageListItem key={item._id}>
-              <img
-                src={`${item.mediaLink}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.mediaLink}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt="post item"
-                loading="lazy"
-                style={{ height: 200, cursor: "pointer" }}
-                onClick={() => dispatch(showImageModal(item.mediaLink))}
-              />
-            </ImageListItem>
-          ))}
-      </ImageList>
+      {imagePosts && imagePosts.length > 0 ? (
+        <ImageList cols={matchMediaQuery ? 2 : 3}>
+          {imagePosts &&
+            imagePosts.length > 0 &&
+            imagePosts.map((item) => (
+              <ImageListItem key={item._id}>
+                <img
+                  src={`${item.mediaLink}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.mediaLink}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt="post item"
+                  loading="lazy"
+                  style={{ height: 200, cursor: "pointer" }}
+                  onClick={() => dispatch(showImageModal(item.mediaLink))}
+                />
+              </ImageListItem>
+            ))}
+        </ImageList>
+      ) : (
+        <Box style={{textAlign: "left", padding: "10px 10px 5px 10px"}}>
+          No Images
+        </Box>
+      )}
     </Box>
   );
 };
