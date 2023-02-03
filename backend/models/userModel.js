@@ -33,7 +33,6 @@ const userSchema = new Schema(
     phone: {
       type: String,
       required: false,
-      select: false,
     },
     profilePictureURL: {
       type: String,
