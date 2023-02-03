@@ -12,6 +12,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import UserLoading from "../../../../components/loading/UserLoading";
 import PaperBox from "../../../../components/styled/PaperBox";
 import { setUser } from "../../../../states/homeSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
@@ -82,18 +83,19 @@ const CustomListItem = ({
 const SuggestionSection = () => {
   const dispatch = useDispatch();
   const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const [suggestedLoading, setSuggestedLoading] = useState(false);
   const navigate = useNavigate();
 
   const getSuggestedUsers = async () => {
     try {
-      dispatch(setLoading(true));
+      setSuggestedLoading(true);
       const response = await axios.get("/api/user/suggested");
       const userList = response.data.suggestedUsers;
       setSuggestedUsers(userList);
-      dispatch(setLoading(false));
+      setSuggestedLoading(false);
     } catch (err) {
       dispatch(showError(err.response.data.error));
-      dispatch(setLoading(false));
+      setSuggestedLoading(false);
     }
   };
 
@@ -135,17 +137,19 @@ const SuggestionSection = () => {
           </Typography>
           <Box paddingTop={1}>
             <List>
-              {suggestedUsers &&
-                suggestedUsers.length > 0 &&
-                suggestedUsers.map((suggestedUser) => (
-                  <CustomListItem
-                    user={suggestedUser}
-                    key={suggestedUser._id}
-                    toggleUserFollow={toggleUserFollow}
-                    isFollowing={user.followings.includes(suggestedUser._id)}
-                    openProfile={openProfile}
-                  />
-                ))}
+              {suggestedLoading
+                ? [...Array(10)].map((i) => <UserLoading key={i} />)
+                : suggestedUsers &&
+                  suggestedUsers.length > 0 &&
+                  suggestedUsers.map((suggestedUser) => (
+                    <CustomListItem
+                      user={suggestedUser}
+                      key={suggestedUser._id}
+                      toggleUserFollow={toggleUserFollow}
+                      isFollowing={user.followings.includes(suggestedUser._id)}
+                      openProfile={openProfile}
+                    />
+                  ))}
             </List>
           </Box>
         </Box>

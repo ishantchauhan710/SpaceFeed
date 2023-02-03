@@ -6,8 +6,9 @@ import ProfileSubHeader from "./ProfileSubHeader";
 import ProfileTabs from "./ProfileTabs";
 import Post from "../../../../components/app/common/post/Post";
 import { useSelector } from "react-redux";
+import PostLoading from "../../../../components/loading/PostLoading";
 
-const ProfileLeftSection = () => {
+const ProfileLeftSection = ({ postsLoading }) => {
   const posts = useSelector((state) => state.profile.posts);
   const user = useSelector((state) => state.home.user);
 
@@ -20,10 +21,14 @@ const ProfileLeftSection = () => {
       </PaperBoxUnspaced>
 
       <Box marginTop={2}>
-        {user &&
+        {postsLoading ? (
+          <PostLoading />
+        ) : (
+          user &&
           posts &&
           posts.length > 0 &&
-          posts.map((post) => <Post key={post._id} post={post} />)}
+          posts.map((post) => <Post key={post._id} post={post} />)
+        )}
       </Box>
     </Box>
   );

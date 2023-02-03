@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../../components/app/common/navbar/NavBar";
 import { Box, Grid } from "@mui/material/";
 import ProfileSection from "./components/profile/ProfileSection";
@@ -16,6 +16,8 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const profileUser = useSelector((state) => state.profile.user);
 
+  const [postsLoading, setPostsLoading] = useState(false);
+
   const getUserDetails = async () => {
     try {
       dispatch(setLoading(true));
@@ -31,15 +33,15 @@ const ProfilePage = () => {
 
   const getUserPosts = async () => {
     try {
-      dispatch(setLoading(true));
+      setPostsLoading(true);
       const response = await axios.get(`/api/posts/user/${id}`);
       const postList = response.data.posts;
       dispatch(setPosts(postList));
       //console.log(JSON.stringify(postList));
-      dispatch(setLoading(false));
+      setPostsLoading(false);
     } catch (err) {
       dispatch(showError(err.response.data.error));
-      dispatch(setLoading(false));
+      setPostsLoading(false);
     }
   };
 
@@ -75,7 +77,7 @@ const ProfilePage = () => {
               xs={12}
               sx={{ display: { xs: "block", md: "block" } }}
             >
-              <ProfileSection />
+              <ProfileSection postsLoading={postsLoading} />
             </Grid>
             <Grid
               item

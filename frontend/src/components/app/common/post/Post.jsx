@@ -23,6 +23,7 @@ import {
   showError,
   showInfo,
 } from "../../../../states/other/notificationSlice";
+import CommentLoading from "../../../loading/CommentLoading";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,6 +41,8 @@ const Post = ({ post, setPosts }) => {
   const [postLiked, setPostLiked] = React.useState(false);
   const [showCommentModal, setShowCommentModal] = React.useState(false);
   const [comments, setComments] = React.useState([]);
+
+  const [commentsLoading, setCommentsLoading] = useState(false);
 
   // This will be used to hide the post when it is deleted
   const [isPostDeleted, setIsPostDeleted] = React.useState(false);
@@ -60,21 +63,32 @@ const Post = ({ post, setPosts }) => {
   // A skip variable for pagination
   const [skip, setSkip] = useState(0);
 
+  const handleCommentLoading = (state) => {
+    if (skip <= 0) {
+      setCommentsLoading(state);
+    } else {
+      dispatch(setLoading(state));
+    }
+  };
+
   const getPostComments = async (postId) => {
     try {
-      dispatch(setLoading(true));
-      const response = await axios.get(`/api/comment/${postId}?skip=${skip}&limit=2`);
+      handleCommentLoading(true);
+
+      const response = await axios.get(
+        `/api/comment/${postId}?skip=${skip}&limit=2`
+      );
       const commentList = response.data.comments;
-      if (commentList.length === 0) {
+      if (commentList.length === 0 && skip > 0) {
         dispatch(showInfo("All comments loaded"));
-        dispatch(setLoading(false));
+        handleCommentLoading(false);
         return;
       }
       setComments([...comments, ...commentList]);
-      dispatch(setLoading(false));
+      handleCommentLoading(false);
     } catch (err) {
       dispatch(showError(err.response.data.error));
-      dispatch(setLoading(false));
+      handleCommentLoading(false);
     }
   };
 
@@ -117,7 +131,65 @@ const Post = ({ post, setPosts }) => {
             setComments={setComments}
           />
 
-          {comments && comments.length > 0 && (
+          {commentsLoading ? (
+            <CommentLoading />
+          ) : (
+            comments &&
+            comments.length > 0 && (
+              <>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  paddingTop={2}
+                  paddingX={2}
+                  width="100%"
+                  style={{ textAlign: "left" }}
+                >
+                  <ExpandMore
+                    expand={!expanded[post.id]}
+                    onClick={() => handlePostExpandClick(post.id)}
+                  >
+                    <ExpandMoreIcon />
+                  </ExpandMore>
+                </Box>
+                <Collapse in={!expanded[post.id]} timeout="auto" unmountOnExit>
+                  <Box paddingY={1}>
+                    {comments &&
+                      comments.map((comment) => (
+                        <PostComment
+                          key={comment._id}
+                          post={post}
+                          comment={comment}
+                          user={user}
+                          comments={comments}
+                          setComments={setComments}
+                        />
+                      ))}
+                    <Box
+                      paddingRight={2}
+                      paddingTop={1}
+                      style={{ textAlign: "right" }}
+                      onClick={() => setSkip(skip + 3)}
+                    >
+                      <Typography
+                        fontSize={14}
+                        color="primary.main"
+                        sx={{
+                          cursor: "pointer",
+                          "&:hover": { color: "primary.700" },
+                        }}
+                      >
+                        Load more comments
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Collapse>
+              </>
+            )
+          )}
+
+          {/* {comments && comments.length > 0 && (
             <>
               <Box
                 display="flex"
@@ -128,9 +200,6 @@ const Post = ({ post, setPosts }) => {
                 width="100%"
                 style={{ textAlign: "left" }}
               >
-                {/* <Typography variant="h6" fontSize={14}>
-        {expanded[post.id] ? "Show Comments" : "Comments:"}
-      </Typography> */}
                 <ExpandMore
                   expand={!expanded[post.id]}
                   onClick={() => handlePostExpandClick(post.id)}
@@ -171,7 +240,7 @@ const Post = ({ post, setPosts }) => {
                 </Box>
               </Collapse>
             </>
-          )}
+          )} */}
         </PaperBox>
       </Box>
     )
