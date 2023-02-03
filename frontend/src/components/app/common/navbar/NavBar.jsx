@@ -27,6 +27,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { showError } from "../../../../states/other/notificationSlice";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 const NavBar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
@@ -41,7 +42,7 @@ const NavBar = () => {
   };
 
   const user = useSelector((state) => state.home.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const StyledIconButton = styled("div")(({ theme }) => ({
     width: "40px",
@@ -60,7 +61,6 @@ const NavBar = () => {
       transition: "0.3s all ease",
     },
   }));
-
 
   const AutoCompleteOutputLayout = ({ data }) => {
     return (
@@ -97,21 +97,21 @@ const NavBar = () => {
     return () => clearTimeout(searchUsers);
   }, [searchQuery]);
 
-  // useEffect(() => {
-  //   console.log("Use effect called" + searchQuery)
-  //   try {
-  //     axios.get(`/api/user-search?search=${searchQuery}`).then((response) => {
-  //       setSearchedUsers(response.data.users);
-  //       console.log("Called" + JSON.stringify(response.data.users));
-  //     });
-  //   } catch (err) {
-  //     setSearchedUsers([]);
-  //     dispatch(showError(err.response.data.error));
-  //   }
-  // }, [searchQuery]);
+  const [time, setTime] = useState("fetching");
+
+  useEffect(() => {
+    const socket = io("http://localhost:5000");
+    socket.on("connect", () => console.log(socket.id));
+    socket.on("connect_error", () => {
+      setTimeout(() => socket.connect(), 5000);
+    });
+    socket.on("time", (data) => setTime(data));
+    socket.on("disconnect", () => setTime("server disconnected"));
+  }, []);
 
   return (
     <>
+    <Typography variant="h1">{time}</Typography>
       <AppBar
         elevation={0}
         position="sticky"

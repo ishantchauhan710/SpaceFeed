@@ -25,6 +25,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-firebase-storage": "^4.1.2",
     "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {

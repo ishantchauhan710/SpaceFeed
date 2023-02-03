@@ -3,6 +3,7 @@ dotenv.config();
 
 const express = require("express");
 const createHttpError = require("http-errors");
+const socketIo = require("socket.io");
 const port = process.env.PORT;
 const { default: mongoose } = require("mongoose");
 const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
@@ -12,7 +13,7 @@ const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const { saveDummyUsersToDB } = require("./util/dummyUtil");
-
+const http = require("http");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const app = express();
@@ -58,7 +59,34 @@ mongoose
   .connect(process.env.MONGO_CONNECTION_STRING)
   .then(() => {
     console.log("MongoDB connection established");
-    app.listen(port, () => {
+
+    // app.listen(port, () => {
+    //   console.log(`Server started on port ${port}`);
+    // });
+
+    const server = http.createServer(app);
+
+    const io = socketIo(server, {
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
+
+    io.on("connection", (socket) => {
+      console.log("client connected: ", socket.id);
+
+      socket.join("clock-room");
+
+      socket.on("disconnect", (reason) => {
+        console.log(reason);
+      });
+    });
+
+    setInterval(() => {
+      io.to("clock-room").emit("time", new Date());
+    }, 1000);
+
+    server.listen(port, () => {
       console.log(`Server started on port ${port}`);
     });
   })

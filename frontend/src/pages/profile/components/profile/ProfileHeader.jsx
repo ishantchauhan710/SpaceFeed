@@ -47,7 +47,7 @@ const ProfileHeader = () => {
           alt="banner"
           src={generateBanner(banner)}
         />
-        <IconButton
+        {/* <IconButton
           onClick={() => changeBanner()}
           sx={{
             position: "absolute",
@@ -66,7 +66,7 @@ const ProfileHeader = () => {
               color: "#ffffff",
             }}
           />
-        </IconButton>
+        </IconButton> */}
       </Box>
       <Box
         style={{ position: "relative" }}
