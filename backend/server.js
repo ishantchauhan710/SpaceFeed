@@ -16,6 +16,7 @@ const { saveDummyUsersToDB } = require("./util/dummyUtil");
 const http = require("http");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const NotificationModel = require("./models/notificationModel");
 const app = express();
 //console.clear();
 
@@ -60,11 +61,22 @@ mongoose
   .then(() => {
     console.log("MongoDB connection established");
 
-    // app.listen(port, () => {
-    //   console.log(`Server started on port ${port}`);
-    // });
-
     const server = http.createServer(app);
+
+    NotificationModel.watch().on("change", (data) => {
+      let operationType = data.operationType;
+      let objectId = data.documentKey._id;
+
+      if (operationType == "insert") {
+        NotificationModel.findById(objectId, function (err, notification) {
+          if (err) {
+            console.log("Error: " + err);
+          } else {
+            console.log("Result : ", JSON.stringify(notification));
+          }
+        });
+      }
+    });
 
     const io = socketIo(server, {
       cors: {
@@ -73,7 +85,7 @@ mongoose
     });
 
     io.on("connection", (socket) => {
-      console.log("client connected: ", socket.id);
+      //console.log("client connected: ", socket.id);
 
       socket.join("clock-room");
 
