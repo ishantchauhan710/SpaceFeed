@@ -25,23 +25,6 @@
   background: #555;
 }
 
-/* OTP input */
-.signup-otp-container input {
-  background-color: rgba(238, 238, 238, 0.5);
-  border: 1px solid var(--colorGrey);
-  outline: 1px solid var(--colorGrey);
-  color: var(--colorGreyDark);
-  border-radius: 2px;
-  font-size: 1.2rem;
-  padding: 3px;
-  box-sizing: content-box;
-}
-
-.signup-otp-container input:focus {
-  outline: 1px solid var(--colorPrimary);
-  border: 1px solid var(--colorPrimary);
-}
-
 /* Custom text field */
 
 .create-post-text-field textarea {
@@ -59,6 +42,12 @@
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
+
+}
+
+.photo-tab-image-container img {
+  position: relative;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
 }
 
 .photo-tab-image-overlay {
