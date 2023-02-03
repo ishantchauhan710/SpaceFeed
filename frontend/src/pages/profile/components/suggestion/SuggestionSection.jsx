@@ -146,7 +146,11 @@ const SuggestionSection = () => {
                       user={suggestedUser}
                       key={suggestedUser._id}
                       toggleUserFollow={toggleUserFollow}
-                      isFollowing={user.followings.includes(suggestedUser._id)}
+                      isFollowing={
+                        user.followings.find(
+                          (item) => item._id == suggestedUser._id
+                        ) !== undefined
+                      }
                       openProfile={openProfile}
                     />
                   ))}

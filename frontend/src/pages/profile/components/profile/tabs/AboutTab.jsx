@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import parseGender from "../../../../../other/parseGender";
+import moment from "moment";
+
 const StyledLabelInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
     marginTop: theme.spacing(3),
@@ -64,7 +66,7 @@ const AboutTab = () => {
           <InputLabel sx={{ fontSize: 17 }} shrink>
             Birthday
           </InputLabel>
-          <StyledLabelInput value={user.dob} />
+          <StyledLabelInput value={moment(user.dob).format("DD MMMM YYYY")} />
         </FormControl>
 
         <FormControl

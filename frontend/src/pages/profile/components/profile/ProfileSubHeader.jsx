@@ -11,6 +11,9 @@ import BoxCentered from "../../../../components/styled/BoxCentered";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { showError } from "../../../../states/other/notificationSlice";
+import { setLoading } from "../../../../states/other/loadingSlice";
+import { setUser } from "../../../../states/homeSlice";
+
 import UserListModal from "../../../../components/app/common/modal/UserListModal";
 
 const ProfileSubHeaderItem = ({ label, icon, clickAction }) => {
@@ -40,12 +43,58 @@ const ProfileSubHeader = () => {
   const user = useSelector((state) => state.profile.user);
   const loggedInUser = useSelector((state) => state.home.user);
 
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingsModal, setShowFollowingsModal] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const [
+    isLoggedInUserFollowingProfileUser,
+    setIsLoggedInUserFollowingProfileUser,
+  ] = useState();
+
+  useEffect(() => {
+    const following = loggedInUser.followings.find(
+      (item) => item._id == user._id
+    );
+
+    const followResult = following !== undefined;
+
+    setIsLoggedInUserFollowingProfileUser(followResult);
+  }, [user]);
+
+  const toggleUserFollow = async (userId) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.post("/api/user/follow", {
+        userToFollow: userId,
+      });
+
+      dispatch(setLoading(false));
+      setIsLoggedInUserFollowingProfileUser(
+        !isLoggedInUserFollowingProfileUser
+      );
+      if (isLoggedInUserFollowingProfileUser) {
+        setFollowersCount(followersCount - 1);
+      } else {
+        setFollowersCount(followersCount + 1);
+      }
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      dispatch(setLoading(false));
+      setIsLoggedInUserFollowingProfileUser(
+        !isLoggedInUserFollowingProfileUser
+      );
+    }
+  };
+
   const followers = useSelector((state) => state.profile.followers);
   const followings = useSelector((state) => state.profile.user.followings);
   const posts = useSelector((state) => state.profile.posts);
 
-  const [showFollowersModal, setShowFollowersModal] = useState(false);
-  const [showFollowingsModal, setShowFollowingsModal] = useState(false);
+  const [followersCount, setFollowersCount] = useState(followers.length);
+  const [followingsCount, setFollowingsCount] = useState(followings.length);
+  const [postsCount, setPostsCount] = useState(posts.length);
 
   const showFollowers = () => {
     if (followers.length <= 0) {
@@ -79,17 +128,17 @@ const ProfileSubHeader = () => {
           }}
         >
           <ProfileSubHeaderItem
-            label={`${posts ? posts.length : 0} Posts`}
+            label={`${postsCount} Posts`}
             icon={<FeedOutlinedIcon />}
           />
         </Box>
         <ProfileSubHeaderItem
-          label={`${followers ? followers.length : 0} Followers`}
+          label={`${followersCount} Followers`}
           icon={<EmojiEventsOutlinedIcon />}
           clickAction={showFollowers}
         />
         <ProfileSubHeaderItem
-          label={`${followings ? followings.length : 0} Followings`}
+          label={`${followingsCount} Followings`}
           icon={<HandshakeOutlinedIcon />}
           clickAction={showFollowings}
         />
@@ -118,10 +167,15 @@ const ProfileSubHeader = () => {
         >
           <Button
             style={{ marginRight: "10px" }}
-            variant="contained"
+            variant={
+              isLoggedInUserFollowingProfileUser ? "outlined" : "contained"
+            }
             disableElevation
+            onClick={() => toggleUserFollow(user._id)}
           >
-            Follow
+            {isLoggedInUserFollowingProfileUser === true
+              ? "Unfollow"
+              : "Follow"}
           </Button>
           <Button variant="outlined" disableElevation>
             Message

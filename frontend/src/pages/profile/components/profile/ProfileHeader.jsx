@@ -3,13 +3,25 @@ import ShareIcon from "@mui/icons-material/Share";
 import { Box, Fab, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import generateBanner from "../../../../other/generateBanner";
-import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import {
+  BASE_URL,
+  PROFILE_PICTURE_PLACEHOLDER,
+} from "../../../../other/constants";
 import { useDispatch } from "react-redux";
 import { showImageModal } from "../../../../states/other/imageModalSlice";
+import { showInfo } from "../../../../states/other/notificationSlice";
+
+import copyToClipboard from "../../../../other/copyToClipboard";
 
 const ProfileHeader = () => {
   const user = useSelector((state) => state.profile.user);
   const dispatch = useDispatch();
+
+  const copyProfile = (url) => {
+    copyToClipboard(url);
+    dispatch(showInfo("Profile link copied to clipboard"));
+  };
+
   return (
     <Box>
       <Box>
@@ -20,6 +32,7 @@ const ProfileHeader = () => {
             borderRadius: "5px 5px 0px 0px",
             objectFit: "cover",
           }}
+          alt="banner"
           src={generateBanner(user.profileBanner)}
         />
       </Box>
@@ -72,7 +85,12 @@ const ProfileHeader = () => {
             display: { xs: "none", sm: "block" },
           }}
         >
-          <Fab size="small" color="success" aria-label="add">
+          <Fab
+            size="small"
+            color="success"
+            aria-label="add"
+            onClick={() => copyProfile(`${BASE_URL}/profile/${user._id}`)}
+          >
             <ShareIcon />
           </Fab>
         </Box>
