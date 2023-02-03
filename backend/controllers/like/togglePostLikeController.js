@@ -1,6 +1,7 @@
 const createHttpError = require("http-errors");
 const UserModel = require("../../models/userModel");
 const PostModel = require("../../models/postModel");
+const NotificationModel = require("../../models/notificationModel");
 
 // Function to like or unlike a post
 const togglePostLikeController = async (req, res, next) => {
@@ -24,6 +25,11 @@ const togglePostLikeController = async (req, res, next) => {
       // Like Post
       updatedLikes = [userId, ...likes];
       action = "like";
+      const notification = await NotificationModel.create({
+        belongsTo: post.createdBy,
+        notifiedBy: userId,
+        type: "like",
+      });
     }
 
     if (updatedLikes === [null]) {

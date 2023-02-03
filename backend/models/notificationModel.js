@@ -13,13 +13,8 @@ const NotificationSchema = new Schema(
       require: true,
     },
     type: {
-      type: String, // follow / comment
+      type: String, // follow / like / comment / commentlike
       require: true,
-    },
-    data: {
-      type: String, // i.e comment content
-      require: true,
-      default: ""
     },
   },
   { timestamps: true }

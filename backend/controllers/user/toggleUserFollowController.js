@@ -1,4 +1,5 @@
 const createHttpError = require("http-errors");
+const NotificationModel = require("../../models/notificationModel");
 const UserModel = require("../../models/userModel");
 
 // Function to follow or unfollow a user
@@ -23,6 +24,13 @@ const toggleUserFollowController = async (req, res, next) => {
       // Follow user
       //console.log("Follow" + followings)
       updatedFollowings = [userToFollow, ...followings];
+
+      const notification = await NotificationModel.create({
+        belongsTo: userToFollow,
+        notifiedBy: id,
+        type: "follow",
+      });
+
       //console.log("Follow Result" + updatedFollowings)
     }
 

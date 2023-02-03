@@ -35,7 +35,6 @@ const commentPostController = async (req, res, next) => {
       belongsTo: post.createdBy,
       notifiedBy: userId,
       type: "comment",
-      data: "",
     });
 
     res.status(201).json({ comment: comment });

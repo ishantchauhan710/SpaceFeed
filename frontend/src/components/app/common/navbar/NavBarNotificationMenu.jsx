@@ -2,8 +2,10 @@ import * as React from "react";
 import Divider from "@mui/material/Divider";
 import { Popover, Box, Typography, Link, styled } from "@mui/material/";
 import BoxCentered from "../../../styled/BoxCentered";
+import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import { parsePostDate } from "../../../../util/dateUtil";
 
-const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
+const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
   const open = Boolean(anchorEl);
 
   const handleClose = () => {
@@ -22,6 +24,7 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    flexDirection: "column",
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.background[200],
@@ -29,57 +32,6 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
       transition: "0.3s all ease",
     },
   }));
-
-  const notificationData = [
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-    {
-      image: "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-      sender: "Ishant Chauhan",
-      content: "started following you",
-      time: "3h ago",
-    },
-  ];
 
   return (
     <Popover
@@ -145,33 +97,59 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl }) => {
         <Box
           style={{ padding: "10px 0px", height: "300px", overflowY: "auto" }}
         >
-          {notificationData.slice(0, 5).map((notification,i) => (
-            <NotificationItemContainer key={i}>
+          {notifications.slice(0, 5).map((notification) => (
+            <NotificationItemContainer key={notification._id}>
               <NotificationItem>
-                <Box style={{ flex: "0.1" }}>
-                  <img
-                    style={{ borderRadius: "50px" }}
-                    width={45}
-                    height={45}
-                    src={notification.image}
-                    alt="notification"
-                  />
-                </Box>
-                <Typography
-                  style={{ flex: "0.7" }}
-                  variant="h6"
-                  marginLeft={2}
-                  fontSize={14}
+                <Box
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    textAlign: "left",
+                  }}
                 >
-                  <Typography fontWeight={600}>
-                    {notification.sender}
-                  </Typography>{" "}
-                  {notification.content}
-                </Typography>
-                <Box style={{ flex: "0.2", textAlign: "right" }}>
-                  <Typography variant="h6" marginLeft={1} fontSize={11}>
-                    {notification.time}
-                  </Typography>
+                  <Box
+                    style={{
+                      flex: "0.2",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <img
+                      style={{ borderRadius: "50px" }}
+                      width={45}
+                      height={45}
+                      src={
+                        notification.notifiedBy.profilePictureURL
+                          ? notification.notifiedBy.profilePictureURL
+                          : PROFILE_PICTURE_PLACEHOLDER
+                      }
+                      alt="notification"
+                    />
+                  </Box>
+                  <Box
+                    style={{
+                      flex: "0.8",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography variant="h6" fontSize={15}>
+                      <Typography fontWeight={600} component="span">
+                        {notification.notifiedBy.username}
+                      </Typography>{" "}
+                      {notification.type == "comment"
+                        ? "commented on your post "
+                        : "started following you"}
+                    </Typography>
+                    <Typography variant="h6" fontSize={12}>
+                      ({parsePostDate(notification.createdAt)})
+                    </Typography>
+                  </Box>
                 </Box>
               </NotificationItem>
             </NotificationItemContainer>

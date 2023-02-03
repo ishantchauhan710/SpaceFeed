@@ -1,5 +1,5 @@
 const createHttpError = require("http-errors");
-const UserModel = require("../../models/userModel");
+const NotificationModel = require("../../models/notificationModel");
 const CommentModel = require("../../models/commentModel");
 
 // Function to like or unlike a comment
@@ -23,6 +23,11 @@ const toggleCommentLikeController = async (req, res, next) => {
       // Like Comment
       updatedLikes = [userId, ...likes];
       action = "like";
+      const notification = await NotificationModel.create({
+        belongsTo: comment.commentedBy,
+        notifiedBy: userId,
+        type: "commentlike",
+      });
     }
 
     if (updatedLikes === [null]) {

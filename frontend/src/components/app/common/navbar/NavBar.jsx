@@ -110,18 +110,13 @@ const NavBar = () => {
 
     socket.on("data", (data) => {
       alert("Notification recieved");
-      //setNotifications([data, ...notifications]);
+      setNotifications([data, ...notifications]);
     });
     socket.on("disconnect", () => {});
   }, []);
 
   return (
     <>
-      <Typography variant="h1">
-        {notifications && notifications.length > 0
-          ? notifications[0].type
-          : "loading..."}
-      </Typography>
       <AppBar
         elevation={0}
         position="sticky"
@@ -214,32 +209,6 @@ const NavBar = () => {
                 </div>
               )}
             />
-
-            {/* <StyledTextField
-              variant="outlined"
-              placeholder="Search..."
-              autoComplete="off"
-              InputProps={{
-                style: {
-                  height: 40,
-                  marginLeft: 10,
-                },
-                sx: {
-                  backgroundColor: "background.200",
-                },
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
-              }}
-            /> */}
           </Box>
           <Box
             style={{
@@ -293,6 +262,7 @@ const NavBar = () => {
       <NavBarNotificationMenu
         anchorEl={notificationMenuAnchor}
         setAnchorEl={setNotificationMenuAnchor}
+        notifications={notifications}
       />
     </>
   );
