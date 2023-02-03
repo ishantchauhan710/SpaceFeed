@@ -63,21 +63,6 @@ mongoose
 
     const server = http.createServer(app);
 
-    NotificationModel.watch().on("change", (data) => {
-      let operationType = data.operationType;
-      let objectId = data.documentKey._id;
-
-      if (operationType == "insert") {
-        NotificationModel.findById(objectId, function (err, notification) {
-          if (err) {
-            console.log("Error: " + err);
-          } else {
-            console.log("Result : ", JSON.stringify(notification));
-          }
-        });
-      }
-    });
-
     const io = socketIo(server, {
       cors: {
         origin: "http://localhost:3000",
@@ -85,18 +70,48 @@ mongoose
     });
 
     io.on("connection", (socket) => {
-      //console.log("client connected: ", socket.id);
+      console.log("client connected: ", socket.id);
 
-      socket.join("clock-room");
+      //socket.join("notification");
+
+      socket.on("join", function (data) {
+        console.log("User joined " + data.email);
+        socket.join(data.email);
+      });
 
       socket.on("disconnect", (reason) => {
         console.log(reason);
       });
     });
 
-    setInterval(() => {
-      io.to("clock-room").emit("time", new Date());
-    }, 1000);
+    NotificationModel.watch().on("change", async (data) => {
+      let operationType = data.operationType;
+      let objectId = data.documentKey._id;
+
+      if (operationType == "insert") {
+        const notification = await NotificationModel.findById(
+          objectId
+        ).populate("belongsTo notifiedBy");
+        //console.log("Notification fetched: " + notification.belongsTo.email);
+
+        if (notification.belongsTo.email != notification.notifiedBy.email) {
+          io.sockets
+            .in(notification.belongsTo.email)
+            .emit("data", notification);
+        }
+
+        // NotificationModel.findById(objectId, function (err, notification) {
+        //   if (err) {
+        //     console.log("Error: " + err);
+        //   } else {
+        //     //console.log("Result : ", JSON.stringify(notification));
+        //     console.log("Notification sent")
+        //     //io.to("notification").emit("data", notification);
+        //     io.sockets.in('user1@example.com').emit('new_msg', {msg: 'hello'});
+        //   }
+        // });
+      }
+    });
 
     server.listen(port, () => {
       console.log(`Server started on port ${port}`);

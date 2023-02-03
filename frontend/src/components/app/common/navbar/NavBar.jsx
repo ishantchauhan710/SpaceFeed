@@ -97,7 +97,7 @@ const NavBar = () => {
     return () => clearTimeout(searchUsers);
   }, [searchQuery]);
 
-  const [time, setTime] = useState("fetching");
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const socket = io("http://localhost:5000");
@@ -105,13 +105,23 @@ const NavBar = () => {
     socket.on("connect_error", () => {
       setTimeout(() => socket.connect(), 5000);
     });
-    socket.on("time", (data) => setTime(data));
-    socket.on("disconnect", () => setTime("server disconnected"));
+
+    socket.emit("join", user);
+
+    socket.on("data", (data) => {
+      alert("Notification recieved");
+      //setNotifications([data, ...notifications]);
+    });
+    socket.on("disconnect", () => {});
   }, []);
 
   return (
     <>
-    <Typography variant="h1">{time}</Typography>
+      <Typography variant="h1">
+        {notifications && notifications.length > 0
+          ? notifications[0].type
+          : "loading..."}
+      </Typography>
       <AppBar
         elevation={0}
         position="sticky"
