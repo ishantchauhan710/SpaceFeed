@@ -79,6 +79,16 @@ const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
 
+  const getNotificationsFromDb = async () => {
+    try {
+      const response = await axios.get(`/api/notifications/${user._id}`);
+      const notificationsFromDb = response.data.notifications;
+      setNotifications(notificationsFromDb);
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+    }
+  };
+
   useEffect(() => {
     if (searchQuery.length <= 2) {
       return;
@@ -100,6 +110,8 @@ const NavBar = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
+    getNotificationsFromDb();
+
     const socket = io("http://localhost:5000");
     socket.on("connect", () => console.log(socket.id));
     socket.on("connect_error", () => {
@@ -109,7 +121,7 @@ const NavBar = () => {
     socket.emit("join", user);
 
     socket.on("data", (data) => {
-      alert("Notification recieved");
+      //alert("Notification recieved");
       setNotifications([data, ...notifications]);
     });
     socket.on("disconnect", () => {});

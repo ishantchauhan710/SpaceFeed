@@ -11,6 +11,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const { saveDummyUsersToDB } = require("./util/dummyUtil");
 const http = require("http");
@@ -42,6 +43,7 @@ app.use("/api", userRoutes);
 app.use("/api", postRoutes);
 app.use("/api", likeRoutes);
 app.use("/api", commentRoutes);
+app.use("/api", notificationRoutes);
 
 // Use it to generate and store dummy data in database
 // app.get("/dummy", async (req, res) => {
@@ -72,8 +74,6 @@ mongoose
     io.on("connection", (socket) => {
       console.log("client connected: ", socket.id);
 
-      //socket.join("notification");
-
       socket.on("join", function (data) {
         console.log("User joined " + data.email);
         socket.join(data.email);
@@ -92,24 +92,12 @@ mongoose
         const notification = await NotificationModel.findById(
           objectId
         ).populate("belongsTo notifiedBy");
-        //console.log("Notification fetched: " + notification.belongsTo.email);
 
         if (notification.belongsTo.email != notification.notifiedBy.email) {
           io.sockets
             .in(notification.belongsTo.email)
             .emit("data", notification);
         }
-
-        // NotificationModel.findById(objectId, function (err, notification) {
-        //   if (err) {
-        //     console.log("Error: " + err);
-        //   } else {
-        //     //console.log("Result : ", JSON.stringify(notification));
-        //     console.log("Notification sent")
-        //     //io.to("notification").emit("data", notification);
-        //     io.sockets.in('user1@example.com').emit('new_msg', {msg: 'hello'});
-        //   }
-        // });
       }
     });
 

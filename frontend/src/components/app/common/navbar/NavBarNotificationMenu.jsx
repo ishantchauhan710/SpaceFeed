@@ -4,6 +4,7 @@ import { Popover, Box, Typography, Link, styled } from "@mui/material/";
 import BoxCentered from "../../../styled/BoxCentered";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 import { parsePostDate } from "../../../../util/dateUtil";
+import parseNotification from "../../../../other/parseNotification";
 
 const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
   const open = Boolean(anchorEl);
@@ -142,9 +143,7 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
                       <Typography fontWeight={600} component="span">
                         {notification.notifiedBy.username}
                       </Typography>{" "}
-                      {notification.type == "comment"
-                        ? "commented on your post "
-                        : "started following you"}
+                      {parseNotification(notification.type)}
                     </Typography>
                     <Typography variant="h6" fontSize={12}>
                       ({parsePostDate(notification.createdAt)})
