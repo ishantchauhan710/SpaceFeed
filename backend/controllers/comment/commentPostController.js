@@ -1,5 +1,7 @@
 const createHttpError = require("http-errors");
 const CommentModel = require("../../models/commentModel");
+const PostModel = require("../../models/postModel");
+const NotificationModel = require("../../models/notificationModel");
 
 const commentPostController = async (req, res, next) => {
   const userId = req.session.userId;
@@ -18,6 +20,8 @@ const commentPostController = async (req, res, next) => {
       throw new createHttpError(400, "Comment cannot be blank");
     }
 
+    const post = await PostModel.findById(postId);
+
     let comment = await CommentModel.create({
       commentedBy: userId,
       post: postId,
@@ -26,6 +30,14 @@ const commentPostController = async (req, res, next) => {
     });
 
     comment = await comment.populate("commentedBy");
+
+    const notification = await NotificationModel.create({
+      belongsTo: post.createdBy,
+      notifiedBy: userId,
+      type: "comment",
+      data: "",
+    });
+
     res.status(201).json({ comment: comment });
   } catch (err) {
     next(err);
