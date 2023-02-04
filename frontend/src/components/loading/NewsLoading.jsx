@@ -12,7 +12,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const NewsLoading = () => {
   return (
-    <Box paddingTop={2} height={60}>
+    <Box paddingTop={2} height={60} width="100%">
       <Skeleton sx={{ height: 20 }} animation="wave" variant="rectangular" />
       <Skeleton
         sx={{ height: 10, marginTop: 1 }}

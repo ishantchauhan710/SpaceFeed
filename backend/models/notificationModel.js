@@ -16,6 +16,10 @@ const NotificationSchema = new Schema(
       type: String, // follow / like / comment / commentlike
       require: true,
     },
+    dataRef: {
+      type: String, // i.e post id or followed user id
+      require: true,
+    },
   },
   { timestamps: true }
 );

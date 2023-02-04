@@ -17,7 +17,6 @@ import PaperBox from "../../../../components/styled/PaperBox";
 import { setUser } from "../../../../states/homeSlice";
 import { setLoading } from "../../../../states/other/loadingSlice";
 import { showError } from "../../../../states/other/notificationSlice";
-import OnlineUsers from "../../../home/components/suggestion/OnlineUsers";
 
 const CustomListItem = ({
   user,
@@ -128,37 +127,34 @@ const SuggestionSection = () => {
   };
 
   return (
-    <>
-      <OnlineUsers />
-      <PaperBox style={{ marginTop: "15px" }}>
-        <Box padding={1} style={{ textAlign: "left" }}>
-          <Typography variant="h2" fontSize={18} fontWeight={600}>
-            Suggested People
-          </Typography>
-          <Box paddingTop={1}>
-            <List>
-              {suggestedLoading
-                ? [...Array(10)].map((i) => <UserLoading key={i} />)
-                : suggestedUsers &&
-                  suggestedUsers.length > 0 &&
-                  suggestedUsers.map((suggestedUser) => (
-                    <CustomListItem
-                      user={suggestedUser}
-                      key={suggestedUser._id}
-                      toggleUserFollow={toggleUserFollow}
-                      isFollowing={
-                        user.followings.find(
-                          (item) => item._id == suggestedUser._id
-                        ) !== undefined
-                      }
-                      openProfile={openProfile}
-                    />
-                  ))}
-            </List>
-          </Box>
+    <PaperBox>
+      <Box padding={1} style={{ textAlign: "left" }}>
+        <Typography variant="h2" fontSize={18} fontWeight={600}>
+          Suggested People
+        </Typography>
+        <Box paddingTop={1}>
+          <List>
+            {suggestedLoading
+              ? [...Array(10)].map((i) => <UserLoading key={i} />)
+              : suggestedUsers &&
+                suggestedUsers.length > 0 &&
+                suggestedUsers.map((suggestedUser) => (
+                  <CustomListItem
+                    user={suggestedUser}
+                    key={suggestedUser._id}
+                    toggleUserFollow={toggleUserFollow}
+                    isFollowing={
+                      user.followings.find(
+                        (item) => item._id == suggestedUser._id
+                      ) !== undefined
+                    }
+                    openProfile={openProfile}
+                  />
+                ))}
+          </List>
         </Box>
-      </PaperBox>
-    </>
+      </Box>
+    </PaperBox>
   );
 };
 

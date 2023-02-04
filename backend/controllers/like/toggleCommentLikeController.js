@@ -29,6 +29,7 @@ const toggleCommentLikeController = async (req, res, next) => {
           belongsTo: comment.commentedBy,
           notifiedBy: userId,
           type: "commentlike",
+          dataRef: comment.post
         });
       }
     }

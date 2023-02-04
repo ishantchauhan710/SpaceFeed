@@ -31,6 +31,7 @@ const togglePostLikeController = async (req, res, next) => {
           belongsTo: post.createdBy,
           notifiedBy: userId,
           type: "like",
+          dataRef: postId
         });
       }
     }

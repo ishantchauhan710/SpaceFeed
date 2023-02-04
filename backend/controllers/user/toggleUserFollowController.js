@@ -30,6 +30,7 @@ const toggleUserFollowController = async (req, res, next) => {
           belongsTo: userToFollow,
           notifiedBy: id,
           type: "follow",
+          dataRef: id,
         });
       }
 

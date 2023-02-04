@@ -7,12 +7,14 @@ const getCommentNewsController = async (req, res, next) => {
   try {
     const news = [];
 
-    const comments = await CommentModel.find().populate("commentedBy").limit(5);
+    const comments = await CommentModel.find()
+    .sort({ createdAt: -1 }).populate("commentedBy").limit(10);
     for (let i in comments) {
       const commentedBy = comments[i].commentedBy.username;
       //console.log("CommentedBy " + commentedBy);
       const postId = comments[i].post;
-      const post = await PostModel.findById(postId).populate("createdBy");
+      const post = await PostModel.findById(postId)
+        .populate("createdBy");
       const postOwnerUsername = post.createdBy.username;
       //console.log("Owner " + post.createdBy.username);
       news.push({

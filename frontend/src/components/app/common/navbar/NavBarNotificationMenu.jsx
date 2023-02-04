@@ -5,9 +5,17 @@ import BoxCentered from "../../../styled/BoxCentered";
 import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
 import { parsePostDate } from "../../../../util/dateUtil";
 import parseNotification from "../../../../other/parseNotification";
+import { useDispatch } from "react-redux";
+import {
+  showError,
+  showInfo,
+} from "../../../../states/other/notificationSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
   const open = Boolean(anchorEl);
+
+  const dispatch = useDispatch();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -34,13 +42,29 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
     },
   }));
 
+  const navigate = useNavigate();
+
+  const handleNotificationItemClick = (item) => {
+    handleClose();
+    if (item.type === "comment") {
+      navigate(`/post/${item.dataRef}`);
+    } else if (item.type === "like") {
+      navigate(`/post/${item.dataRef}`);
+    } else if (item.type === "commentlike") {
+      navigate(`/post/${item.dataRef}`);
+    } else if (item.type === "follow") {
+      navigate(`/profile/${item.dataRef}`);
+    } else {
+      dispatch(showError("Unable to parse notification"));
+    }
+  };
+
   return (
     <Popover
       anchorEl={anchorEl}
       id="account-menu"
       open={open}
       onClose={handleClose}
-      onClick={handleClose}
       PaperProps={{
         elevation: 0,
         sx: {
@@ -74,8 +98,8 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
       <Box
         sx={{
           width: {
-            xs: "250px",
-            sm: "350px",
+            xs: "300px",
+            sm: "300px",
           },
         }}
       >
@@ -90,16 +114,19 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
           <Typography variant="h5" color="grey.900" fontWeight={500}>
             Notifications
           </Typography>
-          <Link underline="hover" fontSize={13} href="#">
+          {/* <Link underline="hover" fontSize={13} href="#">
             Clear all
-          </Link>
+          </Link> */}
         </Box>
         <Divider />
         <Box
           style={{ padding: "10px 0px", height: "300px", overflowY: "auto" }}
         >
-          {notifications.slice(0, 5).map((notification) => (
-            <NotificationItemContainer key={notification._id}>
+          {notifications.map((notification) => (
+            <NotificationItemContainer
+              key={notification._id}
+              onClick={() => handleNotificationItemClick(notification)}
+            >
               <NotificationItem>
                 <Box
                   style={{
@@ -116,6 +143,7 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "flex-start",
+                      paddingRight: "15px",
                     }}
                   >
                     <img
@@ -157,11 +185,17 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
         <Divider />
         <BoxCentered style={{ padding: "7px 0px" }}>
           <Link
-            sx={{ "&:hover": { color: "primary.600" } }}
+            sx={{ cursor: "pointer", "&:hover": { color: "primary.600" } }}
             underline="none"
             fontWeight={600}
             fontSize={14}
-            href="#"
+            onClick={() => {
+              dispatch(
+                showInfo(
+                  "Due to storage limitations, you can only see last 10 notifications"
+                )
+              );
+            }}
           >
             View All
           </Link>

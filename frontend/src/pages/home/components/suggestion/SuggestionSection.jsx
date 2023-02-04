@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 import PaperBox from "../../../../components/styled/PaperBox";
-import OnlineUsers from "./OnlineUsers";
 import axios from "axios";
 import { parsePostDate } from "../../../../util/dateUtil";
 import { useNavigate } from "react-router-dom";
@@ -80,8 +79,7 @@ const SuggestionSection = () => {
   };
 
   return (
-    <Box>
-      <OnlineUsers />
+    <Box width="100%">
       <PaperBox
         sx={{
           paddingX: 2,
@@ -89,7 +87,6 @@ const SuggestionSection = () => {
           display: "flex",
           flexDirection: "column",
           textAlign: "left",
-          marginTop: 2,
         }}
       >
         <Box>

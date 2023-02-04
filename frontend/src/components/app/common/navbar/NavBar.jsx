@@ -233,14 +233,6 @@ const NavBar = () => {
               justifyContent: "space-between",
             }}
           >
-            <StyledIconButton
-              style={{
-                marginRight: 10,
-              }}
-            >
-              <ChatIcon />
-            </StyledIconButton>
-
             <Box onClick={showNotificationMenu}>
               <StyledIconButton
                 style={{
