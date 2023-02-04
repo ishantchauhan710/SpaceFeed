@@ -131,7 +131,7 @@ const SignupRight = () => {
 
       dispatch(setUser(response.data.user));
       dispatch(setLoading(false));
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       dispatch(setLoading(false));
       dispatch(showError(err.response.data.error));

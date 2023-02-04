@@ -69,7 +69,7 @@ function App() {
       const response = await axios.get("/api/auth/user");
       const user = response.data.user;
       if (endpoint === "login" || endpoint === "signup") {
-        window.location.href = "/";
+        window.location.href = "/home";
       }
       dispatch(setUser(user));
       dispatch(setLoading(false));
@@ -98,7 +98,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/profile/:id" element={user && <ProfilePage />} />
           <Route path="/post/:id" element={user && <PostPage />} />
-          <Route path="/" element={user && <HomePage />} />
+          <Route path="/home" element={user && <HomePage />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>

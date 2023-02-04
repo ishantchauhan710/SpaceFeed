@@ -25,6 +25,9 @@ var path = require("path");
 
 app.use(express.json());
 
+const __directory = path.resolve();
+console.log(__directory);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -46,6 +49,18 @@ app.use("/api", postRoutes);
 app.use("/api", likeRoutes);
 app.use("/api", commentRoutes);
 app.use("/api", notificationRoutes);
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__directory, "/frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__directory, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    //console.log("Starting running in development mode");
+  });
+}
 
 app.use((req, res, next) => {
   next(createHttpError(404, "URL not found"));

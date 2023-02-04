@@ -170,7 +170,7 @@ const NavBar = () => {
                   sm: "block",
                 },
               }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
             />
 
             <Typography
