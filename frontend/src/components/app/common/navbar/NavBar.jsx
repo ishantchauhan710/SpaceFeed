@@ -167,6 +167,7 @@ const NavBar = () => {
                   sm: "block",
                 },
               }}
+              onClick={() => navigate("/")}
             />
 
             <Typography

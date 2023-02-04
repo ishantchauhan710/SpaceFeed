@@ -4,7 +4,7 @@ export const BANNER1_URL =
   "https://img.freepik.com/premium-photo/dark-green-paper-texture-background-cardboard-paper-background-spotted-blank-copy-space-background-beige-green_364465-326.jpg";
 
 export const BANNER2_URL =
-  "https://img.freepik.com/free-photo/solid-maroon-concrete-textured-wall_53876-95067.jpg";
+  "https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall_1258-28312.jpg";
 
 export const BANNER3_URL =
   "https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall_1258-28312.jpg";

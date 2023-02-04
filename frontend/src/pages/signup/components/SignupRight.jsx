@@ -61,7 +61,6 @@ const SignupRight = () => {
     setConfirmPassword("12345");
     setBirthday("07/10/2001");
     setGender("M");
-    setCountry(countryList[0]);
     setPhoneNumber("1234567890");
     setDescription("Hello world");
   };
@@ -346,6 +345,7 @@ const SignupRight = () => {
               style={{ marginTop: "15px" }}
               options={countryList}
               autoHighlight
+              defaultValue={countryList[103]}
               getOptionLabel={(option) => option.label}
               onInputChange={(e, v) => setCountry(v)}
               renderOption={(props, option) => (
