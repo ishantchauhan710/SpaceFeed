@@ -1,4 +1,13 @@
 const isHttpError = require("http-errors");
+var fs = require("fs");
+var path = require("path");
+
+var accessErrorStream = fs.createWriteStream(
+  path.join(__dirname, "error.log"),
+  {
+    flags: "a",
+  }
+);
 
 const errorHandlingMiddleware = (err, req, res, next) => {
   let errMessage = "An unknown error occurred";
@@ -7,7 +16,10 @@ const errorHandlingMiddleware = (err, req, res, next) => {
     errMessage = err.message;
     statusCode = err.status;
   }
-  console.log(err);
+  //console.log(err);
+  accessErrorStream.write(
+    `Error: ${JSON.stringify(err)}\nOccured on: ${new Date()}\n\n`
+  );
   res.status(statusCode).json({ error: errMessage });
 };
 
