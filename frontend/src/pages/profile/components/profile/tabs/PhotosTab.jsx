@@ -12,8 +12,8 @@ const PhotosTab = () => {
   const imagePosts = posts.filter((post) => post.mediaLink != "");
 
   useEffect(() => {
-    console.log("Posts: " + JSON.stringify(posts));
-    console.log("Image Posts: " + JSON.stringify(imagePosts));
+    //console.log("Posts: " + JSON.stringify(posts));
+    //console.log("Image Posts: " + JSON.stringify(imagePosts));
   }, []);
 
   const dispatch = useDispatch();

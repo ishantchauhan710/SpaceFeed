@@ -72,15 +72,15 @@ mongoose
     });
 
     io.on("connection", (socket) => {
-      console.log("client connected: ", socket.id);
+      //console.log("client connected: ", socket.id);
 
       socket.on("join", function (data) {
-        console.log("User joined " + data.email);
+        //console.log("User joined " + data.email);
         socket.join(data.email);
       });
 
       socket.on("disconnect", (reason) => {
-        console.log(reason);
+        //console.log(reason);
       });
     });
 

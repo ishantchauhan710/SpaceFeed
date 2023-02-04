@@ -96,7 +96,7 @@ const SuggestionSection = () => {
         </Box>
         <Box style={{ marginTop: "10px" }}>
           {newsLoading
-            ? [...Array(10)].map(() => <NewsLoading />)
+            ? [...Array(10)].map((val,i) => <NewsLoading key={i} />)
             : socialNewsList.map((newsItem, i) => (
                 <SocialNewsItem
                   key={i}

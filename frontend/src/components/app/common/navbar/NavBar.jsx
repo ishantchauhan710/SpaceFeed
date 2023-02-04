@@ -23,7 +23,10 @@ import NavBarProfileMenu from "./NavBarProfileMenu";
 import NavBarNotificationMenu from "./NavBarNotificationMenu";
 import StyledTextField from "../../../styled/StyledTextField";
 import { useDispatch, useSelector } from "react-redux";
-import { PROFILE_PICTURE_PLACEHOLDER } from "../../../../other/constants";
+import {
+  PROFILE_PICTURE_PLACEHOLDER,
+  SERVER_URL,
+} from "../../../../other/constants";
 import axios from "axios";
 import { useEffect } from "react";
 import { showError } from "../../../../states/other/notificationSlice";
@@ -100,7 +103,7 @@ const NavBar = () => {
       try {
         axios.get(`/api/user-search?search=${searchQuery}`).then((response) => {
           setSearchedUsers(response.data.users);
-          console.log("Called" + JSON.stringify(response.data.users));
+          //console.log("Called" + JSON.stringify(response.data.users));
         });
       } catch (err) {
         setSearchedUsers([]);
@@ -115,8 +118,8 @@ const NavBar = () => {
   useEffect(() => {
     getNotificationsFromDb();
 
-    const socket = io("http://localhost:5000");
-    socket.on("connect", () => console.log(socket.id));
+    const socket = io(SERVER_URL);
+    socket.on("connect", () => {});
     socket.on("connect_error", () => {
       setTimeout(() => socket.connect(), 5000);
     });

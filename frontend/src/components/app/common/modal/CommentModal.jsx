@@ -43,7 +43,7 @@ const CommentModal = ({ post, open, setOpen, comments, setComments }) => {
         postId: post._id,
         content: comment,
       });
-      console.log("Response: " + JSON.stringify(response));
+      //console.log("Response: " + JSON.stringify(response));
       const newComment = response.data.comment;
       setComment("");
       setComments([newComment, ...comments]);

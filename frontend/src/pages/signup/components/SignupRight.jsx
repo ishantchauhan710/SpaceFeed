@@ -161,7 +161,7 @@ const SignupRight = () => {
         if (!birthday) {
           dispatch(showError("Please provide your date of birth"));
         } else {
-          const momentDate = moment(birthday.toString());
+          const momentDate = moment(birthday);
           if (momentDate.isValid()) {
             if (moment().diff(momentDate, "years") > 10) {
               if (phoneNumber) {
@@ -219,7 +219,7 @@ const SignupRight = () => {
 
         <form
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={handleSubmit}
           autoComplete="off"
         >

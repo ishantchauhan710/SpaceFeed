@@ -135,7 +135,7 @@ const SuggestionSection = () => {
         <Box paddingTop={1}>
           <List>
             {suggestedLoading
-              ? [...Array(10)].map((i) => <UserLoading key={i} />)
+              ? [...Array(10)].map((val,i) => <UserLoading key={i} />)
               : suggestedUsers &&
                 suggestedUsers.length > 0 &&
                 suggestedUsers.map((suggestedUser) => (

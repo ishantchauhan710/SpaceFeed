@@ -31,7 +31,7 @@ const ProfileHeader = () => {
     } else {
       setBanner((parseInt(banner) + 1).toString());
     }
-    console.log(banner);
+    //console.log(banner);
   };
 
   return (
