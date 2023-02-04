@@ -25,11 +25,13 @@ const toggleUserFollowController = async (req, res, next) => {
       //console.log("Follow" + followings)
       updatedFollowings = [userToFollow, ...followings];
 
-      const notification = await NotificationModel.create({
-        belongsTo: userToFollow,
-        notifiedBy: id,
-        type: "follow",
-      });
+      if (userToFollow != id) {
+        const notification = await NotificationModel.create({
+          belongsTo: userToFollow,
+          notifiedBy: id,
+          type: "follow",
+        });
+      }
 
       //console.log("Follow Result" + updatedFollowings)
     }

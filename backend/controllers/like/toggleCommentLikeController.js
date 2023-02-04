@@ -23,11 +23,14 @@ const toggleCommentLikeController = async (req, res, next) => {
       // Like Comment
       updatedLikes = [userId, ...likes];
       action = "like";
-      const notification = await NotificationModel.create({
-        belongsTo: comment.commentedBy,
-        notifiedBy: userId,
-        type: "commentlike",
-      });
+
+      if (comment.commentedBy != userId) {
+        const notification = await NotificationModel.create({
+          belongsTo: comment.commentedBy,
+          notifiedBy: userId,
+          type: "commentlike",
+        });
+      }
     }
 
     if (updatedLikes === [null]) {

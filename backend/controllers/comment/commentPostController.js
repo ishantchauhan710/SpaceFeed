@@ -31,11 +31,13 @@ const commentPostController = async (req, res, next) => {
 
     comment = await comment.populate("commentedBy");
 
-    const notification = await NotificationModel.create({
-      belongsTo: post.createdBy,
-      notifiedBy: userId,
-      type: "comment",
-    });
+    if (post.createdBy != userId) {
+      const notification = await NotificationModel.create({
+        belongsTo: post.createdBy,
+        notifiedBy: userId,
+        type: "comment",
+      });
+    }
 
     res.status(201).json({ comment: comment });
   } catch (err) {

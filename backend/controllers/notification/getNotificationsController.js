@@ -5,7 +5,7 @@ const getNotificationsController = async (req, res, next) => {
   try {
     const notifications = await NotificationModel.find({
       belongsTo: userId,
-    }).populate("belongsTo notifiedBy");
+    }).sort({createdAt: -1}).populate("belongsTo notifiedBy");
 
     res.json({ notifications: notifications });
   } catch (err) {

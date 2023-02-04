@@ -12,6 +12,7 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemButton,
+  Badge,
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
@@ -38,6 +39,7 @@ const NavBar = () => {
   };
 
   const showNotificationMenu = (e) => {
+    setShowNotificationBadge(false);
     setNotificationMenuAnchor(e.currentTarget);
   };
 
@@ -77,6 +79,7 @@ const NavBar = () => {
 
   const [searchedUsers, setSearchedUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showNotificationBadge, setShowNotificationBadge] = useState(false);
   const dispatch = useDispatch();
 
   const getNotificationsFromDb = async () => {
@@ -122,6 +125,7 @@ const NavBar = () => {
 
     socket.on("data", (data) => {
       //alert("Notification recieved");
+      setShowNotificationBadge(true);
       setNotifications([data, ...notifications]);
     });
     socket.on("disconnect", () => {});
@@ -243,7 +247,13 @@ const NavBar = () => {
                   marginRight: 10,
                 }}
               >
-                <NotificationsIcon />
+                <Badge
+                  variant="dot"
+                  color="error"
+                  invisible={!showNotificationBadge}
+                >
+                  <NotificationsIcon />
+                </Badge>
               </StyledIconButton>
             </Box>
 
