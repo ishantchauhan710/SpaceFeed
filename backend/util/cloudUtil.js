@@ -1,7 +1,7 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getStorage } = require("firebase-admin/storage");
 
-const serviceAccount = require("../../secrets/spacefeed_firebase.json");
+const serviceAccount = require("../../spacefeed_firebase.json");
 
 initializeApp({
   credential: cert(serviceAccount),

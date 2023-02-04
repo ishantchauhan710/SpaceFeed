@@ -2,7 +2,7 @@ const createHttpError = require("http-errors");
 const Multer = require("multer");
 const FirebaseStorage = require("multer-firebase-storage");
 const fbAdmin = require("firebase-admin");
-const serviceAccount = require("../../secrets/spacefeed_firebase.json");
+const serviceAccount = require("../../spacefeed_firebase.json");
 const { generateRandom } = require("../util/randomUtil");
 
 const storageConfig = Multer({
