@@ -17,6 +17,7 @@ const http = require("http");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const NotificationModel = require("./models/notificationModel");
+const generateDummyDataInDB = require("./util/dummyUtil");
 const app = express();
 const logger = require("morgan");
 var fs = require("fs");
@@ -43,6 +44,12 @@ app.use(
     }),
   })
 );
+
+//Use it to generate and store dummy users in database
+app.get("/dummy", async (req, res) => {
+  await generateDummyDataInDB(30);
+  res.send("Success");
+});
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);

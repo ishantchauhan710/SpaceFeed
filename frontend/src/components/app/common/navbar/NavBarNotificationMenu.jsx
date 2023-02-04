@@ -120,9 +120,9 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
         </Box>
         <Divider />
         <Box
-          style={{ padding: "10px 0px", height: "300px", overflowY: "auto" }}
+          style={{ padding: "10px 0px", maxHeight: "300px", overflowY: "auto" }}
         >
-          {notifications.map((notification) => (
+          {notifications && notifications.length>0 ? notifications.map((notification) => (
             <NotificationItemContainer
               key={notification._id}
               onClick={() => handleNotificationItemClick(notification)}
@@ -180,7 +180,7 @@ const NavBarNotificationMenu = ({ anchorEl, setAnchorEl, notifications }) => {
                 </Box>
               </NotificationItem>
             </NotificationItemContainer>
-          ))}
+          )) : <Box paddingX={2} paddingY={1}>You don't have any notifications</Box>}
         </Box>
         <Divider />
         <BoxCentered style={{ padding: "7px 0px" }}>

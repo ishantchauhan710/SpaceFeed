@@ -27,10 +27,10 @@ const getFeed = async (req, res, next) => {
     let posts = [];
 
     // Get posts of user
-    let userPostList = await PostModel.find({
-      createdBy: userId,
-    }).populate("createdBy likedBy");
-    posts = [...userPostList, ...posts];
+    // let userPostList = await PostModel.find({
+    //   createdBy: userId,
+    // }).populate("createdBy likedBy");
+    // posts = [...userPostList, ...posts];
 
     // Get posts of followings
     for (let i in followings) {
@@ -40,7 +40,7 @@ const getFeed = async (req, res, next) => {
       posts = [...postList, ...posts];
     }
 
-    const sortedPosts = posts.sort((i, j) => {
+    const sortedPosts = posts.sort((j, i) => {
       return new Date(j.createdAt) - new Date(i.createdAt);
     });
 

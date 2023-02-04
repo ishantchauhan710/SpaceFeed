@@ -1,20 +1,21 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showImageModal } from "../../../../states/other/imageModalSlice";
 
 const PostBody = ({ post }) => {
   const dispatch = useDispatch();
-
+  const [imageBroken, setImageBroken] = useState(false);
   return (
     <Box paddingBottom={1} style={{ textAlign: "left" }}>
       <Box paddingX={2}>
         {post.content && (
           <Typography
             paddingTop={2}
-            variant="h3"
+            variant="h4"
             fontWeight={400}
-            fontSize={18}
+            fontSize={16}
           >
             {post.content}
           </Typography>
@@ -29,7 +30,9 @@ const PostBody = ({ post }) => {
               borderRadius: "5px",
               marginBottom: "15px",
               cursor: "pointer",
+              display: imageBroken ? "none" : "inline",
             }}
+            onError={() => setImageBroken(true)}
             src={post.mediaLink}
             onClick={() => {
               dispatch(showImageModal(post.mediaLink));
@@ -37,7 +40,7 @@ const PostBody = ({ post }) => {
           />
         )}
       </Box>
-      <Divider style={{ marginTop: "15px" }} />
+      <Divider style={{ marginTop: "20px" }} />
     </Box>
   );
 };

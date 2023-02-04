@@ -18,12 +18,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ImageIcon from "@mui/icons-material/Image";
+import { useNavigate } from "react-router-dom";
 
 const PostLikedUsersModal = ({ open, setOpen, likedByList }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const navigate = useNavigate();
   return (
     <Dialog
       open={open}
@@ -63,7 +64,14 @@ const PostLikedUsersModal = ({ open, setOpen, likedByList }) => {
           >
             <List sx={{ bgcolor: "background.paper" }}>
               {likedByList.map((likedUser) => (
-                <ListItem key={likedUser._id} disablePadding>
+                <ListItem
+                  onClick={() => {
+                    handleClose();
+                    navigate(`/profile/${likedUser._id}`);
+                  }}
+                  key={likedUser._id}
+                  disablePadding
+                >
                   <ListItemButton>
                     <ListItemAvatar>
                       <Avatar src={likedUser.profilePictureURL} />

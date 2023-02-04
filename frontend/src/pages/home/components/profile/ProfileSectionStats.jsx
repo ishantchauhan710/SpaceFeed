@@ -8,7 +8,25 @@ const ProfileSectionStats = () => {
   const user = useSelector((state) => state.home.user);
   const followers = useSelector((state) => state.home.followers);
   const followings = useSelector((state) => state.home.user.followings);
-  const posts = useSelector((state) => state.home.posts);
+  const [posts, setPosts] = useState(0);
+  const dispatch = useDispatch();
+
+
+  const getLoggedInUserPosts = async () => {
+    try {
+      const response = await axios.get(`/api/posts/user/${user._id}`);
+      const postCount = response.data.posts.length;
+      console.log("Posts: " + postCount)
+      setPosts(postCount);
+    } catch (err) {
+      dispatch(showError(err.response.data.error));
+      setPosts(0);
+    }
+  };
+
+  useEffect(() => {
+    getLoggedInUserPosts();
+  }, []);
 
   const StatItem = ({ label, value, hideBorder }) => {
     return (
@@ -34,7 +52,7 @@ const ProfileSectionStats = () => {
     <Box style={{ padding: "5px 10px" }}>
       <Grid container>
         <Grid item xs={3}>
-          <StatItem label="Post" value={posts ? posts.length : 0} />
+          <StatItem label="Post" value={posts ? posts : 0} />
         </Grid>
         <Grid item xs={5}>
           <StatItem

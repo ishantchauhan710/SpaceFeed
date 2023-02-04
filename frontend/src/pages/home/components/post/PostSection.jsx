@@ -25,7 +25,7 @@ const PostSection = () => {
     try {
       //dispatch(setLoading(true));
       setPostsLoading(true);
-      const response = await axios.get(`/api/posts/user/${user._id}`);
+      const response = await axios.get(`/api/posts/feed`);
       const list = response.data.posts;
       dispatch(setPosts(list));
       setPostsList(list);

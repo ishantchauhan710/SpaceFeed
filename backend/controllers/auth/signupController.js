@@ -121,6 +121,14 @@ const signupController = async (req, res, next) => {
       profilePictureURL: uploadedFileURL,
       profileBanner: profileBannerCode,
       description: description,
+      // Follow some users initially
+      followings: [
+        "63de6c027aa1353a6d6b8ebc",
+        "63de6ad57aa1353a6d6b8e09",
+        "63de69dc7aa1353a6d6b8d75",
+        "63de693b7aa1353a6d6b8d5f",
+        "63de683e7aa1353a6d6b8d54",
+      ],
     });
 
     req.session.userId = newUser._id;
