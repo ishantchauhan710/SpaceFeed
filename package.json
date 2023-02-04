@@ -4,13 +4,17 @@
   "description": "a social media platform",
   "main": "backend/server.js",
   "scripts": {
-    "start": "nodemon backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "ishant",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
     "connect-mongo": "^4.6.0",
     "cool-images": "^1.0.3",
     "cors": "^2.8.5",

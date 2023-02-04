@@ -25,11 +25,6 @@ var path = require("path");
 
 app.use(express.json());
 
-var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
-  flags: "a",
-});
-app.use(logger("combined", { stream: accessLogStream }));
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -45,12 +40,6 @@ app.use(
   })
 );
 
-//Use it to generate and store dummy users in database
-app.get("/dummy", async (req, res) => {
-  await generateDummyDataInDB(30);
-  res.send("Success");
-});
-
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", postRoutes);
@@ -63,6 +52,18 @@ app.use((req, res, next) => {
 });
 
 app.use(errorHandlingMiddleware);
+
+//Use it to generate and store dummy users in database
+// app.get("/dummy", async (req, res) => {
+//   await generateDummyDataInDB(30);
+//   res.send("Success");
+// });
+
+// Uncomment it if you want to stay updated about server traffic
+// var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+//   flags: "a",
+// });
+// app.use(logger("combined", { stream: accessLogStream }));
 
 mongoose
   .set("strictQuery", true)

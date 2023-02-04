@@ -17,9 +17,10 @@ const errorHandlingMiddleware = (err, req, res, next) => {
     statusCode = err.status;
   }
   console.log(err);
-  accessErrorStream.write(
-    `Error: ${JSON.stringify(err)}\nOccured on: ${new Date()}\n\n`
-  );
+  // Uncomment it if you want to stay updated about errors
+  // accessErrorStream.write(
+  //   `Error: ${JSON.stringify(err)}\nOccured on: ${new Date()}\n\n`
+  // );
   res.status(statusCode).json({ error: errMessage });
 };
 
