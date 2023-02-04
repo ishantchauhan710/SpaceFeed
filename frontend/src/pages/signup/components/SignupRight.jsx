@@ -55,14 +55,10 @@ const SignupRight = () => {
   const dispatch = useDispatch();
 
   const autoFillFields = () => {
-    setUsername("Ishant");
-    setEmail("ishant@gmail.com");
-    setPassword("12345");
-    setConfirmPassword("12345");
-    setBirthday("07/10/2001");
+    setBirthday("10/07/2001");
     setGender("M");
     setPhoneNumber("1234567890");
-    setDescription("Hello world");
+    setDescription("Hey there! I am a SpaceFeeder!");
   };
 
   useEffect(() => {
