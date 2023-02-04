@@ -13,15 +13,21 @@ const postRoutes = require("./routes/postRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const { saveDummyUsersToDB } = require("./util/dummyUtil");
 const http = require("http");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const NotificationModel = require("./models/notificationModel");
 const app = express();
-//console.clear();
+const logger = require("morgan");
+var fs = require("fs");
+var path = require("path");
 
 app.use(express.json());
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+  flags: "a",
+});
+app.use(logger("combined", { stream: accessLogStream }));
 
 app.use(
   session({
@@ -44,12 +50,6 @@ app.use("/api", postRoutes);
 app.use("/api", likeRoutes);
 app.use("/api", commentRoutes);
 app.use("/api", notificationRoutes);
-
-// Use it to generate and store dummy data in database
-// app.get("/dummy", async (req, res) => {
-//   await saveDummyUsersToDB(20);
-//   res.send("Success");
-// });
 
 app.use((req, res, next) => {
   next(createHttpError(404, "URL not found"));
