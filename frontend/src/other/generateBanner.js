@@ -19,6 +19,8 @@ const generateBanner = (bannerCode) => {
       return BANNER4_URL;
     case "5":
       return BANNER5_URL;
+    default:
+      return BANNER4_URL;
   }
 };
 

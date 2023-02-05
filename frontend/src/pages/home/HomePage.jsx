@@ -33,8 +33,10 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getUserFollowers();
-  }, []);
+    if (user._id !== undefined) {
+      getUserFollowers();
+    }
+  }, [user, user._id]);
 
   return (
     <div>

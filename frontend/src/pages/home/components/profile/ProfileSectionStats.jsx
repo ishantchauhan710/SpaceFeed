@@ -11,12 +11,11 @@ const ProfileSectionStats = () => {
   const [posts, setPosts] = useState(0);
   const dispatch = useDispatch();
 
-
   const getLoggedInUserPosts = async () => {
     try {
       const response = await axios.get(`/api/posts/user/${user._id}`);
       const postCount = response.data.posts.length;
-      console.log("Posts: " + postCount)
+      //console.log("Posts: " + postCount);
       setPosts(postCount);
     } catch (err) {
       dispatch(showError(err.response.data.error));
@@ -25,8 +24,10 @@ const ProfileSectionStats = () => {
   };
 
   useEffect(() => {
-    getLoggedInUserPosts();
-  }, []);
+    if (user._id!==undefined) {
+      getLoggedInUserPosts();
+    }
+  }, [user,user._id]);
 
   const StatItem = ({ label, value, hideBorder }) => {
     return (

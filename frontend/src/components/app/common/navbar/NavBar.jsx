@@ -96,6 +96,12 @@ const NavBar = () => {
   };
 
   useEffect(() => {
+    if (user._id !== undefined) {
+      getNotificationsFromDb();
+    }
+  }, [user, user.id]);
+
+  useEffect(() => {
     if (searchQuery.length <= 2) {
       return;
     }
@@ -116,23 +122,23 @@ const NavBar = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    getNotificationsFromDb();
+    if (user._id) {
+      const socket = io(SERVER_URL);
+      socket.on("connect", () => {});
+      socket.on("connect_error", () => {
+        setTimeout(() => socket.connect(), 5000);
+      });
 
-    const socket = io(SERVER_URL);
-    socket.on("connect", () => {});
-    socket.on("connect_error", () => {
-      setTimeout(() => socket.connect(), 5000);
-    });
+      socket.emit("join", user);
 
-    socket.emit("join", user);
-
-    socket.on("data", (data) => {
-      //alert("Notification recieved");
-      setShowNotificationBadge(true);
-      setNotifications([data, ...notifications]);
-    });
-    socket.on("disconnect", () => {});
-  }, []);
+      socket.on("data", (data) => {
+        //alert("Notification recieved");
+        setShowNotificationBadge(true);
+        setNotifications([data, ...notifications]);
+      });
+      socket.on("disconnect", () => {});
+    }
+  }, [user, user._id]);
 
   return (
     <>

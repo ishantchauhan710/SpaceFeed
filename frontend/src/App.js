@@ -94,12 +94,12 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
+          <Route path="/" exact element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/profile/:id" element={user && <ProfilePage />} />
           <Route path="/post/:id" element={user && <PostPage />} />
           <Route path="/home" element={user && <HomePage />} />
-
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
