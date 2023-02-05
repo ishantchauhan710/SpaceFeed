@@ -90,7 +90,7 @@ mongoose
 
     const io = socketIo(server, {
       cors: {
-        origin: "http://localhost:5000",
+        origin: "https://spacefeed.onrender.com/",
       },
     });
 
