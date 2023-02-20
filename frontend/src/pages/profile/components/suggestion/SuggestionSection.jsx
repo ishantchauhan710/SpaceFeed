@@ -24,6 +24,12 @@ const CustomListItem = ({
   isFollowing,
   openProfile,
 }) => {
+  // A temporary state to toggle the follow button when a user follows or unfollows another user
+  const [tempFollowing, setTempFollowing] = useState(false);
+  useEffect(() => {
+    setTempFollowing(isFollowing);
+  }, []);
+
   return (
     <Box
       display="flex"
@@ -68,11 +74,14 @@ const CustomListItem = ({
       </Box>
       <Box style={{ flex: "0.3", paddingLeft: "10px" }}>
         <Button
-          onClick={() => toggleUserFollow(user._id)}
-          variant={isFollowing ? "outlined" : "contained"}
+          onClick={() => {
+            toggleUserFollow(user._id);
+            setTempFollowing(!tempFollowing);
+          }}
+          variant={tempFollowing ? "outlined" : "contained"}
           disableElevation
         >
-          {isFollowing === true ? "Unfollow" : "Follow"}
+          {tempFollowing === true ? "Unfollow" : "Follow"}
         </Button>
       </Box>
     </Box>
@@ -135,7 +144,7 @@ const SuggestionSection = () => {
         <Box paddingTop={1}>
           <List>
             {suggestedLoading
-              ? [...Array(10)].map((val,i) => <UserLoading key={i} />)
+              ? [...Array(10)].map((val, i) => <UserLoading key={i} />)
               : suggestedUsers &&
                 suggestedUsers.length > 0 &&
                 suggestedUsers.map((suggestedUser) => (
