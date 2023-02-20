@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Grid, IconButton, Link } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  Link,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
@@ -101,6 +108,9 @@ const PostActions = ({
     dispatch(showInfo("Post link copied to clipboard"));
   };
 
+  const theme = useTheme();
+  const matchMediaQuery = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box paddingX={2}>
       <Grid container justifyContent="space-between">
@@ -138,7 +148,12 @@ const PostActions = ({
             labelAction={() => setShowCommentModal(true)}
           />
         </Grid>
-        <Grid item>
+        <Grid
+          item
+          sx={{
+            display: matchMediaQuery ? "none" : "block",
+          }}
+        >
           <PostActionButton
             label="Share"
             icon={<ShareIcon />}
