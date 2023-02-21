@@ -50,24 +50,24 @@ You can try SpaceFeed by visiting: https://ishantchauhan.hashnode.dev/
 
 
 ## Technical details :bulb:
-- The frontend of SpaceFeed is created using ReactJS and MaterialUI. SpaceFeed is highly responsive and is tested on all popular browsers like Chrome, Safari and Opera Mini. For handling the react states, Redux Toolkit is used. 
+- The frontend of SpaceFeed is created using ReactJS and MaterialUI. SpaceFeed is highly responsive and is tested on all popular browsers like Chrome, Safari and Opera Mini. For handling the react states, Redux Toolkit is used. All the react components and file structure are properly organized.
 - The backend of SpaceFeed is built using NodeJs, ExpressJs, MongoDB and Socket.io. For authentication, SpaceFeed makes use of session based authentication. For storing images, Firebase storage is used.
 
 
 ## Project Setup :pencil:
 If you want to clone this project and customize it further, you need to do a couple of tasks first:
-* Create an account on [MongoDB Cloud](https://cloud.mongodb.com/), setup a cluster and get its [connection string](https://www.mongodb.com/docs/guides/atlas/connection-string/)
-* Create an account on [Firebase](https://firebase.google.com/), enable storage and get your [google-services.json file](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) and [bucket name](https://firebase.google.com/docs/storage/admin/start) from there
-* Clone this project. You can directly download the source code .zip file, or you can use the git clone command in terminal
-* Once successful, open your VSCode in the project folder and in terminal, write the following commands:
+1) Create an account on [MongoDB Cloud](https://cloud.mongodb.com/), setup a cluster and get its [connection string](https://www.mongodb.com/docs/guides/atlas/connection-string/)
+2) Create an account on [Firebase](https://firebase.google.com/), enable storage and get your [google-services.json file](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) and [bucket name](https://firebase.google.com/docs/storage/admin/start) from there
+3) Clone this project. You can directly download the source code .zip file, or you can use the git clone command in terminal
+4) Once successful, open your VSCode in the project folder and in terminal, write the following commands:
 ```
 npm install
 cd frontend
 npm install
 cd ..
 ```
-* After this, create a new file with the exact name of ".env"
-* In the .env file, write:<br><br>
+5) After this, create a new file with the exact name of ".env"
+6) In the .env file, write:<br><br>
 
 ```
 PORT = 5000
@@ -77,28 +77,28 @@ SESSION_SECRET = 12345
 DUMMY_USER_PASSWORD_HASH = $2a$12$QPROumv.az41u43V2nW48OQ0hhIRw7TWvEmlWknqq3EVMurBZ5YO.
 NODE_ENV = development
 ```
-* In the root folder, paste your google-services.json file and rename it to spacefeed_firebase.json
-* You are all set up now! To start the backend server, in terminal write:
+7) In the root folder, paste your google-services.json file and rename it to spacefeed_firebase.json
+8) You are all set up now! To start the backend server, in terminal write:
 ```
 npm start
 ```
-* And to start the frontend, write:
+9) And to start the frontend, write:
 ```
 cd frontend
 npm start
 ```
-* Then write localhost:3000 in your browser to be able to use SpaceFeed!
+10) Then write localhost:3000 in your browser to be able to use SpaceFeed!
  
 
 ## Production Build :computer:
-* To build the project for production purpose, in the .env file, change NODE_ENV to production
-* Then in terminal, write 
+1) To build the project for production purpose, in the .env file, change NODE_ENV to production
+2) Then in terminal, write 
 ```
 cd frontend
 npm run build
 cd ..
 ```
-* Once the build is completed, simply write npm start to run the website in production mode!
+3) Once the build is completed, simply write npm start to run the website in production mode!
 
 ## Contact
 For any queries, you can mail me at developerishant710@gmail.com
