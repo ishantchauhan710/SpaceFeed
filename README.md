@@ -1,7 +1,7 @@
 ![](/screenshots/desktop/screen3.jpg)
 # **SpaceFeed** 
 
-**SpaceFeed** is a social media platform where users can share their thoughts and images, comment on posts, receive realtime notifications and do many other things
+**SpaceFeed** is a social media platform where users can upload posts and images, like and comment on other people's posts, receive realtime notifications and do many other things
 
 ## About :dart:
 
@@ -22,13 +22,13 @@ You can try SpaceFeed by visiting: https://ishantchauhan.hashnode.dev/
 
 ## SpaceFeed Features :fire:
 
-- **Authentication** - Create session based account using email, password, profile picture and other details
-- **Create Posts** - Create posts that can contain images
-- **Interact With Posts** - You can like, comment and like a particular comment on a post
-- **Follow User** - You can follow and unfollow users
-- **User Suggestions** - You can see a list of suggested users when visiting the profile page
-- **Realtime Notifications** - You can receive instant notifications whenever someone likes or comments on your post
-- **User Search** - You can search a user using his name or email
+- **Authentication** - Users can create account using email, password, profile picture and other details
+- **Create Posts** - Users can upload posts containing images
+- **Interact With Posts** - Users can like, comment, share and like a particular comment on a post
+- **Follow User** - Users can follow and unfollow other users
+- **User Suggestions** - Users can see a list of suggested users when visiting the profile page
+- **Realtime Notifications** - Users can receive instant notifications whenever someone likes or comments on their post
+- **User Search** - Users can search a person using his name or email
 
 ## 📸 Screenshots :computer:
 
@@ -56,8 +56,8 @@ You can try SpaceFeed by visiting: https://ishantchauhan.hashnode.dev/
 
 ## Project Setup :pencil:
 If you want to clone this project and customize it further, you need to do a couple of tasks first:
-* Create an account on cloud.mongodb.com, setup a cluster and get its connection string
-* Create an account on cloud.firebase.com, enable storage and get your firebase.json file and bucket name from there
+* Create an account on [MongoDB Cloud](https://cloud.mongodb.com/), setup a cluster and get its [connection string](https://www.mongodb.com/docs/guides/atlas/connection-string/)
+* Create an account on [Firebase](https://firebase.google.com/), enable storage and get your [google-services.json file](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) and [bucket name](https://firebase.google.com/docs/storage/admin/start) from there
 * Clone this project. You can directly download the source code .zip file, or you can use the git clone command in terminal
 * Once successful, open your VSCode in the project folder and in terminal, write the following commands:
 ```
@@ -77,7 +77,7 @@ SESSION_SECRET = 12345
 DUMMY_USER_PASSWORD_HASH = $2a$12$QPROumv.az41u43V2nW48OQ0hhIRw7TWvEmlWknqq3EVMurBZ5YO.
 NODE_ENV = development
 ```
-* In the root folder, paste your firebase.json file and rename it to spacefeed_firebase.json
+* In the root folder, paste your google-services.json file and rename it to spacefeed_firebase.json
 * You are all set up now! To start the backend server, in terminal write:
 ```
 npm start
@@ -88,7 +88,6 @@ cd frontend
 npm start
 ```
 * Then write localhost:3000 in your browser to be able to use SpaceFeed!
-
  
 
 ## Production Build :computer:
