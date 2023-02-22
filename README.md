@@ -13,11 +13,11 @@ https://ishantchauhan.hashnode.dev/
 
 ## Demo
 
-You can try SpaceFeed by visiting: https://ishantchauhan.hashnode.dev/
+You can try SpaceFeed by visiting: https://spacefeed.ishantchauhan.com/
 
 ### Video Demo
 
-[Here](https://ishantchauhan.hashnode.dev/) is a short video on how to use SpaceFeed
+[Here](https://www.youtube.com/watch?v=qTP6rp6s57w&t=50s) is a short video on how to use SpaceFeed
 
 
 ## SpaceFeed Features :fire:
