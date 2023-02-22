@@ -7,10 +7,6 @@
 
 SpaceFeed is a web app built using the MERN stack! Here, a user can create account, search and follow users, interact with their posts, share them and do a lot more!
 
-## Blog :writing_hand:
-To know about how I built this project, read my article here: <br>
-https://ishantchauhan.hashnode.dev/
-
 ## Demo
 
 You can try SpaceFeed by visiting: https://spacefeed.ishantchauhan.com/
