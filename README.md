@@ -25,6 +25,8 @@ You can try SpaceFeed by visiting: https://spacefeed.ishantchauhan.com/
 - **User Suggestions** - Users can see a list of suggested users when visiting the profile page
 - **Realtime Notifications** - Users can receive instant notifications whenever someone likes or comments on their post
 - **User Search** - Users can search a person using his name or email
+- **News** - Users can see who commented on whom's post
+
 
 ## 📸 Screenshots :computer:
 
