@@ -15,6 +15,9 @@ You can try SpaceFeed by visiting: https://spacefeed.ishantchauhan.com/
 
 [Here](https://www.youtube.com/watch?v=qTP6rp6s57w&t=50s) is a short video on how to use SpaceFeed
 
+## Blog ✍️
+To know more about how I built this project, read my article here:
+https://ishantchauhan.hashnode.dev/my-debugging-adventure-fixing-bugs-in-spacefeed
 
 ## SpaceFeed Features :fire:
 
